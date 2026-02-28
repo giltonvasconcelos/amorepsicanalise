@@ -12,7 +12,3 @@ defaults:
       path: "artigos"
     values:
       layout: default
-       - scope:
-      path: "files"
-    values:
-      layout: default
