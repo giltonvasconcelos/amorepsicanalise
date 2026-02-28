@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas Frequentes - Amor & Psicanálise</title>
+    <style>
+        /* ===== TEMA AMOR & PSICANÁLISE ===== */
+        :root {
+            --cor-primaria: #b35e5e;
+            --cor-secundaria: #8e4a4a;
+            --cor-fundo: #fefcf7;
+            --cor-texto-principal: #2c1810;
+            --cor-texto-secundario: #7f5a4b;
+            --cor-borda: #e8d6cb;
+            --cor-categoria: #f0e4d9;
+            --cor-destaque: #d4a5a5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto-principal);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 50px;
+            border: 1px solid var(--cor-borda);
+        }
+        
+        /* ===== CABEÇALHO ===== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.8em;
+            color: var(--cor-primaria);
+            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+        
+        .page-header .subtitle {
+            font-size: 1.2em;
+            color: var(--cor-texto-secundario);
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+            border-bottom: 2px solid var(--cor-borda);
+            padding-bottom: 20px;
+        }
+        
+        /* ===== ACORDEÃO DE PERGUNTAS ===== */
+        .faq-section {
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid var(--cor-borda);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--cor-primaria);
+            box-shadow: 0 5px 15px rgba(179, 94, 94, 0.1);
+        }
+        
+        .faq-question {
+            background-color: white;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: 500;
+            color: var(--cor-texto-principal);
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--cor-categoria);
+        }
+        
+        .faq-question .pergunta-numero {
+            color: var(--cor-primaria);
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        
+        .faq-question .icone {
+            font-size: 1.5em;
+            color: var(--cor-primaria);
+            transition: transform 0.3s;
+            margin-left: 15px;
+        }
+        
+        .faq-item.active .faq-question .icone {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background-color: var(--cor-fundo);
+            border-top: 0px solid var(--cor-borda);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            border-top-width: 1px;
+        }
+        
+        .faq-answer p {
+            padding: 25px;
+            margin: 0;
+            color: var(--cor-texto-principal);
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+        
+        /* ===== DESTAQUE ===== */
+        .destaque-faq {
+            background-color: rgba(212, 165, 165, 0.1);
+            border-left: 4px solid var(--cor-primaria);
+            padding: 25px;
+            margin: 40px 0 20px;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+        }
+        
+        .destaque-faq p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .destaque-faq .autor {
+            text-align: right;
+            color: var(--cor-texto-secundario);
+            font-size: 0.95em;
+        }
+        
+        /* ===== BOTÕES DE NAVEGAÇÃO ===== */
+        .botoes-navegacao {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid var(--cor-borda);
+        }
+        
+        .botao {
+            display: inline-block;
+            background-color: var(--cor-primaria);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .botao:hover {
+            background-color: var(--cor-secundaria);
+        }
+        
+        .botao-secundario {
+            background-color: transparent;
+            color: var(--cor-primaria);
+            border: 2px solid var(--cor-primaria);
+        }
+        
+        .botao-secundario:hover {
+            background-color: var(--cor-primaria);
+            color: white;
+        }
+        
+        /* ===== RODAPÉ ===== */
+        .footer {
+            text-align: center;
+            padding: 40px 0 0;
+            color: var(--cor-texto-secundario);
+            font-size: 0.9em;
+        }
+        
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2em;
+            }
+            
+            .faq-question {
+                padding: 15px;
+                font-size: 1.1em;
+            }
+            
+            .faq-answer p {
+                padding: 20px;
+            }
+            
+            .botoes-navegacao {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .botao {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== CABEÇALHO ===== -->
+        <div class="page-header">
+            <h1>Perguntas Frequentes</h1>
+            <div class="subtitle">O que você sempre quis saber sobre psicanálise</div>
+        </div>
+        
+        <!-- ===== DESTAQUE INICIAL ===== -->
+        <div class="destaque-faq">
+            <p>✧ A psicanálise é um convite para olhar para dentro. As perguntas abaixo ajudam a desfazer alguns mitos e a compreender melhor essa prática tão rica e transformadora.</p>
+            <p class="autor">— Gilton Vasconcelos</p>
+        </div>
+        
+        <!-- ===== SEÇÃO DE PERGUNTAS ===== -->
+        <div class="faq-section" id="faq">
+            <!-- PERGUNTA 1 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">01</span> O que é psicanálise?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>A psicanálise é um método de investigação do funcionamento da mente humana, criado por Sigmund Freud no final do século XIX. Ela busca compreender como conflitos inconscientes – desejos, medos e lembranças que estão fora da nossa consciência – influenciam nossos pensamentos, emoções e comportamentos. Através da fala e da escuta atenta, o psicanalista ajuda a pessoa a acessar esses conteúdos e a ressignificar suas experiências.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 2 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">02</span> Psicanálise é o mesmo que psicologia ou psiquiatria?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Não. Embora compartilhem o interesse pela saúde mental, são áreas diferentes:<br><br>
+                    <strong>Psicanálise:</strong> Foca no inconsciente, na história de vida e nos conflitos emocionais. O trabalho é feito através da fala e da interpretação.<br>
+                    <strong>Psicologia:</strong> Estuda o comportamento e os processos mentais, com diversas abordagens (cognitiva, comportamental, humanista, etc.).<br>
+                    <strong>Psiquiatria:</strong> É uma especialidade médica que trata transtornos mentais, podendo prescrever medicamentos.<br><br>
+                    Muitos profissionais atuam de forma integrada, mas cada área tem seu método e objetivo principal.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 3 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">03</span> Quanto tempo dura um tratamento psicanalítico?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Não há um prazo definido. A psicanálise não trabalha com a lógica de "curas rápidas" ou protocolos fechados. O tempo varia conforme a história de cada pessoa, a profundidade das questões trazidas e a frequência das sessões. Algumas pessoas buscam a análise por alguns meses; outras, por anos. O importante é que o processo respeita o ritmo de cada um.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 4 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">04</span> Psicanálise é só para quem tem transtornos mentais?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>De forma alguma. A psicanálise é para qualquer pessoa que deseje se conhecer melhor, compreender seus padrões de repetição, lidar com sofrimentos emocionais ou simplesmente refletir sobre sua vida e suas relações. Ela não trata apenas "doenças", mas o sujeito como um todo – suas dores, desejos, contradições e potencialidades.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 5 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">05</span> Como funciona uma sessão de psicanálise?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Na sessão, o paciente é convidado a falar livremente – sobre o que vier à mente: sonhos, lembranças, preocupações, sentimentos. O psicanalista escuta de forma atenta e, em alguns momentos, aponta conexões, faz perguntas ou oferece interpretações. Não há julgamento nem receitas prontas. O espaço é de acolhimento e liberdade para que o próprio paciente, aos poucos, construa novos sentidos para sua história.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 6 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">06</span> O que é o inconsciente?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>O inconsciente é uma das ideias centrais da psicanálise. Ele é como uma parte da nossa mente que guarda conteúdos que não estão acessíveis à consciência – desejos reprimidos, memórias dolorosas, conflitos não resolvidos. Mesmo sem termos consciência deles, esses conteúdos influenciam nossas escolhas, nossos medos e até nossos sintomas. O trabalho da análise é justamente trazer à tona esses conteúdos para que possam ser elaborados.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 7 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">07</span> Psicanálise é coisa do passado? Ainda é usada hoje?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim, a psicanálise continua muito viva e relevante. Embora tenha nascido no século XIX, ela evoluiu e se ramificou em diversas escolas (freudiana, lacaniana, winnicottiana, entre outras). Hoje, é aplicada não só em consultórios, mas também em hospitais, escolas, empresas e projetos sociais. Seus conceitos – como inconsciente, transferência, repetição – seguem sendo fundamentais para pensar a subjetividade contemporânea.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 8 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">08</span> Qual a diferença entre psicanalista, psicólogo e psiquiatra?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Psicanalista:</strong> Profissional com formação específica em psicanálise (cursos livres, institutos, formação continuada). Não precisa ter diploma de psicologia ou medicina, mas deve ter feito análise pessoal e supervisão.<br>
+                    <strong>Psicólogo:</strong> Formado em Psicologia (graduação), pode atuar em diversas abordagens, inclusive a psicanalítica.<br>
+                    <strong>Psiquiatra:</strong> Médico especializado em psiquiatria, com capacidade para prescrever medicamentos.<br><br>
+                    Muitos psicanalistas são também psicólogos ou psiquiatras, mas o título "psicanalista" vem da formação complementar.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 9 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">09</span> Psicanálise combina com religião ou espiritualidade?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Depende. A psicanálise, em si, não é uma religião nem se opõe a ela. Ela se interessa pelo lugar que a fé, a espiritualidade e os valores religiosos ocupam na vida do sujeito. Muitas pessoas trazem questões religiosas para a análise, e isso é acolhido como parte da sua história. O importante é que haja espaço para pensar, questionar e ressignificar, sem imposições.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 10 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">10</span> Como saber se a psicanálise é para mim?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Se você tem curiosidade sobre si mesmo, sente que repete padrões que te fazem sofrer, vive conflitos nos relacionamentos, ou simplesmente quer um espaço para falar sem ser julgado, a psicanálise pode ser um caminho. O primeiro passo é buscar um profissional de confiança e marcar algumas sessões para sentir se a abordagem faz sentido para você. O vínculo com o analista é fundamental.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 11 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">11</span> Preciso estar em crise para fazer psicanálise?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Não. Muitas pessoas procuram a análise não por estarem em crise, mas por desejo de autoconhecimento, para entender melhor seus padrões de relacionamento, suas escolhas profissionais ou até mesmo para se prepararem para momentos de transição (como uma gravidez, uma mudança de carreira ou o início de um relacionamento). A psicanálise é um espaço de cuidado contínuo, não apenas um "conserto" para momentos de ruptura.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 12 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">12</span> Crianças e adolescentes podem fazer psicanálise?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim, existem psicanalistas especializados no atendimento de crianças e adolescentes. Nesses casos, a técnica é adaptada: com crianças, utiliza-se o brincar como forma de expressão; com adolescentes, o diálogo e a escuta respeitam as particularidades dessa fase da vida. Questões como dificuldades escolares, isolamento, conflitos familiares ou sofrimento emocional podem ser acolhidas na análise.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 13 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">13</span> Psicanálise pode ajudar em casos de luto?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim, o luto é um dos temas mais trabalhados na psicanálise. Perder alguém querido, um relacionamento, um emprego ou até mesmo uma fase da vida provoca dor e exige elaboração. A análise oferece um espaço para viver esse processo sem pressa, sem julgamentos, e para ressignificar a perda, integrando-a à história de quem fica. Como disse Freud, o luto é um trabalho psíquico – e a psicanálise ajuda nesse trabalho.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 14 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">14</span> O que é "transferência" na psicanálise?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Transferência é um conceito fundamental. Durante a análise, o paciente pode projetar no analista sentimentos que originalmente pertenciam a figuras importantes de sua vida (pais, irmãos, parceiros). Isso não é um problema, mas sim uma ferramenta de trabalho: ao vivenciar esses sentimentos na relação com o analista, o paciente pode compreendê-los melhor e ressignificá-los. É como se o passado ganhasse a chance de ser revivido de outra forma.</p>
+                </div>
+            </div>
+            
+            <!-- PERGUNTA 15 -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="pergunta-numero">15</span> Posso fazer psicanálise online?</span>
+                    <span class="icone">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim, hoje é perfeitamente possível e muito comum. A análise online segue os mesmos princípios da presencial: sigilo, escuta atenta, frequência regular. Para muitas pessoas, o formato online facilita o acesso a profissionais que não estão em sua cidade, ou se adapta melhor à rotina. O importante é que haja um ambiente reservado e que o vínculo com o analista se estabeleça – isso acontece também através da tela.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== DESTAQUE FINAL ===== -->
+        <div class="destaque-faq" style="margin-top: 40px;">
+            <p>✧ "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. De todos os modos ele deixa feridas que carregamos para sempre. Mas podemos transformar essas marcas em lições, e não em correntes."</p>
+            <p class="autor">— Gilton Vasconcelos, Amor & Psicanálise</p>
+        </div>
+        
+        <!-- ===== BOTÕES DE NAVEGAÇÃO ===== -->
+        <div class="botoes-navegacao">
+            <a href="https://sites.google.com/view/amorepsicanalise/artigos-e-reflexões" class="botao botao-secundario">← Artigos</a>
+            <a href="https://wa.me/message/TMFLTRW6SXGFI1" class="botao">Fale comigo</a>
+        </div>
+        
+        <!-- ===== RODAPÉ ===== -->
+        <div class="footer">
+            <p>© 2026 Gilton Vasconcelos · Amor & Psicanálise</p>
+        </div>
+    </div>
+    
+    <script>
+        // Função para abrir/fechar as perguntas
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+            
+            // Muda o ícone de + para x
+            const icone = element.querySelector('.icone');
+            if (faqItem.classList.contains('active')) {
+                icone.textContent = '×';
+            } else {
+                icone.textContent = '+';
+            }
+        }
+        
+        // Abre a primeira pergunta por padrão (opcional)
+        window.onload = function() {
+            // Descomente a linha abaixo se quiser que a primeira pergunta já venha aberta
+            // document.querySelector('.faq-item').classList.add('active');
+        }
+    </script>
+</body>
+</html>
