@@ -1,2 +1,3 @@
 title: "Amor e Psicanálise"
-theme: minima
+markdown: kramdown
+theme: null  # Usaremos nosso próprio template
