@@ -1,3 +1,10 @@
+---
+title: "Licença de Conteúdo e Produção Intelectual"
+date: 2026-02-28
+author: "Gilton Vasconcelos"
+layout: default
+---
+
 # Licença de Conteúdo e Produção Intelectual
 
 Este repositório contém código e conteúdo textual. Diferentes termos de licenciamento se aplicam a cada categoria:
