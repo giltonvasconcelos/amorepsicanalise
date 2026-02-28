@@ -1,3 +1,11 @@
+---
+title: "Sobre esse Projeto"
+date: 2026-02-28
+author: "Gilton Vasconcelos"
+layout: default
+---
+
+
 # Sobre esse Projeto
 ### Este site nasce como um espaço de encontro entre ideias, palavras e experiências. Aqui, você encontrará artigos, reflexões e conteúdos que buscam inspirar, provocar e abrir caminhos para novas formas de pensar e sentir. Mais do que informar, nossa proposta é criar um ambiente de diálogo e descoberta, onde cada visitante possa se reconhecer e se transformar através da leitura.
 
