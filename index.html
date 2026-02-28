@@ -896,65 +896,115 @@
             currentPage = null;
         }
 
-        // Carregar página externa
-        async function loadExternalPage(pageFile, pageTitle) {
-            document.getElementById('homeCards').style.display = 'none';
-            document.getElementById('contentContainer').style.display = 'block';
-            
-            // Mostrar loader
-            document.getElementById('pageContent').innerHTML = '<div class="loader">Carregando conteúdo...</div>';
-            
-            try {
-                // Tentar carregar o arquivo HTML
-                const response = await fetch(pageFile);
-                
-                if (!response.ok) {
-                    throw new Error(`Erro ao carregar ${pageFile}`);
-                }
-                
-                let html = await response.text();
-                
-                // Adicionar título e botões de ação
-                html = `
-                    <h1>${pageTitle}</h1>
-                    ${html}
-                    
-                    <div class="page-actions">
-                        <button class="action-btn" onclick="handleReaction('like', '${pageFile.replace(/[^a-zA-Z]/g, '')}')">
-                            <span>❤️</span>
-                            <span id="likeCount_${pageFile.replace(/[^a-zA-Z]/g, '')}">${reactions.like || 0}</span>
-                            <span>Curtir</span>
-                        </button>
-                        <button class="action-btn" onclick="handleReaction('love', '${pageFile.replace(/[^a-zA-Z]/g, '')}')">
-                            <span>💖</span>
-                            <span id="loveCount_${pageFile.replace(/[^a-zA-Z]/g, '')}">${reactions.love || 0}</span>
-                            <span>Amar</span>
-                        </button>
-                        <button class="action-btn" onclick="shareToWhatsApp()">
-                            <span>📱</span> WhatsApp
-                        </button>
-                        <button class="action-btn" onclick="shareToTwitter()">
-                            <span>🐦</span> Twitter
-                        </button>
-                    </div>
-                `;
-                
-                document.getElementById('pageContent').innerHTML = html;
-                currentPage = pageFile;
-                
-            } catch (error) {
-                console.error('Erro ao carregar página:', error);
-                document.getElementById('pageContent').innerHTML = `
-                    <div class="error-message">
-                        <h2>Erro ao carregar página</h2>
-                        <p>Não foi possível carregar ${pageFile}. Verifique se o arquivo existe.</p>
-                        <button class="action-btn" onclick="showHome()">Voltar ao Início</button>
-                    </div>
-                `;
+        // Carregar página externa - VERSÃO COM SUPORTE A HTML E MD
+async function loadExternalPage(pagePath, pageTitle) {
+    document.getElementById('homeCards').style.display = 'none';
+    document.getElementById('contentContainer').style.display = 'block';
+    
+    // Mostrar loader
+    document.getElementById('pageContent').innerHTML = '<div class="loader">Carregando conteúdo...</div>';
+    
+    try {
+        let url;
+        let isHtmlFile = false;
+        
+        // Verificar se é um arquivo HTML pronto (termina com .html)
+        if (pagePath.endsWith('.html')) {
+            // É um arquivo HTML direto
+            url = pagePath;
+            isHtmlFile = true;
+            console.log('Carregando arquivo HTML:', url);
+        } else {
+            // É uma pasta do Jekyll (MD convertido)
+            // Garantir que o caminho termine com / e adicionar index.html
+            url = pagePath;
+            if (!url.endsWith('/')) {
+                url += '/';
             }
+            url += 'index.html';
+            console.log('Carregando página Jekyll:', url);
         }
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`Erro ${response.status} ao carregar ${url}`);
+        }
+        
+        let html = await response.text();
+        
+        // Processamento diferente para HTML pronto vs MD convertido
+        if (isHtmlFile) {
+            // Para arquivos HTML prontos, extrair apenas o conteúdo principal
+            html = extractMainContent(html);
+        }
+        
+        // Adicionar título e botões de ação
+        html = `
+            <h1>${pageTitle}</h1>
+            ${html}
+            
+            <div class="page-actions">
+                <button class="action-btn" onclick="handleReaction('like', '${pagePath.replace(/[^a-zA-Z]/g, '')}')">
+                    <span>❤️</span>
+                    <span id="likeCount_${pagePath.replace(/[^a-zA-Z]/g, '')}">${reactions.like || 0}</span>
+                    <span>Curtir</span>
+                </button>
+                <button class="action-btn" onclick="handleReaction('love', '${pagePath.replace(/[^a-zA-Z]/g, '')}')">
+                    <span>💖</span>
+                    <span id="loveCount_${pagePath.replace(/[^a-zA-Z]/g, '')}">${reactions.love || 0}</span>
+                    <span>Amar</span>
+                </button>
+                <button class="action-btn" onclick="shareToWhatsApp()">
+                    <span>📱</span> WhatsApp
+                </button>
+                <button class="action-btn" onclick="shareToTwitter()">
+                    <span>🐦</span> Twitter
+                </button>
+            </div>
+        `;
+        
+        document.getElementById('pageContent').innerHTML = html;
+        currentPage = pagePath;
+        
+    } catch (error) {
+        console.error('Erro detalhado:', error);
+        document.getElementById('pageContent').innerHTML = `
+            <div class="error-message">
+                <h2>Erro ao carregar página</h2>
+                <p>Não foi possível carregar ${pagePath}. Verifique se o arquivo existe.</p>
+                <p>Erro: ${error.message}</p>
+                <button class="action-btn" onclick="showHome()">Voltar ao Início</button>
+            </div>
+        `;
+    }
+}
 
-        // Carregar blog
+// Função para extrair apenas o conteúdo principal de um HTML pronto
+function extractMainContent(html) {
+    // Criar um parser DOM
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    // Tentar encontrar o conteúdo principal
+    let mainContent = doc.querySelector('main') || 
+                      doc.querySelector('article') || 
+                      doc.querySelector('.content') || 
+                      doc.querySelector('.page-content') ||
+                      doc.body;
+    
+    if (mainContent) {
+        // Remover scripts, estilos, header, footer se estiverem dentro
+        const scripts = mainContent.querySelectorAll('script, style, header, footer, nav');
+        scripts.forEach(el => el.remove());
+        
+        return mainContent.innerHTML;
+    }
+    
+    // Se não encontrar nada, retorna o HTML original
+    return html;
+}
+        
         function loadBlog() {
             document.getElementById('homeCards').style.display = 'none';
             document.getElementById('contentContainer').style.display = 'block';
