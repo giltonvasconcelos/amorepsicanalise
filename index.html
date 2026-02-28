@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor e Psicanálise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9eef5 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Menu Lateral */
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #2c3e50 0%, #1a2632 100%);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .side-menu a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ecf0f1;
+            display: block;
+            transition: 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .side-menu a:hover {
+            background-color: #34495e;
+            border-left: 3px solid #e67e22;
+            padding-left: 30px;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            padding: 0;
+            color: #ecf0f1;
+        }
+
+        .side-menu .close-btn:hover {
+            background: none;
+            border-left: none;
+            color: #e67e22;
+        }
+
+        /* Botão do Menu */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .menu-btn:hover {
+            background-color: #34495e;
+            transform: scale(1.05);
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            transition: margin-left 0.5s;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 300;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* Citação */
+        .quote-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #e67e22;
+            position: relative;
+        }
+
+        .quote-section blockquote {
+            font-size: 1.4em;
+            line-height: 1.6;
+            color: #34495e;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-top: 15px;
+            font-weight: 400;
+        }
+
+        /* Seção de Reflexão */
+        .reflection {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .reflection p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        /* Cards de Conteúdo */
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-left: 3px solid #e67e22;
+            padding-left: 15px;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e67e22;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .card-link:hover {
+            background-color: #d35400;
+            transform: scale(1.05);
+        }
+
+        /* Seção Sobre */
+        .about-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: 300;
+        }
+
+        .about-section p {
+            color: #34495e;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        /* Última Atualização */
+        .update-info {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #95a5a6;
+            font-size: 0.9em;
+            padding: 20px;
+            border-top: 1px solid #dcdde1;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer a {
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Arquivos Incorporados (simulação) */
+        .embedded-files {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px dashed #bdc3c7;
+        }
+
+        .embedded-files h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .file-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-info h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .file-info p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .file-download {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .file-download:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .quote-section blockquote {
+                font-size: 1.2em;
+            }
+            
+            .reflection p {
+                font-size: 1.1em;
+            }
+            
+            .content-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="index.html">Página Inicial</a>
+        <a href="artigos.html">Artigos</a>
+        <a href="reflexoes.html">Reflexões</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="recursos.html">Recursos</a>
+        <a href="arquivos.html">Arquivos</a>
+    </div>
+
+    <!-- Botão do Menu -->
+    <button class="menu-btn" onclick="openMenu()">☰</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content" id="mainContent">
+        
+        <!-- Header -->
+        <header class="header">
+            <h1>Amor e Psicanálise</h1>
+            <p style="color: #7f8c8d; margin-top: 10px;">Reflexões que despertam o inconsciente</p>
+        </header>
+
+        <!-- Citação Principal (simula o arquivo incorporado) -->
+        <div class="quote-section">
+            <blockquote>
+                "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. De todos os modos ele deixa feridas que carregamos para sempre. Mas podemos transformar essas marcas em lições, e não em correntes."
+            </blockquote>
+            <div class="quote-author">— Gilton Vasconcelos, 2025</div>
+            
+            <!-- Simulação de arquivo incorporado -->
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                <small style="color: #95a5a6;">📎 Arquivo incorporado: reflexao_amor_2025.pdf</small>
+            </div>
+        </div>
+
+        <!-- Seção de Reflexão -->
+        <div class="reflection">
+            <p>
+                "Reflexões que despertam: entre o inconsciente e o amor, a psicanálise convida você a olhar para dentro e descobrir novos caminhos de autenticidade."
+            </p>
+        </div>
+
+        <!-- Cards de Conteúdo (simulando artigos e reflexões) -->
+        <div class="content-cards">
+            <div class="card">
+                <h3>Artigos Recentes</h3>
+                <p>Explore nossos artigos sobre psicanálise, amor e as complexidades da mente humana. Textos profundos que convidam à reflexão.</p>
+                <a href="artigos.html" class="card-link">Ver Artigos →</a>
+            </div>
+
+            <div class="card">
+                <h3>Reflexões Diárias</h3>
+                <p>Pensamentos e insights para desacelerar e enxergar a vida por ângulos diferentes. Um convite diário ao autoconhecimento.</p>
+                <a href="reflexoes.html" class="card-link">Ler Reflexões →</a>
+            </div>
+
+            <div class="card">
+                <h3>Materiais de Estudo</h3>
+                <p>Arquivos, documentos e recursos para aprofundar seus conhecimentos em psicanálise e desenvolvimento pessoal.</p>
+                <a href="recursos.html" class="card-link">Acessar Recursos →</a>
+            </div>
+        </div>
+
+        <!-- Seção Sobre (baseada no texto original) -->
+        <div class="about-section">
+            <h2>Este espaço...</h2>
+            <p>
+                Este espaço reúne palavras que tocam, questionam e inspiram. Cada texto é um convite para desacelerar, 
+                respirar e enxergar a vida por ângulos diferentes. Aqui, reflexões se transformam em janelas abertas 
+                para o sentir e o pensar.
+            </p>
+            <p>
+                Este site nasce como um espaço de encontro entre ideias, palavras e experiências. Aqui, você encontrará 
+                artigos, reflexões e conteúdos que buscam inspirar, provocar e abrir caminhos para novas formas de 
+                pensar e sentir.
+            </p>
+        </div>
+
+        <!-- Seção de Arquivos Incorporados (simulando "Embedded files") -->
+        <div class="embedded-files">
+            <h3>
+                <span>📁</span> 
+                Arquivos Incorporados
+            </h3>
+            
+            <div class="file-item">
+                <span class="file-icon">📄</span>
+                <div class="file-info">
+                    <h4>Introdução à Psicanálise</h4>
+                    <p>PDF • 2.3 MB • Última atualização: 2025</p>
+                </div>
+                <a href="#" class="file-download">Download</a>
+            </div>
+
+            <div class="file-item">
+                <span class="file-icon">📹</span>
+                <div class="file-info">
+                    <h4>Palestra: Amor e Inconsciente</h4>
+                    <p>MP4 • 156 MB • Duração: 45min</p>
+                </div>
+                <a href="#" class="file-download">Assistir</a>
+            </div>
+
+            <div class="file-item">
+                <span class="file-icon">🔊</span>
+                <div class="file-info">
+                    <h4>Podcast: Reflexões Psicanalíticas</h4>
+                    <p>MP3 • 45 MB • Episódio 12</p>
+                </div>
+                <a href="#" class="file-download">Ouvir</a>
+            </div>
+        </div>
+
+        <!-- Informação de Atualização -->
+        <div class="update-info">
+            <p>📅 Página atualizada em: fevereiro de 2026</p>
+            <p style="margin-top: 5px;">Google Sites • Conteúdo adaptado para GitHub</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© Gilton Vasconcelos 2025-2026</p>
+            <p>Todos os direitos reservados</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <a href="#">Política de Privacidade</a> • 
+                <a href="#">Termos de Uso</a> • 
+                <a href="#">Contato</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Funções para controlar o menu
+        function openMenu() {
+            document.getElementById("sideMenu").style.width = "250px";
+            document.getElementById("mainContent").style.marginLeft = "250px";
+            // Para telas pequenas, ajustamos o comportamento
+            if (window.innerWidth <= 768) {
+                document.getElementById("mainContent").style.marginLeft = "0";
+            }
+        }
+
+        function closeMenu() {
+            document.getElementById("sideMenu").style.width = "0";
+            document.getElementById("mainContent").style.marginLeft = "0";
+        }
+
+        // Fecha o menu se clicar fora dele (opcional)
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("sideMenu")) {
+                closeMenu();
+            }
+        }
+
+        // Ajuste para telas pequenas
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                if (document.getElementById("sideMenu").style.width === "250px") {
+                    document.getElementById("mainContent").style.marginLeft = "0";
+                }
+            } else {
+                if (document.getElementById("sideMenu").style.width === "250px") {
+                    document.getElementById("mainContent").style.marginLeft = "250px";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
