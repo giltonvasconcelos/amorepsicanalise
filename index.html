@@ -1012,103 +1012,135 @@ function extractMainContent(html) {
     return html;
 }
         
-        function loadBlog() {
-            document.getElementById('homeCards').style.display = 'none';
-            document.getElementById('contentContainer').style.display = 'block';
-            
-            const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
-            currentArticleId = latestArticle.id;
-            
-            let html = `
-                <div class="blog-container">
-                    <main class="main-article">
-                        <div id="articleContent">
-                            ${renderArticle(latestArticle)}
-                        </div>
+       // Carregar blog
+function loadBlog() {
+    document.getElementById('homeCards').style.display = 'none';
+    document.getElementById('contentContainer').style.display = 'block';
+    
+    if (articles.length === 0) {
+        document.getElementById('pageContent').innerHTML = '<div class="loader">Carregando artigos...</div>';
+        // Tentar carregar os artigos
+        loadArticlesFromMD().then(() => {
+            if (articles.length > 0) {
+                renderBlog();
+            } else {
+                document.getElementById('pageContent').innerHTML = `
+                    <div class="error-message">
+                        <h2>Nenhum artigo encontrado</h2>
+                        <p>Verifique se a pasta /artigos/ contém os arquivos MD.</p>
+                        <button class="action-btn" onclick="showHome()">Voltar ao Início</button>
+                    </div>
+                `;
+            }
+        });
+    } else {
+        renderBlog();
+    }
+}
 
-                        <!-- Botões de Reação -->
-                        <div class="reaction-buttons" style="display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap;">
-                            <button class="action-btn" onclick="handleBlogReaction('like')">
-                                <span>❤️</span>
-                                <span id="blogLikeCount">${reactions.like || 0}</span>
-                                <span>Curtir</span>
-                            </button>
-                            <button class="action-btn" onclick="handleBlogReaction('love')">
-                                <span>💖</span>
-                                <span id="blogLoveCount">${reactions.love || 0}</span>
-                                <span>Amar</span>
-                            </button>
-                            <button class="action-btn" onclick="handleBlogReaction('insight')">
-                                <span>💡</span>
-                                <span id="blogInsightCount">${reactions.insight || 0}</span>
-                                <span>Insight</span>
-                            </button>
-                        </div>
-
-                        <!-- Botões de Compartilhamento -->
-                        <div class="share-buttons" style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
-                            <button class="action-btn" onclick="shareToWhatsApp()">📱 WhatsApp</button>
-                            <button class="action-btn" onclick="shareToTwitter()">🐦 Twitter</button>
-                            <button class="action-btn" onclick="shareToFacebook()">📘 Facebook</button>
-                            <button class="action-btn" onclick="shareToInstagram()">📷 Instagram</button>
-                        </div>
-
-                        <!-- Comentários -->
-                        <div class="comments-section">
-                            <h3>Comentários</h3>
-                            <div class="comment-form">
-                                <div class="form-group">
-                                    <input type="text" id="commentName" placeholder="Seu nome" required>
-                                </div>
-                                <div class="form-group">
-                                    <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
-                                </div>
-                                <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
-                            </div>
-                            <div class="comments-list" id="commentsList">
-                                ${renderComments()}
-                            </div>
-                        </div>
-                    </main>
-
-                    <aside class="sidebar">
-                        <h3>Artigos Anteriores</h3>
-                        <ul class="article-list">
-                            ${renderArticleList()}
-                        </ul>
-
-                        <!-- Newsletter -->
-                        <div class="newsletter">
-                            <h4>Receba Novos Artigos</h4>
-                            <p>Inscreva-se para ser notificado</p>
-                            <div class="newsletter-form">
-                                <input type="email" id="newsletterEmail" placeholder="Seu email">
-                                <button onclick="subscribeNewsletter()">Inscrever</button>
-                            </div>
-                            <div id="newsletterMessage"></div>
-                        </div>
-
-                        <h3>Temas</h3>
-                        <ul class="article-list">
-                            <li onclick="filterByTag('amor')">
-                                <span class="article-number">❤️</span> Amor
-                                <span class="article-tag">(2)</span>
-                            </li>
-                            <li onclick="filterByTag('sonhos')">
-                                <span class="article-number">🌙</span> Sonhos
-                                <span class="article-tag">(1)</span>
-                            </li>
-                            <li onclick="filterByTag('clinica')">
-                                <span class="article-number">💭</span> Clínica
-                                <span class="article-tag">(1)</span>
-                            </li>
-                        </ul>
-                    </aside>
+function renderBlog() {
+    const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
+    currentArticleId = latestArticle.id;
+    
+    let html = `
+        <div class="blog-container">
+            <main class="main-article">
+                <div id="articleContent">
+                    ${renderArticle(latestArticle)}
                 </div>
-            `;
 
-            document.getElementById('pageContent').innerHTML = html;
-            currentPage = 'blog';
+                <!-- Botões de Reação -->
+                <div class="reaction-buttons" style="display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap;">
+                    <button class="action-btn" onclick="handleBlogReaction('like')">
+                        <span>❤️</span>
+                        <span id="blogLikeCount">${reactions.like || 0}</span>
+                        <span>Curtir</span>
+                    </button>
+                    <button class="action-btn" onclick="handleBlogReaction('love')">
+                        <span>💖</span>
+                        <span id="blogLoveCount">${reactions.love || 0}</span>
+                        <span>Amar</span>
+                    </button>
+                    <button class="action-btn" onclick="handleBlogReaction('insight')">
+                        <span>💡</span>
+                        <span id="blogInsightCount">${reactions.insight || 0}</span>
+                        <span>Insight</span>
+                    </button>
+                </div>
+
+                <!-- Botões de Compartilhamento -->
+                <div class="share-buttons" style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                    <button class="action-btn" onclick="shareToWhatsApp()">📱 WhatsApp</button>
+                    <button class="action-btn" onclick="shareToTwitter()">🐦 Twitter</button>
+                    <button class="action-btn" onclick="shareToFacebook()">📘 Facebook</button>
+                    <button class="action-btn" onclick="shareToInstagram()">📷 Instagram</button>
+                </div>
+
+                <!-- Comentários -->
+                <div class="comments-section">
+                    <h3>Comentários</h3>
+                    <div class="comment-form">
+                        <div class="form-group">
+                            <input type="text" id="commentName" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
+                        </div>
+                        <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
+                    </div>
+                    <div class="comments-list" id="commentsList">
+                        ${renderComments()}
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <h3>Artigos Anteriores</h3>
+                <ul class="article-list">
+                    ${renderArticleList()}
+                </ul>
+
+                <!-- Newsletter -->
+                <div class="newsletter">
+                    <h4>Receba Novos Artigos</h4>
+                    <p>Inscreva-se para ser notificado</p>
+                    <div class="newsletter-form">
+                        <input type="email" id="newsletterEmail" placeholder="Seu email">
+                        <button onclick="subscribeNewsletter()">Inscrever</button>
+                    </div>
+                    <div id="newsletterMessage"></div>
+                </div>
+
+                <h3>Temas</h3>
+                <ul class="article-list">
+                    <li onclick="filterByTag('amor')">
+                        <span class="article-number">❤️</span> Amor
+                        <span class="article-tag">(${articles.filter(a => a.theme === 'amor').length})</span>
+                    </li>
+                    <li onclick="filterByTag('sonhos')">
+                        <span class="article-number">🌙</span> Sonhos
+                        <span class="article-tag">(${articles.filter(a => a.theme === 'sonhos').length})</span>
+                    </li>
+                    <li onclick="filterByTag('clinica')">
+                        <span class="article-number">💭</span> Clínica
+                        <span class="article-tag">(${articles.filter(a => a.theme === 'clinica').length})</span>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    `;
+
+    document.getElementById('pageContent').innerHTML = html;
+    currentPage = 'blog';
+
+    // Inicializar carregando os artigos
+document.addEventListener('DOMContentLoaded', () => {
+    showHome();
+    loadArticlesFromMD(); // Carrega os artigos em background
+});
+}
+
+        
         }
 
         // Funções auxiliares para renderização
