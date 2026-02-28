@@ -817,63 +817,70 @@
         let reactions = JSON.parse(localStorage.getItem('reactions')) || { like: 0, love: 0, insight: 0 };
 
         // Artigos para o blog
-        const articles = [
-            {
-                id: 3,
-                title: "O Inconsciente e o Amor",
-                date: "28 de fevereiro de 2026",
-                author: "Gilton Vasconcelos",
-                theme: "amor",
-                file: "artigos/artigo01",
-                content: `
-                    <h2>A Linguagem do Inconsciente no Amor</h2>
-                    <p>O amor, em sua essência mais profunda, dialoga diretamente com nosso inconsciente. As escolhas amorosas, os padrões que se repetem, as atrações inexplicáveis - tudo isso carrega as marcas de nossa história psíquica.</p>
-                    
-                    <blockquote>"Não amamos por acaso. Amamos a partir de roteiros escritos muito antes de nossa consciência despertar."</blockquote>
-                    
-                    <h2>Os Sintomas do Amor</h2>
-                    <p>Na clínica psicanalítica, observamos como o amor pode se manifestar como sintoma - repetindo padrões infantis, buscando no outro aquilo que falta em nós, projetando desejos inconscientes. Mas também pode ser caminho de cura, quando compreendido e elaborado.</p>
-                    
-                    <h2>Transferência e Amor</h2>
-                    <p>O conceito de transferência nos ensina que todo amor é, em alguma medida, uma reedição. Amamos hoje com as cores do passado, mas temos a oportunidade de, na análise, escrever novos roteiros.</p>
-                `,
-                tags: ["amor", "inconsciente"]
-            },
-            {
-                id: 2,
-                title: "A Interpretação dos Sonhos",
-                date: "20 de fevereiro de 2026",
-                author: "Gilton Vasconcelos",
-                theme: "sonhos",
-                file: "artigos/artigo02",
-                content: `
-                    <h2>Os Sonhos e o Inconsciente</h2>
-                    <p>Freud considerava os sonhos a "via real" para o conhecimento do inconsciente. Neles, nossos desejos mais profundos encontram expressão, ainda que de forma disfarçada.</p>
-                    
-                    <blockquote>"O sonho é a realização (disfarçada) de um desejo (reprimido)." - Sigmund Freud</blockquote>
-                    
-                    <h2>O Trabalho do Sonho</h2>
-                    <p>Condensação, deslocamento, figuração e elaboração secundária são os mecanismos pelos quais o conteúdo latente se transforma em conteúdo manifesto.</p>
-                `,
-                tags: ["sonhos", "freud"]
-            },
-            {
-                id: 1,
-                title: "A Clínica Psicanalítica Hoje",
-                date: "15 de fevereiro de 2026",
-                author: "Gilton Vasconcelos",
-                theme: "clinica",
-                file: "artigos/clinica-psicanalitica.html",
-                content: `
-                    <h2>Psicanálise no Século XXI</h2>
-                    <p>A clínica psicanalítica contemporânea enfrenta novos desafios: as relações virtuais, a aceleração do tempo, a fragmentação dos discursos. Como a escuta analítica pode responder a essas questões?</p>
-                    
-                    <h2>Novos Sintomas</h2>
-                    <p>Ansiedade, pânico, depressão - os chamados "novos sintomas" pedem uma clínica que dialogue com seu tempo, sem abandonar os fundamentos da psicanálise.</p>
-                `,
-                tags: ["clínica", "contemporâneo"]
-            }
+     // Array de artigos que será preenchido dinamicamente
+let articles = [];
         ];
+
+        // Função para carregar artigos dos MDs
+async function loadArticlesFromMD() {
+    try {
+        // Lista de artigos que você tem na pasta /artigos/
+        const articleFiles = [
+            { id: 1, file: '/amorepsicanalise/artigos/artigo01/', theme: 'amor', tags: ['amor', 'inconsciente'] },
+            { id: 2, file: '/amorepsicanalise/artigos/artigo02/', theme: 'sonhos', tags: ['amizade', 'freud'] },
+        ];
+        
+        for (const articleInfo of articleFiles) {
+            try {
+                // Carregar o arquivo MD convertido (HTML)
+                const response = await fetch(articleInfo.file + 'index.html');
+                
+                if (!response.ok) {
+                    console.warn(`Artigo ${articleInfo.file} não encontrado`);
+                    continue;
+                }
+                
+                let html = await response.text();
+                
+                // Extrair título do HTML (procura pelo h1)
+                const titleMatch = html.match(/<h1[^>]*>([^<]+)<\/h1>/);
+                
+                // Extrair data (se existir no frontmatter renderizado)
+                const dateMatch = html.match(/<div[^>]*class="[^"]*date[^"]*"[^>]*>([^<]+)<\/div>/);
+                
+                // Extrair autor
+                const authorMatch = html.match(/<div[^>]*class="[^"]*author[^"]*"[^>]*>([^<]+)<\/div>/);
+                
+                // Extrair apenas o conteúdo principal (entre <div class="content"> e o footer)
+                const contentMatch = html.match(/<div class="content">([\s\S]*?)<\/div>\s*<div class="footer-note">/);
+                
+                articles.push({
+                    id: articleInfo.id,
+                    title: titleMatch ? titleMatch[1].trim() : `Artigo ${articleInfo.id}`,
+                    date: dateMatch ? dateMatch[1].trim() : new Date().toLocaleDateString('pt-BR'),
+                    author: authorMatch ? authorMatch[1].trim() : 'Gilton Vasconcelos',
+                    theme: articleInfo.theme,
+                    file: articleInfo.file,
+                    content: contentMatch ? contentMatch[1] : '<p>Conteúdo não disponível</p>',
+                    tags: articleInfo.tags
+                });
+                
+                console.log(`✅ Artigo carregado: ${articleInfo.file}`);
+                
+            } catch (error) {
+                console.error(`❌ Erro ao carregar ${articleInfo.file}:`, error);
+            }
+        }
+        
+        // Atualizar o blog se ele estiver aberto
+        if (currentPage === 'blog') {
+            renderBlog();
+        }
+        
+    } catch (error) {
+        console.error('Erro ao carregar artigos:', error);
+    }
+}
 
         // Funções do Menu
         function openMenu() {
