@@ -1,5 +1,5 @@
 ---
-title: "O bjetivo da Psicanálise"
+title: "O Objetivo da Psicanálise"
 date: 2026-02-28
 author: "Gilton Vasconcelos"
 layout: default
