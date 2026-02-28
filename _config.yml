@@ -1,3 +1,18 @@
 title: "Amor e Psicanálise"
 markdown: kramdown
-theme: null  # Usaremos nosso próprio template
+theme: null
+permalink: /:path/  # Isso gera URLs como /pages/psicanalise/
+
+defaults:
+  - scope:
+      path: "pages"
+    values:
+      layout: default
+  - scope:
+      path: "artigos"
+    values:
+      layout: default
+       - scope:
+      path: "files"
+    values:
+      layout: default
