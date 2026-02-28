@@ -1,3 +1,10 @@
+---
+title: "Termos de Uso do Site Amor & Psicanálise"
+date: 2026-02-28
+author: "Gilton Vasconcelos"
+layout: default
+---
+
 # Termos de Uso do Site Amor & Psicanálise
 
 ## 1. Aceitação dos Termos
