@@ -1,3 +1,11 @@
+---
+title: "Política de Privacidade – Amor & Psicanálise"
+date: 2026-02-28
+author: "Gilton Vasconcelos"
+layout: default
+---
+
+
 # Política de Privacidade – Amor & Psicanálise
 ### Esta Política de Privacidade descreve como as informações suas (usuário) são coletadas, usadas e protegidas quando você visita o Site Amor & Psicanálise. Estamos comprometidos com a proteção da sua privacidade e com a transparência no tratamento de seus dados pessoais, em conformidade com a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais - LGPD).
 
