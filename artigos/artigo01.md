@@ -1,5 +1,11 @@
-# Artigo 01
-## Amor: Entre a Obrigação de Amar e a Liberdade de Escolher
+---
+title: "Amor: Entre a Obrigação de Amar e a Liberdade de Escolher"
+date: 2026-02-28
+author: "Gilton Vasconcelos"
+layout: default
+---
+
+# Amor: Entre a Obrigação de Amar e a Liberdade de Escolher
 ### Uma reflexão psicanalítica sobre os afetos que nos constituem e as correntes que podemos transformar em lições
 
 ### O que dizem sobre o amor
