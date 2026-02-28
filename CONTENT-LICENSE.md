@@ -16,4 +16,4 @@ Todos os textos, artigos, guias e produções intelectuais contidos neste reposi
 Para visualizar uma cópia desta licença, visite: [CC BY-NC-ND 4.0](https://creativecommons.org)
 
 ## 2. Código-Fonte
-Toda a parte técnica e lógica (scripts, códigos de exemplo, automações) está licenciada sob a **Licença MIT**, conforme detalhado no arquivo `LICENSE.md` deste repositório.
+Toda a parte técnica e lógica (scripts, códigos de exemplo, automações) está licenciada sob a **Licença MIT**, conforme detalhado no arquivo `LICENSE` deste repositório.
