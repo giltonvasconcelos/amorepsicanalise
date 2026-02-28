@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Amor e Psicanálise</title>
+    <title>Amor e Psicanálise - Blog</title>
     <style>
         * {
             margin: 0;
@@ -93,25 +93,217 @@
             margin: 0 auto;
         }
 
+        /* Header Principal (da home) */
+        .home-header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .home-header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 300;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* Citação */
+        .quote-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #e67e22;
+        }
+
+        .quote-section blockquote {
+            font-size: 1.4em;
+            line-height: 1.6;
+            color: #34495e;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        /* Reflexão */
+        .reflection {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .reflection p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        /* Cards */
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-left: 3px solid #e67e22;
+            padding-left: 15px;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e67e22;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .card-link:hover {
+            background-color: #d35400;
+            transform: scale(1.05);
+        }
+
+        /* Sobre */
+        .about-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: 300;
+        }
+
+        .about-section p {
+            color: #34495e;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        /* Arquivos Incorporados */
+        .embedded-files {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px dashed #bdc3c7;
+        }
+
+        .embedded-files h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .file-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-info h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .file-info p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .file-download {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .file-download:hover {
+            background-color: #2980b9;
+        }
+
         /* Header do Blog */
         .blog-header {
             text-align: center;
             padding: 40px 20px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin: 30px 0;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .blog-header h1 {
-            font-size: 2.5em;
+        .blog-header h2 {
+            font-size: 2.2em;
             color: #2c3e50;
             margin-bottom: 10px;
-        }
-
-        .blog-header p {
-            color: #7f8c8d;
-            font-size: 1.2em;
         }
 
         /* Layout do Blog */
@@ -138,6 +330,7 @@
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid #ecf0f1;
+            flex-wrap: wrap;
         }
 
         .article-title {
@@ -173,7 +366,7 @@
             border-radius: 0 10px 10px 0;
         }
 
-        /* Barra Lateral */
+        /* Sidebar */
         .sidebar {
             background: white;
             border-radius: 10px;
@@ -221,12 +414,7 @@
             border-radius: 15px;
             font-size: 0.8em;
             margin-right: 10px;
-        }
-
-        .article-list .article-tag {
-            font-size: 0.8em;
-            color: #e67e22;
-            margin-left: 10px;
+            margin-bottom: 5px;
         }
 
         .article-list h4 {
@@ -239,6 +427,12 @@
             font-size: 0.9em;
         }
 
+        .article-tag {
+            font-size: 0.8em;
+            color: #e67e22;
+            margin-left: 10px;
+        }
+
         /* Botões de Reação */
         .reaction-buttons {
             display: flex;
@@ -247,6 +441,7 @@
             padding: 20px 0;
             border-top: 2px solid #ecf0f1;
             border-bottom: 2px solid #ecf0f1;
+            flex-wrap: wrap;
         }
 
         .reaction-btn {
@@ -322,7 +517,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Seção de Comentários */
+        /* Comentários */
         .comments-section {
             margin: 40px 0;
         }
@@ -398,6 +593,8 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .comment-author {
@@ -419,45 +616,47 @@
         .newsletter {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 10px;
-            margin: 40px 0;
+            margin: 30px 0;
             text-align: center;
         }
 
         .newsletter h3 {
             color: white;
             margin-bottom: 15px;
-            font-size: 1.8em;
+            font-size: 1.5em;
             border: none;
         }
 
         .newsletter p {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             opacity: 0.9;
         }
 
         .newsletter-form {
             display: flex;
-            gap: 15px;
-            max-width: 500px;
+            gap: 10px;
+            max-width: 400px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
         .newsletter-form input {
             flex: 1;
-            padding: 15px;
+            min-width: 200px;
+            padding: 12px;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             font-size: 1em;
         }
 
         .newsletter-form button {
-            padding: 15px 30px;
+            padding: 12px 20px;
             background: #e67e22;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
             transition: 0.3s;
@@ -465,10 +664,9 @@
 
         .newsletter-form button:hover {
             background: #d35400;
-            transform: scale(1.05);
         }
 
-        /* Loading e Mensagens */
+        /* Mensagens */
         .loading {
             text-align: center;
             padding: 40px;
@@ -478,9 +676,9 @@
         .error-message {
             background: #f8d7da;
             color: #721c24;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
         .success-message {
@@ -489,6 +687,39 @@
             padding: 15px;
             border-radius: 8px;
             margin: 10px 0;
+        }
+
+        /* Update Info */
+        .update-info {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #95a5a6;
+            font-size: 0.9em;
+            padding: 20px;
+            border-top: 1px solid #dcdde1;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer a {
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
         }
 
         /* Responsividade */
@@ -503,8 +734,19 @@
         }
 
         @media screen and (max-width: 768px) {
-            .blog-header h1 {
+            .menu-btn {
+                top: 10px;
+                left: 10px;
+                font-size: 24px;
+                padding: 8px 12px;
+            }
+
+            .home-header h1 {
                 font-size: 2em;
+            }
+            
+            .blog-header h2 {
+                font-size: 1.8em;
             }
             
             .main-article {
@@ -515,12 +757,38 @@
                 font-size: 1.8em;
             }
             
-            .reaction-buttons {
-                flex-wrap: wrap;
+            .quote-section blockquote {
+                font-size: 1.2em;
             }
             
-            .newsletter-form {
+            .reflection p {
+                font-size: 1.1em;
+            }
+            
+            .content-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .file-item {
                 flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .file-icon {
+                margin-right: 0;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+            }
+            
+            .share-btn {
+                width: 100%;
+            }
+            
+            .reaction-buttons {
+                justify-content: center;
             }
         }
     </style>
@@ -530,12 +798,14 @@
     <!-- Menu Lateral -->
     <div id="sideMenu" class="side-menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
-        <a href="index.html">Página Inicial</a>
-        <a href="blog.html" class="active">Blog</a>
-        <a href="artigos.html">Artigos</a>
-        <a href="reflexoes.html">Reflexões</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="contato.html">Contato</a>
+        <a href="#" onclick="showHome(); closeMenu()">Página Inicial</a>
+        <a href="#" onclick="showBlog(); closeMenu()">Blog</a>
+        <a href="#" onclick="showHome(); closeMenu()">Artigos</a>
+        <a href="#" onclick="showHome(); closeMenu()">Reflexões</a>
+        <a href="#" onclick="showHome(); closeMenu()">Sobre</a>
+        <a href="#" onclick="showHome(); closeMenu()">Contato</a>
+        <a href="#" onclick="showHome(); closeMenu()">Recursos</a>
+        <a href="#" onclick="showHome(); closeMenu()">Arquivos</a>
     </div>
 
     <!-- Botão do Menu -->
@@ -544,133 +814,225 @@
     <!-- Conteúdo Principal -->
     <div class="main-content" id="mainContent">
         
-        <!-- Header do Blog -->
-        <header class="blog-header">
-            <h1>Blog Amor e Psicanálise</h1>
-            <p>Reflexões e artigos sobre psicanálise, amor e autoconhecimento</p>
-        </header>
+        <!-- Seção Home (visível por padrão) -->
+        <div id="homeSection">
+            <!-- Header -->
+            <header class="home-header">
+                <h1>Amor e Psicanálise</h1>
+                <p style="color: #7f8c8d; margin-top: 10px;">Reflexões que despertam o inconsciente</p>
+            </header>
 
-        <!-- Container do Blog -->
-        <div class="blog-container">
-            <!-- Artigo Principal -->
-            <main class="main-article" id="mainArticle">
-                <div id="articleContent">
-                    <!-- Conteúdo será carregado via JavaScript -->
-                    <div class="loading">Carregando artigo mais recente...</div>
+            <!-- Citação Principal -->
+            <div class="quote-section">
+                <blockquote>
+                    "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. De todos os modos ele deixa feridas que carregamos para sempre. Mas podemos transformar essas marcas em lições, e não em correntes."
+                </blockquote>
+                <div class="quote-author">— Gilton Vasconcelos, 2025</div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <small style="color: #95a5a6;">📎 Arquivo incorporado: reflexao_amor_2025.pdf</small>
                 </div>
+            </div>
 
-                <!-- Botões de Reação -->
-                <div class="reaction-buttons" id="reactionButtons">
-                    <button class="reaction-btn" onclick="handleReaction('like')">
-                        <span>❤️</span>
-                        <span class="reaction-count" id="likeCount">0</span>
-                        <span>Curtir</span>
-                    </button>
-                    <button class="reaction-btn" onclick="handleReaction('love')">
-                        <span>💖</span>
-                        <span class="reaction-count" id="loveCount">0</span>
-                        <span>Amar</span>
-                    </button>
-                    <button class="reaction-btn" onclick="handleReaction('insight')">
-                        <span>💡</span>
-                        <span class="reaction-count" id="insightCount">0</span>
-                        <span>Insight</span>
-                    </button>
+            <!-- Reflexão -->
+            <div class="reflection">
+                <p>
+                    "Reflexões que despertam: entre o inconsciente e o amor, a psicanálise convida você a olhar para dentro e descobrir novos caminhos de autenticidade."
+                </p>
+            </div>
+
+            <!-- Cards -->
+            <div class="content-cards">
+                <div class="card">
+                    <h3>Artigos Recentes</h3>
+                    <p>Explore nossos artigos sobre psicanálise, amor e as complexidades da mente humana.</p>
+                    <a href="#" onclick="showBlog()" class="card-link">Ver Artigos →</a>
                 </div>
-
-                <!-- Botões de Compartilhamento -->
-                <div class="share-buttons">
-                    <button class="share-btn instagram" onclick="shareToInstagram()">
-                        <span>📷</span> Instagram
-                    </button>
-                    <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
-                        <span>📱</span> WhatsApp
-                    </button>
-                    <button class="share-btn twitter" onclick="shareToTwitter()">
-                        <span>🐦</span> Twitter
-                    </button>
-                    <button class="share-btn facebook" onclick="shareToFacebook()">
-                        <span>📘</span> Facebook
-                    </button>
+                <div class="card">
+                    <h3>Reflexões Diárias</h3>
+                    <p>Pensamentos e insights para desacelerar e enxergar a vida por ângulos diferentes.</p>
+                    <a href="#" onclick="showBlog()" class="card-link">Ler Reflexões →</a>
                 </div>
+                <div class="card">
+                    <h3>Materiais de Estudo</h3>
+                    <p>Arquivos, documentos e recursos para aprofundar seus conhecimentos.</p>
+                    <a href="#" class="card-link">Acessar Recursos →</a>
+                </div>
+            </div>
 
-                <!-- Seção de Comentários -->
-                <div class="comments-section">
-                    <h3>Comentários</h3>
-                    
-                    <!-- Formulário de Comentário -->
-                    <div class="comment-form">
-                        <div class="form-group">
-                            <input type="text" id="commentName" placeholder="Seu nome" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
-                        </div>
-                        <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
+            <!-- Sobre -->
+            <div class="about-section">
+                <h2>Este espaço...</h2>
+                <p>
+                    Este espaço reúne palavras que tocam, questionam e inspiram. Cada texto é um convite para desacelerar, 
+                    respirar e enxergar a vida por ângulos diferentes. Aqui, reflexões se transformam em janelas abertas 
+                    para o sentir e o pensar.
+                </p>
+                <p>
+                    Este site nasce como um espaço de encontro entre ideias, palavras e experiências. Aqui, você encontrará 
+                    artigos, reflexões e conteúdos que buscam inspirar, provocar e abrir caminhos para novas formas de 
+                    pensar e sentir.
+                </p>
+            </div>
+
+            <!-- Arquivos Incorporados -->
+            <div class="embedded-files">
+                <h3>📁 Arquivos Incorporados</h3>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <div class="file-info">
+                        <h4>Introdução à Psicanálise</h4>
+                        <p>PDF • 2.3 MB • 2025</p>
                     </div>
-
-                    <!-- Lista de Comentários -->
-                    <div class="comments-list" id="commentsList">
-                        <!-- Comentários serão carregados aqui -->
-                    </div>
+                    <a href="#" class="file-download">Download</a>
                 </div>
-            </main>
-
-            <!-- Barra Lateral -->
-            <aside class="sidebar">
-                <h3>Artigos Anteriores</h3>
-                <ul class="article-list" id="articleList">
-                    <!-- Lista será carregada via JavaScript -->
-                    <li class="loading">Carregando artigos...</li>
-                </ul>
-
-                <!-- Newsletter -->
-                <div class="newsletter">
-                    <h3>Receba Novos Artigos</h3>
-                    <p>Inscreva-se para ser notificado quando novos artigos forem publicados</p>
-                    <div class="newsletter-form">
-                        <input type="email" id="newsletterEmail" placeholder="Seu melhor email" required>
-                        <button onclick="subscribeNewsletter()">Inscrever</button>
+                <div class="file-item">
+                    <span class="file-icon">📹</span>
+                    <div class="file-info">
+                        <h4>Palestra: Amor e Inconsciente</h4>
+                        <p>MP4 • 156 MB • 45min</p>
                     </div>
-                    <div id="newsletterMessage"></div>
+                    <a href="#" class="file-download">Assistir</a>
                 </div>
-
-                <!-- Temas Populares -->
-                <h3 style="margin-top: 30px;">Temas</h3>
-                <ul class="article-list">
-                    <li onclick="filterByTag('amor')">
-                        <span class="article-number">❤️</span> Amor
-                        <span class="article-tag">(12)</span>
-                    </li>
-                    <li onclick="filterByTag('inconsciente')">
-                        <span class="article-number">🧠</span> Inconsciente
-                        <span class="article-tag">(8)</span>
-                    </li>
-                    <li onclick="filterByTag('sonhos')">
-                        <span class="article-number">🌙</span> Sonhos
-                        <span class="article-tag">(5)</span>
-                    </li>
-                    <li onclick="filterByTag('terapia')">
-                        <span class="article-number">💭</span> Terapia
-                        <span class="article-tag">(7)</span>
-                    </li>
-                </ul>
-            </aside>
+                <div class="file-item">
+                    <span class="file-icon">🔊</span>
+                    <div class="file-info">
+                        <h4>Podcast: Reflexões Psicanalíticas</h4>
+                        <p>MP3 • 45 MB • Episódio 12</p>
+                    </div>
+                    <a href="#" class="file-download">Ouvir</a>
+                </div>
+            </div>
         </div>
+
+        <!-- Seção Blog (inicialmente oculta) -->
+        <div id="blogSection" style="display: none;">
+            <!-- Header do Blog -->
+            <header class="blog-header">
+                <h2>Blog Amor e Psicanálise</h2>
+                <p>Reflexões e artigos sobre psicanálise, amor e autoconhecimento</p>
+            </header>
+
+            <!-- Container do Blog -->
+            <div class="blog-container">
+                <!-- Artigo Principal -->
+                <main class="main-article" id="mainArticle">
+                    <div id="articleContent">
+                        <div class="loading">Carregando artigo mais recente...</div>
+                    </div>
+
+                    <!-- Botões de Reação -->
+                    <div class="reaction-buttons" id="reactionButtons">
+                        <button class="reaction-btn" onclick="handleReaction('like')">
+                            <span>❤️</span>
+                            <span class="reaction-count" id="likeCount">0</span>
+                            <span>Curtir</span>
+                        </button>
+                        <button class="reaction-btn" onclick="handleReaction('love')">
+                            <span>💖</span>
+                            <span class="reaction-count" id="loveCount">0</span>
+                            <span>Amar</span>
+                        </button>
+                        <button class="reaction-btn" onclick="handleReaction('insight')">
+                            <span>💡</span>
+                            <span class="reaction-count" id="insightCount">0</span>
+                            <span>Insight</span>
+                        </button>
+                    </div>
+
+                    <!-- Botões de Compartilhamento -->
+                    <div class="share-buttons">
+                        <button class="share-btn instagram" onclick="shareToInstagram()">
+                            <span>📷</span> Instagram
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
+                            <span>📱</span> WhatsApp
+                        </button>
+                        <button class="share-btn twitter" onclick="shareToTwitter()">
+                            <span>🐦</span> Twitter
+                        </button>
+                        <button class="share-btn facebook" onclick="shareToFacebook()">
+                            <span>📘</span> Facebook
+                        </button>
+                    </div>
+
+                    <!-- Comentários -->
+                    <div class="comments-section">
+                        <h3>Comentários</h3>
+                        <div class="comment-form">
+                            <div class="form-group">
+                                <input type="text" id="commentName" placeholder="Seu nome" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
+                            </div>
+                            <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
+                        </div>
+                        <div class="comments-list" id="commentsList"></div>
+                    </div>
+                </main>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <h3>Artigos Anteriores</h3>
+                    <ul class="article-list" id="articleList">
+                        <li class="loading">Carregando artigos...</li>
+                    </ul>
+
+                    <!-- Newsletter -->
+                    <div class="newsletter">
+                        <h3>Receba Novos Artigos</h3>
+                        <p>Inscreva-se para ser notificado quando novos artigos forem publicados</p>
+                        <div class="newsletter-form">
+                            <input type="email" id="newsletterEmail" placeholder="Seu melhor email" required>
+                            <button onclick="subscribeNewsletter()">Inscrever</button>
+                        </div>
+                        <div id="newsletterMessage"></div>
+                    </div>
+
+                    <!-- Temas -->
+                    <h3>Temas</h3>
+                    <ul class="article-list">
+                        <li onclick="filterByTag('amor')">
+                            <span class="article-number">❤️</span> Amor
+                            <span class="article-tag">(12)</span>
+                        </li>
+                        <li onclick="filterByTag('inconsciente')">
+                            <span class="article-number">🧠</span> Inconsciente
+                            <span class="article-tag">(8)</span>
+                        </li>
+                        <li onclick="filterByTag('sonhos')">
+                            <span class="article-number">🌙</span> Sonhos
+                            <span class="article-tag">(5)</span>
+                        </li>
+                        <li onclick="filterByTag('terapia')">
+                            <span class="article-number">💭</span> Terapia
+                            <span class="article-tag">(7)</span>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+
+        <!-- Update Info -->
+        <div class="update-info">
+            <p>📅 Página atualizada em: fevereiro de 2026</p>
+            <p style="margin-top: 5px;">Amor e Psicanálise • Por Gilton Vasconcelos</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© Gilton Vasconcelos 2025-2026</p>
+            <p>Todos os direitos reservados</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <a href="#">Política de Privacidade</a> • 
+                <a href="#">Termos de Uso</a> • 
+                <a href="#">Contato</a>
+            </p>
+        </footer>
     </div>
 
     <script>
-        // Configuração
-        const ARTICLES_FOLDER = 'artigos/';
-        let currentArticleId = null;
-        let comments = JSON.parse(localStorage.getItem('comments')) || [];
-        let reactions = JSON.parse(localStorage.getItem('reactions')) || {
-            like: 0,
-            love: 0,
-            insight: 0
-        };
-        
-        // Artigos de exemplo (simulando arquivos MD)
+        // Artigos de exemplo
         const articles = [
             {
                 id: 5,
@@ -701,7 +1063,6 @@
                 date: "20 de fevereiro de 2026",
                 author: "Gilton Vasconcelos",
                 theme: "sonhos",
-                excerpt: "Os sonhos como via real para o conhecimento do inconsciente...",
                 content: `
                     <h2>Os Sonhos e o Inconsciente</h2>
                     <p>Freud considerava os sonhos a "via real" para o conhecimento do inconsciente. Neles, nossos desejos mais profundos encontram expressão, ainda que de forma disfarçada.</p>
@@ -719,7 +1080,6 @@
                 date: "15 de fevereiro de 2026",
                 author: "Gilton Vasconcelos",
                 theme: "terapia",
-                excerpt: "Como a psicanálise se adapta aos desafios contemporâneos...",
                 content: `
                     <h2>Psicanálise no Século XXI</h2>
                     <p>A clínica psicanalítica contemporânea enfrenta novos desafios: as relações virtuais, a aceleração do tempo, a fragmentação dos discursos. Como a escuta analítica pode responder a essas questões?</p>
@@ -730,6 +1090,10 @@
                 tags: ["terapia", "clínica", "contemporâneo"]
             }
         ];
+
+        let currentArticleId = null;
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        let reactions = JSON.parse(localStorage.getItem('reactions')) || { like: 0, love: 0, insight: 0 };
 
         // Funções do Menu
         function openMenu() {
@@ -745,13 +1109,26 @@
             document.getElementById("mainContent").style.marginLeft = "0";
         }
 
-        // Carregar artigo mais recente
+        // Navegação entre seções
+        function showHome() {
+            document.getElementById('homeSection').style.display = 'block';
+            document.getElementById('blogSection').style.display = 'none';
+        }
+
+        function showBlog() {
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('blogSection').style.display = 'block';
+            loadLatestArticle();
+            loadArticleList();
+            displayComments();
+        }
+
+        // Funções do Blog
         function loadLatestArticle() {
             const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
             displayArticle(latestArticle);
         }
 
-        // Carregar artigo por ID
         function loadArticle(articleId) {
             const article = articles.find(a => a.id === articleId);
             if (article) {
@@ -759,7 +1136,6 @@
             }
         }
 
-        // Exibir artigo
         function displayArticle(article) {
             currentArticleId = article.id;
             const content = document.getElementById('articleContent');
@@ -774,15 +1150,9 @@
                     ${article.content}
                 </div>
             `;
-            
-            // Atualizar URL sem recarregar
-            history.pushState({}, '', `?artigo=${article.id}`);
-            
-            // Atualizar contadores de reação
             updateReactionCounts();
         }
 
-        // Carregar lista de artigos
         function loadArticleList() {
             const listElement = document.getElementById('articleList');
             const sortedArticles = articles.sort((a, b) => b.id - a.id);
@@ -815,7 +1185,6 @@
             localStorage.setItem('reactions', JSON.stringify(reactions));
             updateReactionCounts();
             
-            // Feedback visual
             const btn = event.currentTarget;
             btn.classList.toggle('liked');
         }
@@ -830,9 +1199,6 @@
         function shareToInstagram() {
             const article = articles.find(a => a.id === currentArticleId);
             if (!article) return;
-            
-            const text = encodeURIComponent(`${article.title} - Amor e Psicanálise`);
-            // Instagram não tem API direta, então abrimos com texto copiado
             navigator.clipboard.writeText(window.location.href);
             alert('Link copiado! Agora você pode colar no Instagram.');
         }
@@ -840,7 +1206,6 @@
         function shareToWhatsApp() {
             const article = articles.find(a => a.id === currentArticleId);
             if (!article) return;
-            
             const text = encodeURIComponent(`${article.title}\n\nLeia mais em: ${window.location.href}`);
             window.open(`https://wa.me/?text=${text}`, '_blank');
         }
@@ -848,7 +1213,6 @@
         function shareToTwitter() {
             const article = articles.find(a => a.id === currentArticleId);
             if (!article) return;
-            
             const text = encodeURIComponent(`${article.title} - Amor e Psicanálise`);
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${window.location.href}`, '_blank');
         }
@@ -884,7 +1248,6 @@
             
             displayComments();
             
-            // Mensagem de sucesso
             const successMsg = document.createElement('div');
             successMsg.className = 'success-message';
             successMsg.textContent = 'Comentário enviado com sucesso!';
@@ -922,7 +1285,6 @@
                 return;
             }
             
-            // Salvar no localStorage
             let subscribers = JSON.parse(localStorage.getItem('subscribers')) || [];
             if (!subscribers.includes(email)) {
                 subscribers.push(email);
@@ -954,31 +1316,6 @@
             }
         }
 
-        // Verificar artigo na URL
-        function checkUrlForArticle() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = urlParams.get('artigo');
-            
-            if (articleId) {
-                loadArticle(parseInt(articleId));
-            } else {
-                loadLatestArticle();
-            }
-        }
-
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            loadArticleList();
-            checkUrlForArticle();
-            updateReactionCounts();
-            displayComments();
-            
-            // Event listener para voltar/avançar no navegador
-            window.addEventListener('popstate', () => {
-                checkUrlForArticle();
-            });
-        });
-
         // Ajuste de menu para telas pequenas
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 768) {
@@ -990,6 +1327,11 @@
                     document.getElementById("mainContent").style.marginLeft = "250px";
                 }
             }
+        });
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            showHome(); // Mostra a home por padrão
         });
     </script>
 
