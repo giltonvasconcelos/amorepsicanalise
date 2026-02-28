@@ -3,18 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amor e Psicanálise - Blog</title>
+    <title>Amor e Psicanálise | Saúde Mental</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9eef5 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
             min-height: 100vh;
+            color: #2d3e4f;
+            line-height: 1.6;
+        }
+
+        /* Cores para saúde mental - tons suaves e acolhedores */
+        :root {
+            --primary: #6b8c9f;    /* Azul suave - calma */
+            --primary-dark: #4f6f82;
+            --secondary: #9fb7c9;   /* Azul mais claro - serenidade */
+            --accent: #a8c6b0;      /* Verde suave - equilíbrio */
+            --text: #2d3e4f;        /* Azul escuro - profundidade */
+            --text-light: #5f7d95;
+            --background: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border: #d9e2e9;
+            --hover: #e6f0f5;
         }
 
         /* Menu Lateral */
@@ -24,289 +40,298 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: linear-gradient(180deg, #2c3e50 0%, #1a2632 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
             overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 70px;
+            box-shadow: 2px 0 20px rgba(107, 140, 159, 0.15);
             z-index: 1000;
+            border-right: 1px solid var(--border);
         }
 
         .side-menu a {
-            padding: 15px 25px;
+            padding: 15px 30px;
             text-decoration: none;
-            font-size: 18px;
-            color: #ecf0f1;
+            font-size: 1.1rem;
+            color: var(--text);
             display: block;
             transition: 0.3s;
-            border-left: 3px solid transparent;
+            border-left: 4px solid transparent;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
         .side-menu a:hover {
-            background-color: #34495e;
-            border-left: 3px solid #e67e22;
-            padding-left: 30px;
+            background-color: var(--hover);
+            border-left: 4px solid var(--primary);
+            color: var(--primary-dark);
+            padding-left: 35px;
         }
 
         .side-menu .close-btn {
             position: absolute;
-            top: 0;
+            top: 15px;
             right: 25px;
-            font-size: 36px;
+            font-size: 32px;
             padding: 0;
-            color: #ecf0f1;
+            color: var(--text-light);
         }
 
         .side-menu .close-btn:hover {
             background: none;
             border-left: none;
-            color: #e67e22;
+            color: var(--primary);
         }
 
         /* Botão do Menu */
         .menu-btn {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 30px;
+            top: 25px;
+            left: 25px;
+            font-size: 24px;
             cursor: pointer;
-            background-color: #2c3e50;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.1);
             z-index: 999;
             transition: 0.3s;
-            border: none;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            line-height: 1;
         }
 
         .menu-btn:hover {
-            background-color: #34495e;
-            transform: scale(1.05);
+            background: white;
+            box-shadow: 0 6px 20px rgba(107, 140, 159, 0.15);
+            transform: translateY(-2px);
         }
 
         /* Conteúdo Principal */
         .main-content {
-            transition: margin-left 0.5s;
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 20px;
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
-        /* Header Principal (da home) */
-        .home-header {
+        /* Header com Imagem */
+        .header {
+            position: relative;
+            height: 350px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) saturate(1.1);
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(107, 140, 159, 0.3) 0%, rgba(168, 198, 176, 0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 50px 20px 30px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
-        }
-
-        .home-header h1 {
-            font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: 300;
-            border-bottom: 2px solid #e67e22;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        /* Citação */
-        .quote-section {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-left: 4px solid #e67e22;
-        }
-
-        .quote-section blockquote {
-            font-size: 1.4em;
-            line-height: 1.6;
-            color: #34495e;
-            font-style: italic;
-            margin-bottom: 15px;
-            font-weight: 300;
-        }
-
-        .quote-author {
-            text-align: right;
-            color: #7f8c8d;
-            font-size: 1.1em;
-            margin-top: 15px;
-        }
-
-        /* Reflexão */
-        .reflection {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px;
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 20px;
         }
 
-        .reflection p {
-            font-size: 1.3em;
-            line-height: 1.6;
-            text-align: center;
+        .header-overlay h1 {
+            font-size: 3.5rem;
             font-weight: 300;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
         }
 
-        /* Cards */
-        .content-cards {
+        .header-overlay p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cards do Menu Principal */
+        .menu-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 25px;
-            margin: 40px 0;
+            margin: 50px 0;
+            padding: 0 10px;
         }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .menu-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.08);
             transition: 0.3s;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .card h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            border-left: 3px solid #e67e22;
-            padding-left: 15px;
-        }
-
-        .card p {
-            color: #7f8c8d;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .card-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #e67e22;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .card-link:hover {
-            background-color: #d35400;
-            transform: scale(1.05);
-        }
-
-        /* Sobre */
-        .about-section {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .about-section h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 2em;
-            font-weight: 300;
-        }
-
-        .about-section p {
-            color: #34495e;
-            line-height: 1.8;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
-        /* Arquivos Incorporados */
-        .embedded-files {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-            border: 1px dashed #bdc3c7;
-        }
-
-        .embedded-files h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: white;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .file-icon {
-            font-size: 24px;
-            margin-right: 15px;
-        }
-
-        .file-info {
-            flex: 1;
-        }
-
-        .file-info h4 {
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .file-info p {
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-
-        .file-download {
-            padding: 8px 15px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .file-download:hover {
-            background-color: #2980b9;
-        }
-
-        /* Header do Blog */
-        .blog-header {
+            cursor: pointer;
+            border: 1px solid var(--border);
             text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-bottom: 3px solid transparent;
         }
 
-        .blog-header h2 {
-            font-size: 2.2em;
-            color: #2c3e50;
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(107, 140, 159, 0.12);
+        }
+
+        .menu-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .menu-card h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            font-weight: 500;
             margin-bottom: 10px;
+            letter-spacing: 0.3px;
         }
 
-        /* Layout do Blog */
+        .menu-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Container de Conteúdo */
+        .content-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
+        }
+
+        /* Páginas de Conteúdo */
+        .page-content {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-content h1 {
+            color: var(--text);
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+        }
+
+        .page-content h2 {
+            color: var(--text);
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin: 30px 0 15px;
+        }
+
+        .page-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .page-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding: 20px 30px;
+            margin: 30px 0;
+            background: #f8fbfd;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .faq-item h3 {
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item h3:hover {
+            color: var(--primary);
+        }
+
+        .faq-item .faq-answer {
+            color: var(--text-light);
+            line-height: 1.7;
+            padding-right: 20px;
+        }
+
+        /* Botões de Ação (para páginas não-blog) */
+        .page-actions {
+            display: flex;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .action-btn:hover {
+            background: var(--hover);
+            border-color: var(--primary);
+        }
+
+        .action-btn.liked {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Blog Styles */
         .blog-container {
             display: grid;
             grid-template-columns: 1fr 350px;
@@ -314,207 +339,168 @@
             margin-top: 30px;
         }
 
-        /* Artigo Principal */
         .main-article {
             background: white;
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid var(--border);
         }
 
         .article-meta {
             display: flex;
             gap: 20px;
-            color: #95a5a6;
-            font-size: 0.9em;
+            color: var(--text-light);
+            font-size: 0.9rem;
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #ecf0f1;
+            border-bottom: 1px solid var(--border);
             flex-wrap: wrap;
         }
 
         .article-title {
-            font-size: 2.2em;
-            color: #2c3e50;
+            font-size: 2.2rem;
+            color: var(--text);
             margin-bottom: 20px;
             line-height: 1.3;
+            font-weight: 400;
         }
 
         .article-content {
-            color: #34495e;
+            color: var(--text-light);
             line-height: 1.8;
-            font-size: 1.1em;
+            font-size: 1.1rem;
         }
 
         .article-content h2 {
-            color: #2c3e50;
+            color: var(--text);
             margin: 30px 0 15px;
-            font-size: 1.6em;
-        }
-
-        .article-content p {
-            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 400;
         }
 
         .article-content blockquote {
-            border-left: 4px solid #e67e22;
+            border-left: 4px solid var(--accent);
             padding: 20px 30px;
             margin: 30px 0;
-            background: #f8f9fa;
+            background: #f8fbfd;
+            border-radius: 0 12px 12px 0;
             font-style: italic;
-            color: #2c3e50;
-            border-radius: 0 10px 10px 0;
         }
 
         /* Sidebar */
         .sidebar {
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
             height: fit-content;
             position: sticky;
             top: 20px;
         }
 
         .sidebar h3 {
-            color: #2c3e50;
+            color: var(--text);
             margin-bottom: 20px;
-            font-size: 1.3em;
-            border-left: 3px solid #e67e22;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-left: 3px solid var(--primary);
             padding-left: 15px;
         }
 
-        /* Lista de Artigos */
         .article-list {
             list-style: none;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .article-list li {
             margin-bottom: 15px;
             padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: #f8fbfd;
+            border-radius: 12px;
             transition: 0.3s;
             cursor: pointer;
             border: 1px solid transparent;
         }
 
         .article-list li:hover {
-            border-color: #e67e22;
+            border-color: var(--primary);
             transform: translateX(5px);
         }
 
         .article-list .article-number {
             display: inline-block;
-            background: #e67e22;
+            background: var(--primary);
             color: white;
             padding: 3px 10px;
             border-radius: 15px;
-            font-size: 0.8em;
+            font-size: 0.8rem;
             margin-right: 10px;
             margin-bottom: 5px;
         }
 
         .article-list h4 {
-            color: #2c3e50;
+            color: var(--text);
             margin: 5px 0;
+            font-weight: 500;
         }
 
         .article-list p {
-            color: #7f8c8d;
-            font-size: 0.9em;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
 
-        .article-tag {
-            font-size: 0.8em;
-            color: #e67e22;
-            margin-left: 10px;
-        }
-
-        /* Botões de Reação */
-        .reaction-buttons {
-            display: flex;
-            gap: 15px;
-            margin: 40px 0 30px;
-            padding: 20px 0;
-            border-top: 2px solid #ecf0f1;
-            border-bottom: 2px solid #ecf0f1;
-            flex-wrap: wrap;
-        }
-
-        .reaction-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 30px;
-            background: #f8f9fa;
-            color: #2c3e50;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1em;
-        }
-
-        .reaction-btn:hover {
-            background: #e67e22;
-            color: white;
-        }
-
-        .reaction-btn.liked {
-            background: #e67e22;
-            color: white;
-        }
-
-        .reaction-count {
-            font-weight: bold;
-        }
-
-        /* Botões de Compartilhamento */
-        .share-buttons {
-            display: flex;
-            gap: 10px;
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #f0f7fa, #e1eef5);
+            padding: 25px;
+            border-radius: 16px;
             margin: 30px 0;
+        }
+
+        .newsletter h4 {
+            color: var(--text);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
 
-        .share-btn {
+        .newsletter-form input {
             flex: 1;
-            min-width: 120px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
+            min-width: 200px;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
             transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.95em;
         }
 
-        .share-btn.instagram {
-            background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+        .newsletter-form input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 140, 159, 0.1);
         }
 
-        .share-btn.whatsapp {
-            background: #25D366;
+        .newsletter-form button {
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: 0.3s;
         }
 
-        .share-btn.twitter {
-            background: #1DA1F2;
-        }
-
-        .share-btn.facebook {
-            background: #4267B2;
-        }
-
-        .share-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         /* Comentários */
@@ -522,16 +508,10 @@
             margin: 40px 0;
         }
 
-        .comments-section h3 {
-            color: #2c3e50;
-            margin-bottom: 25px;
-            font-size: 1.4em;
-        }
-
         .comment-form {
-            background: #f8f9fa;
+            background: #f8fbfd;
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 16px;
             margin-bottom: 30px;
         }
 
@@ -543,16 +523,17 @@
         .form-group textarea {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #ecf0f1;
-            border-radius: 8px;
-            font-size: 1em;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
             transition: 0.3s;
+            outline: none;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
-            outline: none;
-            border-color: #e67e22;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 140, 159, 0.1);
         }
 
         .form-group textarea {
@@ -561,32 +542,27 @@
         }
 
         .submit-btn {
-            background: #e67e22;
+            background: var(--primary);
             color: white;
             border: none;
             padding: 15px 30px;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1rem;
             transition: 0.3s;
         }
 
         .submit-btn:hover {
-            background: #d35400;
-            transform: scale(1.05);
-        }
-
-        /* Lista de Comentários */
-        .comments-list {
-            margin-top: 30px;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         .comment {
             background: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 15px;
-            border: 1px solid #ecf0f1;
+            border: 1px solid var(--border);
         }
 
         .comment-header {
@@ -598,128 +574,69 @@
         }
 
         .comment-author {
-            font-weight: bold;
-            color: #2c3e50;
+            font-weight: 600;
+            color: var(--text);
         }
 
         .comment-date {
-            color: #95a5a6;
-            font-size: 0.85em;
+            color: var(--text-light);
+            font-size: 0.85rem;
         }
 
-        .comment-text {
-            color: #34495e;
-            line-height: 1.5;
-        }
-
-        /* Newsletter */
-        .newsletter {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
+        /* Footer */
+        .footer {
             text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
         }
 
-        .newsletter h3 {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            border: none;
-        }
-
-        .newsletter p {
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-
-        .newsletter-form {
+        .footer-links {
             display: flex;
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0 10px;
             flex-wrap: wrap;
         }
 
-        .newsletter-form input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        .newsletter-form button {
-            padding: 12px 20px;
-            background: #e67e22;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
             transition: 0.3s;
+            cursor: pointer;
         }
 
-        .newsletter-form button:hover {
-            background: #d35400;
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--text-light);
         }
 
         /* Mensagens */
         .loading {
             text-align: center;
             padding: 40px;
-            color: #7f8c8d;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
+            color: var(--text-light);
         }
 
         .success-message {
             background: #d4edda;
             color: #155724;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             margin: 10px 0;
         }
 
-        /* Update Info */
-        .update-info {
-            text-align: center;
-            margin: 40px 0 20px;
-            color: #95a5a6;
-            font-size: 0.9em;
-            padding: 20px;
-            border-top: 1px solid #dcdde1;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px;
-            background: #2c3e50;
-            color: #ecf0f1;
-            border-radius: 10px;
-            margin-top: 40px;
-        }
-
-        .footer p {
-            margin: 5px 0;
-        }
-
-        .footer a {
-            color: #e67e22;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
         }
 
         /* Responsividade */
@@ -735,60 +652,40 @@
 
         @media screen and (max-width: 768px) {
             .menu-btn {
-                top: 10px;
-                left: 10px;
-                font-size: 24px;
-                padding: 8px 12px;
+                top: 15px;
+                left: 15px;
+                padding: 10px 15px;
+                font-size: 20px;
             }
 
-            .home-header h1 {
-                font-size: 2em;
+            .header {
+                height: 250px;
             }
-            
-            .blog-header h2 {
-                font-size: 1.8em;
+
+            .header-overlay h1 {
+                font-size: 2.2rem;
             }
-            
-            .main-article {
-                padding: 20px;
+
+            .header-overlay p {
+                font-size: 1rem;
             }
-            
-            .article-title {
-                font-size: 1.8em;
-            }
-            
-            .quote-section blockquote {
-                font-size: 1.2em;
-            }
-            
-            .reflection p {
-                font-size: 1.1em;
-            }
-            
-            .content-cards {
+
+            .menu-cards {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
-            
-            .file-item {
+
+            .content-container {
+                padding: 25px;
+            }
+
+            .page-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .footer-links {
+                gap: 15px;
                 flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .file-icon {
-                margin-right: 0;
-            }
-            
-            .share-buttons {
-                flex-direction: column;
-            }
-            
-            .share-btn {
-                width: 100%;
-            }
-            
-            .reaction-buttons {
-                justify-content: center;
             }
         }
     </style>
@@ -798,14 +695,12 @@
     <!-- Menu Lateral -->
     <div id="sideMenu" class="side-menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
-        <a href="#" onclick="showHome(); closeMenu()">Página Inicial</a>
-        <a href="#" onclick="showBlog(); closeMenu()">Blog</a>
-        <a href="#" onclick="showHome(); closeMenu()">Artigos</a>
-        <a href="#" onclick="showHome(); closeMenu()">Reflexões</a>
-        <a href="#" onclick="showHome(); closeMenu()">Sobre</a>
-        <a href="#" onclick="showHome(); closeMenu()">Contato</a>
-        <a href="#" onclick="showHome(); closeMenu()">Recursos</a>
-        <a href="#" onclick="showHome(); closeMenu()">Arquivos</a>
+        <a href="#" onclick="showHome(); closeMenu()">🏠 Página Inicial</a>
+        <a href="#" onclick="navigateTo('objetivo'); closeMenu()">🎯 Objetivo da Psicanálise</a>
+        <a href="#" onclick="navigateTo('artigos'); closeMenu()">📝 Artigos & Reflexões</a>
+        <a href="#" onclick="navigateTo('sobre'); closeMenu()">📖 Sobre esse Projeto</a>
+        <a href="#" onclick="navigateTo('faq'); closeMenu()">❓ Perguntas Frequentes</a>
+        <a href="#" onclick="showHome(); closeMenu()">🔙 Voltar ao Menu</a>
     </div>
 
     <!-- Botão do Menu -->
@@ -814,233 +709,174 @@
     <!-- Conteúdo Principal -->
     <div class="main-content" id="mainContent">
         
-        <!-- Seção Home (visível por padrão) -->
-        <div id="homeSection">
-            <!-- Header -->
-            <header class="home-header">
+        <!-- Header com Imagem -->
+        <div class="header">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400' viewBox='0 0 1200 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236b8c9f'/%3E%3Cstop offset='100%25' stop-color='%23a8c6b0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g)'/%3E%3Ctext x='600' y='220' font-family='Arial' font-size='24' fill='white' text-anchor='middle' opacity='0.1'%3E❤️%3C/text%3E%3C/svg%3E" 
+                 alt="Header Background" class="header-image">
+            <div class="header-overlay">
                 <h1>Amor e Psicanálise</h1>
-                <p style="color: #7f8c8d; margin-top: 10px;">Reflexões que despertam o inconsciente</p>
-            </header>
-
-            <!-- Citação Principal -->
-            <div class="quote-section">
-                <blockquote>
-                    "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. De todos os modos ele deixa feridas que carregamos para sempre. Mas podemos transformar essas marcas em lições, e não em correntes."
-                </blockquote>
-                <div class="quote-author">— Gilton Vasconcelos, 2025</div>
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-                    <small style="color: #95a5a6;">📎 Arquivo incorporado: reflexao_amor_2025.pdf</small>
-                </div>
-            </div>
-
-            <!-- Reflexão -->
-            <div class="reflection">
-                <p>
-                    "Reflexões que despertam: entre o inconsciente e o amor, a psicanálise convida você a olhar para dentro e descobrir novos caminhos de autenticidade."
-                </p>
-            </div>
-
-            <!-- Cards -->
-            <div class="content-cards">
-                <div class="card">
-                    <h3>Artigos Recentes</h3>
-                    <p>Explore nossos artigos sobre psicanálise, amor e as complexidades da mente humana.</p>
-                    <a href="#" onclick="showBlog()" class="card-link">Ver Artigos →</a>
-                </div>
-                <div class="card">
-                    <h3>Reflexões Diárias</h3>
-                    <p>Pensamentos e insights para desacelerar e enxergar a vida por ângulos diferentes.</p>
-                    <a href="#" onclick="showBlog()" class="card-link">Ler Reflexões →</a>
-                </div>
-                <div class="card">
-                    <h3>Materiais de Estudo</h3>
-                    <p>Arquivos, documentos e recursos para aprofundar seus conhecimentos.</p>
-                    <a href="#" class="card-link">Acessar Recursos →</a>
-                </div>
-            </div>
-
-            <!-- Sobre -->
-            <div class="about-section">
-                <h2>Este espaço...</h2>
-                <p>
-                    Este espaço reúne palavras que tocam, questionam e inspiram. Cada texto é um convite para desacelerar, 
-                    respirar e enxergar a vida por ângulos diferentes. Aqui, reflexões se transformam em janelas abertas 
-                    para o sentir e o pensar.
-                </p>
-                <p>
-                    Este site nasce como um espaço de encontro entre ideias, palavras e experiências. Aqui, você encontrará 
-                    artigos, reflexões e conteúdos que buscam inspirar, provocar e abrir caminhos para novas formas de 
-                    pensar e sentir.
-                </p>
-            </div>
-
-            <!-- Arquivos Incorporados -->
-            <div class="embedded-files">
-                <h3>📁 Arquivos Incorporados</h3>
-                <div class="file-item">
-                    <span class="file-icon">📄</span>
-                    <div class="file-info">
-                        <h4>Introdução à Psicanálise</h4>
-                        <p>PDF • 2.3 MB • 2025</p>
-                    </div>
-                    <a href="#" class="file-download">Download</a>
-                </div>
-                <div class="file-item">
-                    <span class="file-icon">📹</span>
-                    <div class="file-info">
-                        <h4>Palestra: Amor e Inconsciente</h4>
-                        <p>MP4 • 156 MB • 45min</p>
-                    </div>
-                    <a href="#" class="file-download">Assistir</a>
-                </div>
-                <div class="file-item">
-                    <span class="file-icon">🔊</span>
-                    <div class="file-info">
-                        <h4>Podcast: Reflexões Psicanalíticas</h4>
-                        <p>MP3 • 45 MB • Episódio 12</p>
-                    </div>
-                    <a href="#" class="file-download">Ouvir</a>
-                </div>
+                <p>Um espaço para o encontro entre o sentir e o pensar</p>
             </div>
         </div>
 
-        <!-- Seção Blog (inicialmente oculta) -->
-        <div id="blogSection" style="display: none;">
-            <!-- Header do Blog -->
-            <header class="blog-header">
-                <h2>Blog Amor e Psicanálise</h2>
-                <p>Reflexões e artigos sobre psicanálise, amor e autoconhecimento</p>
-            </header>
-
-            <!-- Container do Blog -->
-            <div class="blog-container">
-                <!-- Artigo Principal -->
-                <main class="main-article" id="mainArticle">
-                    <div id="articleContent">
-                        <div class="loading">Carregando artigo mais recente...</div>
-                    </div>
-
-                    <!-- Botões de Reação -->
-                    <div class="reaction-buttons" id="reactionButtons">
-                        <button class="reaction-btn" onclick="handleReaction('like')">
-                            <span>❤️</span>
-                            <span class="reaction-count" id="likeCount">0</span>
-                            <span>Curtir</span>
-                        </button>
-                        <button class="reaction-btn" onclick="handleReaction('love')">
-                            <span>💖</span>
-                            <span class="reaction-count" id="loveCount">0</span>
-                            <span>Amar</span>
-                        </button>
-                        <button class="reaction-btn" onclick="handleReaction('insight')">
-                            <span>💡</span>
-                            <span class="reaction-count" id="insightCount">0</span>
-                            <span>Insight</span>
-                        </button>
-                    </div>
-
-                    <!-- Botões de Compartilhamento -->
-                    <div class="share-buttons">
-                        <button class="share-btn instagram" onclick="shareToInstagram()">
-                            <span>📷</span> Instagram
-                        </button>
-                        <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
-                            <span>📱</span> WhatsApp
-                        </button>
-                        <button class="share-btn twitter" onclick="shareToTwitter()">
-                            <span>🐦</span> Twitter
-                        </button>
-                        <button class="share-btn facebook" onclick="shareToFacebook()">
-                            <span>📘</span> Facebook
-                        </button>
-                    </div>
-
-                    <!-- Comentários -->
-                    <div class="comments-section">
-                        <h3>Comentários</h3>
-                        <div class="comment-form">
-                            <div class="form-group">
-                                <input type="text" id="commentName" placeholder="Seu nome" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
-                            </div>
-                            <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
-                        </div>
-                        <div class="comments-list" id="commentsList"></div>
-                    </div>
-                </main>
-
-                <!-- Sidebar -->
-                <aside class="sidebar">
-                    <h3>Artigos Anteriores</h3>
-                    <ul class="article-list" id="articleList">
-                        <li class="loading">Carregando artigos...</li>
-                    </ul>
-
-                    <!-- Newsletter -->
-                    <div class="newsletter">
-                        <h3>Receba Novos Artigos</h3>
-                        <p>Inscreva-se para ser notificado quando novos artigos forem publicados</p>
-                        <div class="newsletter-form">
-                            <input type="email" id="newsletterEmail" placeholder="Seu melhor email" required>
-                            <button onclick="subscribeNewsletter()">Inscrever</button>
-                        </div>
-                        <div id="newsletterMessage"></div>
-                    </div>
-
-                    <!-- Temas -->
-                    <h3>Temas</h3>
-                    <ul class="article-list">
-                        <li onclick="filterByTag('amor')">
-                            <span class="article-number">❤️</span> Amor
-                            <span class="article-tag">(12)</span>
-                        </li>
-                        <li onclick="filterByTag('inconsciente')">
-                            <span class="article-number">🧠</span> Inconsciente
-                            <span class="article-tag">(8)</span>
-                        </li>
-                        <li onclick="filterByTag('sonhos')">
-                            <span class="article-number">🌙</span> Sonhos
-                            <span class="article-tag">(5)</span>
-                        </li>
-                        <li onclick="filterByTag('terapia')">
-                            <span class="article-number">💭</span> Terapia
-                            <span class="article-tag">(7)</span>
-                        </li>
-                    </ul>
-                </aside>
+        <!-- Menu Cards (Home) -->
+        <div id="homeCards" class="menu-cards">
+            <div class="menu-card" onclick="navigateTo('objetivo')">
+                <span class="emoji">🎯</span>
+                <h3>Objetivo da Psicanálise</h3>
+                <p>Compreenda os fundamentos e propósitos da prática psicanalítica</p>
+            </div>
+            <div class="menu-card" onclick="navigateTo('artigos')">
+                <span class="emoji">📝</span>
+                <h3>Artigos & Reflexões</h3>
+                <p>Textos profundos sobre psicanálise, amor e autoconhecimento</p>
+            </div>
+            <div class="menu-card" onclick="navigateTo('sobre')">
+                <span class="emoji">📖</span>
+                <h3>Sobre esse Projeto</h3>
+                <p>Conheça a história e inspiração por trás deste espaço</p>
+            </div>
+            <div class="menu-card" onclick="navigateTo('faq')">
+                <span class="emoji">❓</span>
+                <h3>Perguntas Frequentes</h3>
+                <p>Respostas para as principais dúvidas sobre psicanálise</p>
             </div>
         </div>
 
-        <!-- Update Info -->
-        <div class="update-info">
-            <p>📅 Página atualizada em: fevereiro de 2026</p>
-            <p style="margin-top: 5px;">Amor e Psicanálise • Por Gilton Vasconcelos</p>
+        <!-- Container de Conteúdo (Onde as páginas serão carregadas) -->
+        <div id="contentContainer" class="content-container" style="display: none;">
+            <!-- Conteúdo será injetado via JavaScript -->
         </div>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>© Gilton Vasconcelos 2025-2026</p>
-            <p>Todos os direitos reservados</p>
-            <p style="margin-top: 15px; font-size: 0.9em;">
-                <a href="#">Política de Privacidade</a> • 
-                <a href="#">Termos de Uso</a> • 
-                <a href="#">Contato</a>
-            </p>
+            <div class="footer-links">
+                <a href="#" onclick="showTerms()">Termos de Uso</a>
+                <a href="#" onclick="showPrivacy()">Política de Privacidade</a>
+            </div>
+            <div class="copyright">
+                © 2026 Gilton Vasconcelos. Todos os direitos reservados.
+            </div>
         </footer>
     </div>
 
     <script>
-        // Artigos de exemplo
+        // Dados das páginas
+        const pages = {
+            objetivo: {
+                title: "Objetivo da Psicanálise",
+                content: `
+                    <div class="page-content">
+                        <h1>🎯 Objetivo da Psicanálise</h1>
+                        
+                        <p>A psicanálise, fundada por Sigmund Freud no final do século XIX, tem como objetivo central tornar consciente o inconsciente. Através da fala e da escuta analítica, busca-se compreender os conflitos psíquicos que estão na raiz do sofrimento humano.</p>
+                        
+                        <h2>Principais Objetivos</h2>
+                        
+                        <p><strong>1. Autoconhecimento profundo:</strong> A psicanálise convida o indivíduo a olhar para dentro, reconhecendo padrões repetitivos, defesas e desejos inconscientes que influenciam suas escolhas e relações.</p>
+                        
+                        <p><strong>2. Elaboração de conflitos:</strong> Mais do que "resolver problemas", a análise ajuda a elaborar conflitos, dando novos significados a experiências passadas e presentes.</p>
+                        
+                        <p><strong>3. Ampliação da liberdade psíquica:</strong> Ao conhecer as determinações inconscientes, o sujeito pode fazer escolhas mais autênticas, menos reféns de repetições automáticas.</p>
+                        
+                        <p><strong>4. Alívio do sofrimento:</strong> O sintoma, na visão psicanalítica, não é um inimigo a ser eliminado, mas uma mensagem a ser decifrada. Compreendê-lo traz alívio e transformação.</p>
+                        
+                        <blockquote>
+                            "A psicanálise é um instrumento que permite ao eu conquistar progressivamente mais território do inconsciente." - Sigmund Freud
+                        </blockquote>
+                        
+                        <p>Na clínica contemporânea, o objetivo permanece o mesmo: oferecer um espaço de escuta respeitosa onde o sujeito possa se descobrir e se reconstruir.</p>
+                    </div>
+                `
+            },
+            sobre: {
+                title: "Sobre esse Projeto",
+                content: `
+                    <div class="page-content">
+                        <h1>📖 Sobre esse Projeto</h1>
+                        
+                        <p>Este espaço nasce do encontro entre duas paixões: a psicanálise e a escrita. Mais do que um site, é um convite para desacelerar, respirar e olhar para dentro.</p>
+                        
+                        <h2>Nossa Inspiração</h2>
+                        
+                        <p>A ideia surgiu da percepção de que, em meio à correria do dia a dia, poucas pausas temos para refletir sobre o que realmente sentimos e pensamos. A psicanálise nos ensina que é justamente nessas pausas que o inconsciente fala.</p>
+                        
+                        <p>Cada texto publicado aqui é cuidadosamente elaborado para provocar questionamentos, acolher dúvidas e iluminar caminhos. Não oferecemos respostas prontas, mas perguntas que fazem pensar.</p>
+                        
+                        <h2>Nossa Missão</h2>
+                        
+                        <p>Democratizar o acesso a reflexões psicanalíticas de qualidade, em uma linguagem acessível mas sem perder a profundidade. Acreditamos que a psicanálise não deve ficar restrita aos consultórios, mas pode inspirar qualquer pessoa interessada em se conhecer melhor.</p>
+                        
+                        <blockquote>
+                            "O encontro com a psicanálise é, antes de tudo, um encontro consigo mesmo."
+                        </blockquote>
+                        
+                        <p>Seja bem-vindo(a). Sinta-se em casa para ler, refletir, questionar e compartilhar.</p>
+                        
+                        <p style="margin-top: 30px; font-style: italic;">— Gilton Vasconcelos</p>
+                    </div>
+                `
+            },
+            faq: {
+                title: "Perguntas Frequentes",
+                content: `
+                    <div class="page-content">
+                        <h1>❓ Perguntas Frequentes</h1>
+                        
+                        <div class="faq-item">
+                            <h3 onclick="toggleFaq(this)">O que é psicanálise? <span>▼</span></h3>
+                            <div class="faq-answer">
+                                A psicanálise é uma teoria psicológica, um método de investigação e uma prática clínica criada por Sigmund Freud. Ela estuda o inconsciente, seus mecanismos e manifestações, e oferece um tratamento baseado na fala e na escuta.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 onclick="toggleFaq(this)">Qual a diferença entre psicanálise e psicologia? <span>▼</span></h3>
+                            <div class="faq-answer">
+                                A psicologia é um campo mais amplo que estuda o comportamento e os processos mentais. A psicanálise é uma das abordagens dentro da psicologia, focada no inconsciente e nos conflitos psíquicos. Outras abordagens incluem a terapia cognitivo-comportamental, a humanista, entre outras.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 onclick="toggleFaq(this)">Para quem a psicanálise é indicada? <span>▼</span></h3>
+                            <div class="faq-answer">
+                                Para qualquer pessoa que queira se conhecer melhor, que esteja passando por sofrimento psíquico (ansiedade, depressão, conflitos relacionais) ou que deseje compreender padrões repetitivos em sua vida. Não é necessário ter um transtorno mental para buscar análise.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 onclick="toggleFaq(this)">Quanto tempo dura uma análise? <span>▼</span></h3>
+                            <div class="faq-answer">
+                                Não há um tempo pré-determinado. Pode durar meses ou anos, dependendo dos objetivos de cada pessoa. A psicanálise trabalha com a ideia de que transformações profundas levam tempo e exigem um percurso singular para cada sujeito.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 onclick="toggleFaq(this)">Preciso estar em crise para fazer análise? <span>▼</span></h3>
+                            <div class="faq-answer">
+                                Não. Muitas pessoas buscam a análise simplesmente por desejo de autoconhecimento, para entender melhor suas emoções, relações e escolhas. A análise pode ser um espaço de crescimento pessoal, não apenas de tratamento de crises.
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h3 onclick="toggleFaq(this)">Como escolher um psicanalista? <span>▼</span></h3>
+                            <div class="faq-answer">
+                                O mais importante é sentir-se acolhido e confiante com o profissional. Você pode buscar indicações, verificar a formação do analista e, se possível, marcar uma primeira conversa para sentir se há conexão. A relação analítica é única e a confiança é fundamental.
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Artigos para o blog
         const articles = [
             {
-                id: 5,
+                id: 3,
                 title: "O Inconsciente e o Amor",
                 date: "28 de fevereiro de 2026",
                 author: "Gilton Vasconcelos",
                 theme: "amor",
-                excerpt: "Uma reflexão profunda sobre como o inconsciente influencia nossas escolhas amorosas...",
                 content: `
                     <h2>A Linguagem do Inconsciente no Amor</h2>
                     <p>O amor, em sua essência mais profunda, dialoga diretamente com nosso inconsciente. As escolhas amorosas, os padrões que se repetem, as atrações inexplicáveis - tudo isso carrega as marcas de nossa história psíquica.</p>
@@ -1052,13 +888,11 @@
                     
                     <h2>Transferência e Amor</h2>
                     <p>O conceito de transferência nos ensina que todo amor é, em alguma medida, uma reedição. Amamos hoje com as cores do passado, mas temos a oportunidade de, na análise, escrever novos roteiros.</p>
-                    
-                    <p>O desafio é transformar o amor de repetição em amor de criação - um amor que não apenas revive feridas, mas as elabora e as transcende.</p>
                 `,
-                tags: ["amor", "inconsciente", "psicanálise"]
+                tags: ["amor", "inconsciente"]
             },
             {
-                id: 4,
+                id: 2,
                 title: "A Interpretação dos Sonhos",
                 date: "20 de fevereiro de 2026",
                 author: "Gilton Vasconcelos",
@@ -1070,16 +904,16 @@
                     <blockquote>"O sonho é a realização (disfarçada) de um desejo (reprimido)." - Sigmund Freud</blockquote>
                     
                     <h2>O Trabalho do Sonho</h2>
-                    <p>Condensação, deslocamento, figuração e elaboração secundária são os mecanismos pelos quais o conteúdo latente (o desejo inconsciente) se transforma em conteúdo manifesto (o sonho que lembramos).</p>
+                    <p>Condensação, deslocamento, figuração e elaboração secundária são os mecanismos pelos quais o conteúdo latente se transforma em conteúdo manifesto.</p>
                 `,
-                tags: ["sonhos", "inconsciente", "freud"]
+                tags: ["sonhos", "freud"]
             },
             {
-                id: 3,
+                id: 1,
                 title: "A Clínica Psicanalítica Hoje",
                 date: "15 de fevereiro de 2026",
                 author: "Gilton Vasconcelos",
-                theme: "terapia",
+                theme: "clinica",
                 content: `
                     <h2>Psicanálise no Século XXI</h2>
                     <p>A clínica psicanalítica contemporânea enfrenta novos desafios: as relações virtuais, a aceleração do tempo, a fragmentação dos discursos. Como a escuta analítica pode responder a essas questões?</p>
@@ -1087,18 +921,20 @@
                     <h2>Novos Sintomas</h2>
                     <p>Ansiedade, pânico, depressão - os chamados "novos sintomas" pedem uma clínica que dialogue com seu tempo, sem abandonar os fundamentos da psicanálise.</p>
                 `,
-                tags: ["terapia", "clínica", "contemporâneo"]
+                tags: ["clínica", "contemporâneo"]
             }
         ];
 
-        let currentArticleId = null;
+        // Estado da aplicação
+        let currentPage = null;
+        let currentArticleId = articles[0].id;
         let comments = JSON.parse(localStorage.getItem('comments')) || [];
         let reactions = JSON.parse(localStorage.getItem('reactions')) || { like: 0, love: 0, insight: 0 };
 
         // Funções do Menu
         function openMenu() {
-            document.getElementById("sideMenu").style.width = "250px";
-            document.getElementById("mainContent").style.marginLeft = "250px";
+            document.getElementById("sideMenu").style.width = "280px";
+            document.getElementById("mainContent").style.marginLeft = "280px";
             if (window.innerWidth <= 768) {
                 document.getElementById("mainContent").style.marginLeft = "0";
             }
@@ -1109,37 +945,154 @@
             document.getElementById("mainContent").style.marginLeft = "0";
         }
 
-        // Navegação entre seções
+        // Funções de Navegação
         function showHome() {
-            document.getElementById('homeSection').style.display = 'block';
-            document.getElementById('blogSection').style.display = 'none';
+            document.getElementById('homeCards').style.display = 'grid';
+            document.getElementById('contentContainer').style.display = 'none';
+            currentPage = null;
         }
 
-        function showBlog() {
-            document.getElementById('homeSection').style.display = 'none';
-            document.getElementById('blogSection').style.display = 'block';
-            loadLatestArticle();
-            loadArticleList();
-            displayComments();
-        }
-
-        // Funções do Blog
-        function loadLatestArticle() {
-            const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
-            displayArticle(latestArticle);
-        }
-
-        function loadArticle(articleId) {
-            const article = articles.find(a => a.id === articleId);
-            if (article) {
-                displayArticle(article);
+        function navigateTo(page) {
+            document.getElementById('homeCards').style.display = 'none';
+            document.getElementById('contentContainer').style.display = 'block';
+            
+            if (page === 'artigos') {
+                loadBlogPage();
+            } else {
+                loadSimplePage(page);
             }
         }
 
-        function displayArticle(article) {
-            currentArticleId = article.id;
-            const content = document.getElementById('articleContent');
-            content.innerHTML = `
+        function loadSimplePage(page) {
+            const pageData = pages[page];
+            if (!pageData) return;
+
+            let html = pageData.content;
+            
+            // Adicionar botões de ação
+            html += `
+                <div class="page-actions">
+                    <button class="action-btn" onclick="handleReaction('like', '${page}')">
+                        <span>❤️</span>
+                        <span id="likeCount_${page}">${reactions.like || 0}</span>
+                        <span>Curtir</span>
+                    </button>
+                    <button class="action-btn" onclick="handleReaction('love', '${page}')">
+                        <span>💖</span>
+                        <span id="loveCount_${page}">${reactions.love || 0}</span>
+                        <span>Amar</span>
+                    </button>
+                    <button class="action-btn" onclick="shareToWhatsApp()">
+                        <span>📱</span> WhatsApp
+                    </button>
+                    <button class="action-btn" onclick="shareToTwitter()">
+                        <span>🐦</span> Twitter
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('contentContainer').innerHTML = html;
+            currentPage = page;
+        }
+
+        function loadBlogPage() {
+            const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
+            currentArticleId = latestArticle.id;
+            
+            let html = `
+                <div class="blog-container">
+                    <main class="main-article">
+                        <div id="articleContent">
+                            ${renderArticle(latestArticle)}
+                        </div>
+
+                        <!-- Botões de Reação -->
+                        <div class="reaction-buttons">
+                            <button class="action-btn" onclick="handleBlogReaction('like')">
+                                <span>❤️</span>
+                                <span id="blogLikeCount">${reactions.like || 0}</span>
+                                <span>Curtir</span>
+                            </button>
+                            <button class="action-btn" onclick="handleBlogReaction('love')">
+                                <span>💖</span>
+                                <span id="blogLoveCount">${reactions.love || 0}</span>
+                                <span>Amar</span>
+                            </button>
+                            <button class="action-btn" onclick="handleBlogReaction('insight')">
+                                <span>💡</span>
+                                <span id="blogInsightCount">${reactions.insight || 0}</span>
+                                <span>Insight</span>
+                            </button>
+                        </div>
+
+                        <!-- Botões de Compartilhamento -->
+                        <div class="share-buttons" style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                            <button class="action-btn" onclick="shareToWhatsApp()">📱 WhatsApp</button>
+                            <button class="action-btn" onclick="shareToTwitter()">🐦 Twitter</button>
+                            <button class="action-btn" onclick="shareToFacebook()">📘 Facebook</button>
+                            <button class="action-btn" onclick="shareToInstagram()">📷 Instagram</button>
+                        </div>
+
+                        <!-- Comentários -->
+                        <div class="comments-section">
+                            <h3>Comentários</h3>
+                            <div class="comment-form">
+                                <div class="form-group">
+                                    <input type="text" id="commentName" placeholder="Seu nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
+                                </div>
+                                <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
+                            </div>
+                            <div class="comments-list" id="commentsList">
+                                ${renderComments()}
+                            </div>
+                        </div>
+                    </main>
+
+                    <aside class="sidebar">
+                        <h3>Artigos Anteriores</h3>
+                        <ul class="article-list">
+                            ${renderArticleList()}
+                        </ul>
+
+                        <!-- Newsletter -->
+                        <div class="newsletter">
+                            <h4>Receba Novos Artigos</h4>
+                            <p>Inscreva-se para ser notificado</p>
+                            <div class="newsletter-form">
+                                <input type="email" id="newsletterEmail" placeholder="Seu email">
+                                <button onclick="subscribeNewsletter()">Inscrever</button>
+                            </div>
+                            <div id="newsletterMessage"></div>
+                        </div>
+
+                        <h3>Temas</h3>
+                        <ul class="article-list">
+                            <li onclick="filterByTag('amor')">
+                                <span class="article-number">❤️</span> Amor
+                                <span class="article-tag">(2)</span>
+                            </li>
+                            <li onclick="filterByTag('sonhos')">
+                                <span class="article-number">🌙</span> Sonhos
+                                <span class="article-tag">(1)</span>
+                            </li>
+                            <li onclick="filterByTag('clinica')">
+                                <span class="article-number">💭</span> Clínica
+                                <span class="article-tag">(1)</span>
+                            </li>
+                        </ul>
+                    </aside>
+                </div>
+            `;
+
+            document.getElementById('contentContainer').innerHTML = html;
+            currentPage = 'artigos';
+        }
+
+        function renderArticle(article) {
+            return `
                 <div class="article-meta">
                     <span>📅 ${article.date}</span>
                     <span>✍️ ${article.author}</span>
@@ -1150,32 +1103,66 @@
                     ${article.content}
                 </div>
             `;
-            updateReactionCounts();
         }
 
-        function loadArticleList() {
-            const listElement = document.getElementById('articleList');
-            const sortedArticles = articles.sort((a, b) => b.id - a.id);
-            
-            listElement.innerHTML = sortedArticles.map(article => `
+        function renderArticleList() {
+            return articles.sort((a, b) => b.id - a.id).map(article => `
                 <li onclick="loadArticle(${article.id})">
                     <span class="article-number">#${article.id}</span>
                     <h4>${article.title}</h4>
                     <p>${article.date}</p>
-                    <small>Tema: ${article.theme}</small>
                 </li>
             `).join('');
         }
 
+        function renderComments() {
+            const articleComments = comments.filter(c => c.articleId === currentArticleId);
+            if (articleComments.length === 0) {
+                return '<p style="color: var(--text-light); text-align: center;">Seja o primeiro a comentar!</p>';
+            }
+            return articleComments.sort((a, b) => b.id - a.id).map(comment => `
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-date">${comment.date} às ${comment.time}</span>
+                    </div>
+                    <div class="comment-text">${comment.text}</div>
+                </div>
+            `).join('');
+        }
+
+        // Funções do Blog
+        function loadArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (article) {
+                currentArticleId = articleId;
+                document.getElementById('articleContent').innerHTML = renderArticle(article);
+                document.getElementById('commentsList').innerHTML = renderComments();
+                updateBlogReactionCounts();
+            }
+        }
+
+        function filterByTag(tag) {
+            const filteredArticles = articles.filter(a => a.theme === tag);
+            const listElement = document.querySelector('.article-list');
+            if (listElement) {
+                listElement.innerHTML = filteredArticles.map(article => `
+                    <li onclick="loadArticle(${article.id})">
+                        <span class="article-number">#${article.id}</span>
+                        <h4>${article.title}</h4>
+                        <p>${article.date}</p>
+                    </li>
+                `).join('');
+            }
+        }
+
         // Reações
-        function handleReaction(type) {
-            if (!currentArticleId) return;
-            
-            const storageKey = `reaction_${currentArticleId}_${type}`;
+        function handleReaction(type, page) {
+            const storageKey = `reaction_${page}_${type}`;
             const userReaction = localStorage.getItem(storageKey);
             
             if (userReaction) {
-                reactions[type] = Math.max(0, reactions[type] - 1);
+                reactions[type] = Math.max(0, (reactions[type] || 0) - 1);
                 localStorage.removeItem(storageKey);
             } else {
                 reactions[type] = (reactions[type] || 0) + 1;
@@ -1183,42 +1170,53 @@
             }
             
             localStorage.setItem('reactions', JSON.stringify(reactions));
-            updateReactionCounts();
             
-            const btn = event.currentTarget;
-            btn.classList.toggle('liked');
+            const countElement = document.getElementById(`${type}Count_${page}`);
+            if (countElement) {
+                countElement.textContent = reactions[type] || 0;
+            }
         }
 
-        function updateReactionCounts() {
-            document.getElementById('likeCount').textContent = reactions.like || 0;
-            document.getElementById('loveCount').textContent = reactions.love || 0;
-            document.getElementById('insightCount').textContent = reactions.insight || 0;
+        function handleBlogReaction(type) {
+            const storageKey = `reaction_article_${currentArticleId}_${type}`;
+            const userReaction = localStorage.getItem(storageKey);
+            
+            if (userReaction) {
+                reactions[type] = Math.max(0, (reactions[type] || 0) - 1);
+                localStorage.removeItem(storageKey);
+            } else {
+                reactions[type] = (reactions[type] || 0) + 1;
+                localStorage.setItem(storageKey, 'true');
+            }
+            
+            localStorage.setItem('reactions', JSON.stringify(reactions));
+            updateBlogReactionCounts();
+        }
+
+        function updateBlogReactionCounts() {
+            document.getElementById('blogLikeCount').textContent = reactions.like || 0;
+            document.getElementById('blogLoveCount').textContent = reactions.love || 0;
+            document.getElementById('blogInsightCount').textContent = reactions.insight || 0;
         }
 
         // Compartilhamento
-        function shareToInstagram() {
-            const article = articles.find(a => a.id === currentArticleId);
-            if (!article) return;
-            navigator.clipboard.writeText(window.location.href);
-            alert('Link copiado! Agora você pode colar no Instagram.');
-        }
-
         function shareToWhatsApp() {
-            const article = articles.find(a => a.id === currentArticleId);
-            if (!article) return;
-            const text = encodeURIComponent(`${article.title}\n\nLeia mais em: ${window.location.href}`);
-            window.open(`https://wa.me/?text=${text}`, '_blank');
+            const text = encodeURIComponent('Confira este conteúdo do Amor e Psicanálise');
+            window.open(`https://wa.me/?text=${text}%20${window.location.href}`, '_blank');
         }
 
         function shareToTwitter() {
-            const article = articles.find(a => a.id === currentArticleId);
-            if (!article) return;
-            const text = encodeURIComponent(`${article.title} - Amor e Psicanálise`);
+            const text = encodeURIComponent('Amor e Psicanálise');
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${window.location.href}`, '_blank');
         }
 
         function shareToFacebook() {
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank');
+        }
+
+        function shareToInstagram() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copiado! Agora você pode colar no Instagram.');
         }
 
         // Comentários
@@ -1245,34 +1243,9 @@
             
             document.getElementById('commentName').value = '';
             document.getElementById('commentText').value = '';
+            document.getElementById('commentsList').innerHTML = renderComments();
             
-            displayComments();
-            
-            const successMsg = document.createElement('div');
-            successMsg.className = 'success-message';
-            successMsg.textContent = 'Comentário enviado com sucesso!';
-            document.querySelector('.comment-form').appendChild(successMsg);
-            setTimeout(() => successMsg.remove(), 3000);
-        }
-
-        function displayComments() {
-            const articleComments = comments.filter(c => c.articleId === currentArticleId);
-            const listElement = document.getElementById('commentsList');
-            
-            if (articleComments.length === 0) {
-                listElement.innerHTML = '<p style="color: #95a5a6; text-align: center;">Seja o primeiro a comentar!</p>';
-                return;
-            }
-            
-            listElement.innerHTML = articleComments.sort((a, b) => b.id - a.id).map(comment => `
-                <div class="comment">
-                    <div class="comment-header">
-                        <span class="comment-author">${comment.author}</span>
-                        <span class="comment-date">${comment.date} às ${comment.time}</span>
-                    </div>
-                    <div class="comment-text">${comment.text}</div>
-                </div>
-            `).join('');
+            showMessage('Comentário enviado com sucesso!', 'success');
         }
 
         // Newsletter
@@ -1281,7 +1254,7 @@
             const messageDiv = document.getElementById('newsletterMessage');
             
             if (!email || !email.includes('@')) {
-                messageDiv.innerHTML = '<div class="error-message">Por favor, insira um email válido.</div>';
+                messageDiv.innerHTML = '<div class="error-message">Email inválido</div>';
                 return;
             }
             
@@ -1289,49 +1262,128 @@
             if (!subscribers.includes(email)) {
                 subscribers.push(email);
                 localStorage.setItem('subscribers', JSON.stringify(subscribers));
-                messageDiv.innerHTML = '<div class="success-message">Inscrição realizada com sucesso!</div>';
+                messageDiv.innerHTML = '<div class="success-message">Inscrição realizada!</div>';
                 document.getElementById('newsletterEmail').value = '';
             } else {
-                messageDiv.innerHTML = '<div class="error-message">Este email já está inscrito.</div>';
+                messageDiv.innerHTML = '<div class="error-message">Email já inscrito</div>';
             }
             
             setTimeout(() => messageDiv.innerHTML = '', 3000);
         }
 
-        // Filtrar por tema
-        function filterByTag(tag) {
-            const filteredArticles = articles.filter(a => a.theme === tag);
-            const listElement = document.getElementById('articleList');
+        // FAQ
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('span');
             
-            listElement.innerHTML = filteredArticles.sort((a, b) => b.id - a.id).map(article => `
-                <li onclick="loadArticle(${article.id})">
-                    <span class="article-number">#${article.id}</span>
-                    <h4>${article.title}</h4>
-                    <p>${article.date}</p>
-                </li>
-            `).join('');
-            
-            if (filteredArticles.length === 0) {
-                listElement.innerHTML = '<li>Nenhum artigo encontrado para este tema.</li>';
+            if (answer.style.display === 'none' || !answer.style.display) {
+                answer.style.display = 'block';
+                arrow.textContent = '▲';
+            } else {
+                answer.style.display = 'none';
+                arrow.textContent = '▼';
             }
+        }
+
+        // Termos e Políticas
+        function showTerms() {
+            document.getElementById('homeCards').style.display = 'none';
+            document.getElementById('contentContainer').style.display = 'block';
+            
+            document.getElementById('contentContainer').innerHTML = `
+                <div class="page-content">
+                    <h1>Termos de Uso</h1>
+                    <p><strong>Última atualização:</strong> 28 de fevereiro de 2026</p>
+                    
+                    <h2>1. Aceitação dos Termos</h2>
+                    <p>Ao acessar e usar este site, você concorda em cumprir estes termos de uso. Se você não concordar com alguma parte destes termos, não utilize nosso site.</p>
+                    
+                    <h2>2. Uso do Conteúdo</h2>
+                    <p>Todo o conteúdo disponível neste site (textos, imagens, reflexões) é de propriedade de Gilton Vasconcelos, salvo indicação em contrário. Você pode compartilhar os links e trechos, desde que credite a fonte. A reprodução integral sem autorização prévia não é permitida.</p>
+                    
+                    <h2>3. Comentários e Interações</h2>
+                    <p>Ao comentar em nosso site, você concede o direito de moderar e publicar seu comentário. Não serão tolerados discursos de ódio, spam ou conteúdo ofensivo.</p>
+                    
+                    <h2>4. Limitação de Responsabilidade</h2>
+                    <p>O conteúdo deste site é para fins informativos e reflexivos, não substituindo acompanhamento profissional em saúde mental. Consulte sempre um profissional qualificado.</p>
+                    
+                    <h2>5. Alterações nos Termos</h2>
+                    <p>Podemos atualizar estes termos periodicamente. Recomendamos revisar esta página regularmente.</p>
+                    
+                    <div class="page-actions">
+                        <button class="action-btn" onclick="showHome()">← Voltar ao Início</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showPrivacy() {
+            document.getElementById('homeCards').style.display = 'none';
+            document.getElementById('contentContainer').style.display = 'block';
+            
+            document.getElementById('contentContainer').innerHTML = `
+                <div class="page-content">
+                    <h1>Política de Privacidade</h1>
+                    <p><strong>Última atualização:</strong> 28 de fevereiro de 2026</p>
+                    
+                    <h2>1. Informações que Coletamos</h2>
+                    <p><strong>Comentários:</strong> Quando você deixa um comentário, coletamos seu nome e o conteúdo do comentário. Estes dados são armazenados apenas localmente no seu navegador.</p>
+                    
+                    <p><strong>Newsletter:</strong> Se você se inscrever, coletamos seu e-mail para enviar notificações de novos conteúdos. Você pode cancelar a qualquer momento.</p>
+                    
+                    <p><strong>Reações:</strong> As reações (curtir, amar, etc.) são armazenadas localmente para melhorar sua experiência.</p>
+                    
+                    <h2>2. Como Usamos suas Informações</h2>
+                    <p>Usamos suas informações apenas para: responder a comentários, enviar newsletters (se você optar por recebê-las) e melhorar a experiência do site. Não vendemos ou compartilhamos seus dados com terceiros.</p>
+                    
+                    <h2>3. Cookies</h2>
+                    <p>Este site utiliza localStorage do navegador para armazenar suas preferências (reações, comentários, inscrições). Nenhum dado é enviado para servidores externos.</p>
+                    
+                    <h2>4. Seus Direitos</h2>
+                    <p>Você pode solicitar a exclusão de seus comentários ou dados de newsletter a qualquer momento, entrando em contato.</p>
+                    
+                    <h2>5. Contato</h2>
+                    <p>Para questões sobre privacidade: [seu-email@exemplo.com]</p>
+                    
+                    <div class="page-actions">
+                        <button class="action-btn" onclick="showHome()">← Voltar ao Início</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Utilitários
+        function showMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = type === 'success' ? 'success-message' : 'error-message';
+            msg.textContent = text;
+            document.querySelector('.comment-form').appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
         }
 
         // Ajuste de menu para telas pequenas
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 768) {
-                if (document.getElementById("sideMenu").style.width === "250px") {
+                if (document.getElementById("sideMenu").style.width === "280px") {
                     document.getElementById("mainContent").style.marginLeft = "0";
                 }
             } else {
-                if (document.getElementById("sideMenu").style.width === "250px") {
-                    document.getElementById("mainContent").style.marginLeft = "250px";
+                if (document.getElementById("sideMenu").style.width === "280px") {
+                    document.getElementById("mainContent").style.marginLeft = "280px";
                 }
             }
         });
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            showHome(); // Mostra a home por padrão
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('sideMenu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (menu.style.width === '280px' && 
+                !menu.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                closeMenu();
+            }
         });
     </script>
 
