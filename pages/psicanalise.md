@@ -1,3 +1,11 @@
+---
+title: "A Psicanálise"
+date: 2026-02-28
+author: "Gilton Vasconcelos"
+layout: default
+---
+
+"Reflexões que despertam: entre o inconsciente e o amor..."
 
 # A Psicanálise
 ### "Reflexões que despertam: entre o inconsciente e o amor, a psicanálise convida você a olhar para dentro e descobrir novos caminhos de autenticidade."
