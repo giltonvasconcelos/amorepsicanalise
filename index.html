@@ -1133,11 +1133,7 @@ function renderBlog() {
     document.getElementById('pageContent').innerHTML = html;
     currentPage = 'blog';
 
-    // Inicializar carregando os artigos
-document.addEventListener('DOMContentLoaded', () => {
-    showHome();
-    loadArticlesFromMD(); // Carrega os artigos em background
-});
+   
 }
 
         
@@ -1374,6 +1370,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 !menuBtn.contains(event.target)) {
                 closeMenu();
             }
+
+             // Inicializar carregando os artigos
+document.addEventListener('DOMContentLoaded', () => {
+    showHome();
+    loadArticlesFromMD(); // Carrega os artigos em background
+});
         });
     </script>
 
