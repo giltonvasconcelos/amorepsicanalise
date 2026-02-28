@@ -1,1 +1,997 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Amor e Psicanálise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9eef5 100%);
+            min-height: 100vh;
+        }
+
+        /* Menu Lateral */
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #2c3e50 0%, #1a2632 100%);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .side-menu a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ecf0f1;
+            display: block;
+            transition: 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .side-menu a:hover {
+            background-color: #34495e;
+            border-left: 3px solid #e67e22;
+            padding-left: 30px;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            padding: 0;
+            color: #ecf0f1;
+        }
+
+        .side-menu .close-btn:hover {
+            background: none;
+            border-left: none;
+            color: #e67e22;
+        }
+
+        /* Botão do Menu */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .menu-btn:hover {
+            background-color: #34495e;
+            transform: scale(1.05);
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            transition: margin-left 0.5s;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header do Blog */
+        .blog-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .blog-header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .blog-header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        /* Layout do Blog */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Artigo Principal */
+        .main-article {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 20px;
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .article-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .article-content {
+            color: #34495e;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .article-content h2 {
+            color: #2c3e50;
+            margin: 30px 0 15px;
+            font-size: 1.6em;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #e67e22;
+            padding: 20px 30px;
+            margin: 30px 0;
+            background: #f8f9fa;
+            font-style: italic;
+            color: #2c3e50;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Barra Lateral */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            border-left: 3px solid #e67e22;
+            padding-left: 15px;
+        }
+
+        /* Lista de Artigos */
+        .article-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .article-list li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .article-list li:hover {
+            border-color: #e67e22;
+            transform: translateX(5px);
+        }
+
+        .article-list .article-number {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+
+        .article-list .article-tag {
+            font-size: 0.8em;
+            color: #e67e22;
+            margin-left: 10px;
+        }
+
+        .article-list h4 {
+            color: #2c3e50;
+            margin: 5px 0;
+        }
+
+        .article-list p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        /* Botões de Reação */
+        .reaction-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 40px 0 30px;
+            padding: 20px 0;
+            border-top: 2px solid #ecf0f1;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .reaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            background: #f8f9fa;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1em;
+        }
+
+        .reaction-btn:hover {
+            background: #e67e22;
+            color: white;
+        }
+
+        .reaction-btn.liked {
+            background: #e67e22;
+            color: white;
+        }
+
+        .reaction-count {
+            font-weight: bold;
+        }
+
+        /* Botões de Compartilhamento */
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+
+        .share-btn.instagram {
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+        }
+
+        .share-btn.whatsapp {
+            background: #25D366;
+        }
+
+        .share-btn.twitter {
+            background: #1DA1F2;
+        }
+
+        .share-btn.facebook {
+            background: #4267B2;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Seção de Comentários */
+        .comments-section {
+            margin: 40px 0;
+        }
+
+        .comments-section h3 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+        }
+
+        .comment-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e67e22;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #d35400;
+            transform: scale(1.05);
+        }
+
+        /* Lista de Comentários */
+        .comments-list {
+            margin-top: 30px;
+        }
+
+        .comment {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ecf0f1;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .comment-date {
+            color: #95a5a6;
+            font-size: 0.85em;
+        }
+
+        .comment-text {
+            color: #34495e;
+            line-height: 1.5;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border: none;
+        }
+
+        .newsletter p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .newsletter-form button {
+            padding: 15px 30px;
+            background: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #d35400;
+            transform: scale(1.05);
+        }
+
+        /* Loading e Mensagens */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 1024px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .blog-header h1 {
+                font-size: 2em;
+            }
+            
+            .main-article {
+                padding: 20px;
+            }
+            
+            .article-title {
+                font-size: 1.8em;
+            }
+            
+            .reaction-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="index.html">Página Inicial</a>
+        <a href="blog.html" class="active">Blog</a>
+        <a href="artigos.html">Artigos</a>
+        <a href="reflexoes.html">Reflexões</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+    </div>
+
+    <!-- Botão do Menu -->
+    <button class="menu-btn" onclick="openMenu()">☰</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content" id="mainContent">
+        
+        <!-- Header do Blog -->
+        <header class="blog-header">
+            <h1>Blog Amor e Psicanálise</h1>
+            <p>Reflexões e artigos sobre psicanálise, amor e autoconhecimento</p>
+        </header>
+
+        <!-- Container do Blog -->
+        <div class="blog-container">
+            <!-- Artigo Principal -->
+            <main class="main-article" id="mainArticle">
+                <div id="articleContent">
+                    <!-- Conteúdo será carregado via JavaScript -->
+                    <div class="loading">Carregando artigo mais recente...</div>
+                </div>
+
+                <!-- Botões de Reação -->
+                <div class="reaction-buttons" id="reactionButtons">
+                    <button class="reaction-btn" onclick="handleReaction('like')">
+                        <span>❤️</span>
+                        <span class="reaction-count" id="likeCount">0</span>
+                        <span>Curtir</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('love')">
+                        <span>💖</span>
+                        <span class="reaction-count" id="loveCount">0</span>
+                        <span>Amar</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('insight')">
+                        <span>💡</span>
+                        <span class="reaction-count" id="insightCount">0</span>
+                        <span>Insight</span>
+                    </button>
+                </div>
+
+                <!-- Botões de Compartilhamento -->
+                <div class="share-buttons">
+                    <button class="share-btn instagram" onclick="shareToInstagram()">
+                        <span>📷</span> Instagram
+                    </button>
+                    <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
+                        <span>📱</span> WhatsApp
+                    </button>
+                    <button class="share-btn twitter" onclick="shareToTwitter()">
+                        <span>🐦</span> Twitter
+                    </button>
+                    <button class="share-btn facebook" onclick="shareToFacebook()">
+                        <span>📘</span> Facebook
+                    </button>
+                </div>
+
+                <!-- Seção de Comentários -->
+                <div class="comments-section">
+                    <h3>Comentários</h3>
+                    
+                    <!-- Formulário de Comentário -->
+                    <div class="comment-form">
+                        <div class="form-group">
+                            <input type="text" id="commentName" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
+                        </div>
+                        <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
+                    </div>
+
+                    <!-- Lista de Comentários -->
+                    <div class="comments-list" id="commentsList">
+                        <!-- Comentários serão carregados aqui -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- Barra Lateral -->
+            <aside class="sidebar">
+                <h3>Artigos Anteriores</h3>
+                <ul class="article-list" id="articleList">
+                    <!-- Lista será carregada via JavaScript -->
+                    <li class="loading">Carregando artigos...</li>
+                </ul>
+
+                <!-- Newsletter -->
+                <div class="newsletter">
+                    <h3>Receba Novos Artigos</h3>
+                    <p>Inscreva-se para ser notificado quando novos artigos forem publicados</p>
+                    <div class="newsletter-form">
+                        <input type="email" id="newsletterEmail" placeholder="Seu melhor email" required>
+                        <button onclick="subscribeNewsletter()">Inscrever</button>
+                    </div>
+                    <div id="newsletterMessage"></div>
+                </div>
+
+                <!-- Temas Populares -->
+                <h3 style="margin-top: 30px;">Temas</h3>
+                <ul class="article-list">
+                    <li onclick="filterByTag('amor')">
+                        <span class="article-number">❤️</span> Amor
+                        <span class="article-tag">(12)</span>
+                    </li>
+                    <li onclick="filterByTag('inconsciente')">
+                        <span class="article-number">🧠</span> Inconsciente
+                        <span class="article-tag">(8)</span>
+                    </li>
+                    <li onclick="filterByTag('sonhos')">
+                        <span class="article-number">🌙</span> Sonhos
+                        <span class="article-tag">(5)</span>
+                    </li>
+                    <li onclick="filterByTag('terapia')">
+                        <span class="article-number">💭</span> Terapia
+                        <span class="article-tag">(7)</span>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Configuração
+        const ARTICLES_FOLDER = 'artigos/';
+        let currentArticleId = null;
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        let reactions = JSON.parse(localStorage.getItem('reactions')) || {
+            like: 0,
+            love: 0,
+            insight: 0
+        };
+        
+        // Artigos de exemplo (simulando arquivos MD)
+        const articles = [
+            {
+                id: 5,
+                title: "O Inconsciente e o Amor",
+                date: "28 de fevereiro de 2026",
+                author: "Gilton Vasconcelos",
+                theme: "amor",
+                excerpt: "Uma reflexão profunda sobre como o inconsciente influencia nossas escolhas amorosas...",
+                content: `
+                    <h2>A Linguagem do Inconsciente no Amor</h2>
+                    <p>O amor, em sua essência mais profunda, dialoga diretamente com nosso inconsciente. As escolhas amorosas, os padrões que se repetem, as atrações inexplicáveis - tudo isso carrega as marcas de nossa história psíquica.</p>
+                    
+                    <blockquote>"Não amamos por acaso. Amamos a partir de roteiros escritos muito antes de nossa consciência despertar."</blockquote>
+                    
+                    <h2>Os Sintomas do Amor</h2>
+                    <p>Na clínica psicanalítica, observamos como o amor pode se manifestar como sintoma - repetindo padrões infantis, buscando no outro aquilo que falta em nós, projetando desejos inconscientes. Mas também pode ser caminho de cura, quando compreendido e elaborado.</p>
+                    
+                    <h2>Transferência e Amor</h2>
+                    <p>O conceito de transferência nos ensina que todo amor é, em alguma medida, uma reedição. Amamos hoje com as cores do passado, mas temos a oportunidade de, na análise, escrever novos roteiros.</p>
+                    
+                    <p>O desafio é transformar o amor de repetição em amor de criação - um amor que não apenas revive feridas, mas as elabora e as transcende.</p>
+                `,
+                tags: ["amor", "inconsciente", "psicanálise"]
+            },
+            {
+                id: 4,
+                title: "A Interpretação dos Sonhos",
+                date: "20 de fevereiro de 2026",
+                author: "Gilton Vasconcelos",
+                theme: "sonhos",
+                excerpt: "Os sonhos como via real para o conhecimento do inconsciente...",
+                content: `
+                    <h2>Os Sonhos e o Inconsciente</h2>
+                    <p>Freud considerava os sonhos a "via real" para o conhecimento do inconsciente. Neles, nossos desejos mais profundos encontram expressão, ainda que de forma disfarçada.</p>
+                    
+                    <blockquote>"O sonho é a realização (disfarçada) de um desejo (reprimido)." - Sigmund Freud</blockquote>
+                    
+                    <h2>O Trabalho do Sonho</h2>
+                    <p>Condensação, deslocamento, figuração e elaboração secundária são os mecanismos pelos quais o conteúdo latente (o desejo inconsciente) se transforma em conteúdo manifesto (o sonho que lembramos).</p>
+                `,
+                tags: ["sonhos", "inconsciente", "freud"]
+            },
+            {
+                id: 3,
+                title: "A Clínica Psicanalítica Hoje",
+                date: "15 de fevereiro de 2026",
+                author: "Gilton Vasconcelos",
+                theme: "terapia",
+                excerpt: "Como a psicanálise se adapta aos desafios contemporâneos...",
+                content: `
+                    <h2>Psicanálise no Século XXI</h2>
+                    <p>A clínica psicanalítica contemporânea enfrenta novos desafios: as relações virtuais, a aceleração do tempo, a fragmentação dos discursos. Como a escuta analítica pode responder a essas questões?</p>
+                    
+                    <h2>Novos Sintomas</h2>
+                    <p>Ansiedade, pânico, depressão - os chamados "novos sintomas" pedem uma clínica que dialogue com seu tempo, sem abandonar os fundamentos da psicanálise.</p>
+                `,
+                tags: ["terapia", "clínica", "contemporâneo"]
+            }
+        ];
+
+        // Funções do Menu
+        function openMenu() {
+            document.getElementById("sideMenu").style.width = "250px";
+            document.getElementById("mainContent").style.marginLeft = "250px";
+            if (window.innerWidth <= 768) {
+                document.getElementById("mainContent").style.marginLeft = "0";
+            }
+        }
+
+        function closeMenu() {
+            document.getElementById("sideMenu").style.width = "0";
+            document.getElementById("mainContent").style.marginLeft = "0";
+        }
+
+        // Carregar artigo mais recente
+        function loadLatestArticle() {
+            const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
+            displayArticle(latestArticle);
+        }
+
+        // Carregar artigo por ID
+        function loadArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (article) {
+                displayArticle(article);
+            }
+        }
+
+        // Exibir artigo
+        function displayArticle(article) {
+            currentArticleId = article.id;
+            const content = document.getElementById('articleContent');
+            content.innerHTML = `
+                <div class="article-meta">
+                    <span>📅 ${article.date}</span>
+                    <span>✍️ ${article.author}</span>
+                    <span>🏷️ ${article.tags.join(', ')}</span>
+                </div>
+                <h1 class="article-title">${article.title}</h1>
+                <div class="article-content">
+                    ${article.content}
+                </div>
+            `;
+            
+            // Atualizar URL sem recarregar
+            history.pushState({}, '', `?artigo=${article.id}`);
+            
+            // Atualizar contadores de reação
+            updateReactionCounts();
+        }
+
+        // Carregar lista de artigos
+        function loadArticleList() {
+            const listElement = document.getElementById('articleList');
+            const sortedArticles = articles.sort((a, b) => b.id - a.id);
+            
+            listElement.innerHTML = sortedArticles.map(article => `
+                <li onclick="loadArticle(${article.id})">
+                    <span class="article-number">#${article.id}</span>
+                    <h4>${article.title}</h4>
+                    <p>${article.date}</p>
+                    <small>Tema: ${article.theme}</small>
+                </li>
+            `).join('');
+        }
+
+        // Reações
+        function handleReaction(type) {
+            if (!currentArticleId) return;
+            
+            const storageKey = `reaction_${currentArticleId}_${type}`;
+            const userReaction = localStorage.getItem(storageKey);
+            
+            if (userReaction) {
+                reactions[type] = Math.max(0, reactions[type] - 1);
+                localStorage.removeItem(storageKey);
+            } else {
+                reactions[type] = (reactions[type] || 0) + 1;
+                localStorage.setItem(storageKey, 'true');
+            }
+            
+            localStorage.setItem('reactions', JSON.stringify(reactions));
+            updateReactionCounts();
+            
+            // Feedback visual
+            const btn = event.currentTarget;
+            btn.classList.toggle('liked');
+        }
+
+        function updateReactionCounts() {
+            document.getElementById('likeCount').textContent = reactions.like || 0;
+            document.getElementById('loveCount').textContent = reactions.love || 0;
+            document.getElementById('insightCount').textContent = reactions.insight || 0;
+        }
+
+        // Compartilhamento
+        function shareToInstagram() {
+            const article = articles.find(a => a.id === currentArticleId);
+            if (!article) return;
+            
+            const text = encodeURIComponent(`${article.title} - Amor e Psicanálise`);
+            // Instagram não tem API direta, então abrimos com texto copiado
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copiado! Agora você pode colar no Instagram.');
+        }
+
+        function shareToWhatsApp() {
+            const article = articles.find(a => a.id === currentArticleId);
+            if (!article) return;
+            
+            const text = encodeURIComponent(`${article.title}\n\nLeia mais em: ${window.location.href}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        function shareToTwitter() {
+            const article = articles.find(a => a.id === currentArticleId);
+            if (!article) return;
+            
+            const text = encodeURIComponent(`${article.title} - Amor e Psicanálise`);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${window.location.href}`, '_blank');
+        }
+
+        function shareToFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank');
+        }
+
+        // Comentários
+        function addComment() {
+            const name = document.getElementById('commentName').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+            
+            if (!name || !text) {
+                alert('Por favor, preencha seu nome e comentário.');
+                return;
+            }
+            
+            const comment = {
+                id: Date.now(),
+                articleId: currentArticleId,
+                author: name,
+                text: text,
+                date: new Date().toLocaleDateString('pt-BR'),
+                time: new Date().toLocaleTimeString('pt-BR')
+            };
+            
+            comments.push(comment);
+            localStorage.setItem('comments', JSON.stringify(comments));
+            
+            document.getElementById('commentName').value = '';
+            document.getElementById('commentText').value = '';
+            
+            displayComments();
+            
+            // Mensagem de sucesso
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success-message';
+            successMsg.textContent = 'Comentário enviado com sucesso!';
+            document.querySelector('.comment-form').appendChild(successMsg);
+            setTimeout(() => successMsg.remove(), 3000);
+        }
+
+        function displayComments() {
+            const articleComments = comments.filter(c => c.articleId === currentArticleId);
+            const listElement = document.getElementById('commentsList');
+            
+            if (articleComments.length === 0) {
+                listElement.innerHTML = '<p style="color: #95a5a6; text-align: center;">Seja o primeiro a comentar!</p>';
+                return;
+            }
+            
+            listElement.innerHTML = articleComments.sort((a, b) => b.id - a.id).map(comment => `
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-date">${comment.date} às ${comment.time}</span>
+                    </div>
+                    <div class="comment-text">${comment.text}</div>
+                </div>
+            `).join('');
+        }
+
+        // Newsletter
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value.trim();
+            const messageDiv = document.getElementById('newsletterMessage');
+            
+            if (!email || !email.includes('@')) {
+                messageDiv.innerHTML = '<div class="error-message">Por favor, insira um email válido.</div>';
+                return;
+            }
+            
+            // Salvar no localStorage
+            let subscribers = JSON.parse(localStorage.getItem('subscribers')) || [];
+            if (!subscribers.includes(email)) {
+                subscribers.push(email);
+                localStorage.setItem('subscribers', JSON.stringify(subscribers));
+                messageDiv.innerHTML = '<div class="success-message">Inscrição realizada com sucesso!</div>';
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                messageDiv.innerHTML = '<div class="error-message">Este email já está inscrito.</div>';
+            }
+            
+            setTimeout(() => messageDiv.innerHTML = '', 3000);
+        }
+
+        // Filtrar por tema
+        function filterByTag(tag) {
+            const filteredArticles = articles.filter(a => a.theme === tag);
+            const listElement = document.getElementById('articleList');
+            
+            listElement.innerHTML = filteredArticles.sort((a, b) => b.id - a.id).map(article => `
+                <li onclick="loadArticle(${article.id})">
+                    <span class="article-number">#${article.id}</span>
+                    <h4>${article.title}</h4>
+                    <p>${article.date}</p>
+                </li>
+            `).join('');
+            
+            if (filteredArticles.length === 0) {
+                listElement.innerHTML = '<li>Nenhum artigo encontrado para este tema.</li>';
+            }
+        }
+
+        // Verificar artigo na URL
+        function checkUrlForArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('artigo');
+            
+            if (articleId) {
+                loadArticle(parseInt(articleId));
+            } else {
+                loadLatestArticle();
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            loadArticleList();
+            checkUrlForArticle();
+            updateReactionCounts();
+            displayComments();
+            
+            // Event listener para voltar/avançar no navegador
+            window.addEventListener('popstate', () => {
+                checkUrlForArticle();
+            });
+        });
+
+        // Ajuste de menu para telas pequenas
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                if (document.getElementById("sideMenu").style.width === "250px") {
+                    document.getElementById("mainContent").style.marginLeft = "0";
+                }
+            } else {
+                if (document.getElementById("sideMenu").style.width === "250px") {
+                    document.getElementById("mainContent").style.marginLeft = "250px";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
