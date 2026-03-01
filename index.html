@@ -832,13 +832,12 @@ async function loadArticlesFromMD() {
             { id: 2, file: '/amorepsicanalise/artigos/artigo02/', theme: 'Relacionamento', tags: ['amizade', 'freud'] },
             { id: 1, file: '/amorepsicanalise/artigos/artigo01/', theme: 'Relacionamento', tags: ['amor', 'contemporâneo'] }
         ];
-        
         for (const articleInfo of articleFiles) {
             try {
-                console.log(`Tentando carregar: ${articleInfo.file}index.html`);
+                console.log(`Tentando carregar: ${articleInfo.file}`);
                 
-                // Carregar o arquivo HTML
-                const response = await fetch(articleInfo.file + 'index.html');
+                // ✅ CORRETO: fetch direto da pasta (o servidor entrega index.html automaticamente)
+                const response = await fetch(articleInfo.file);
                 
                 if (!response.ok) {
                     console.warn(`❌ Artigo ${articleInfo.file} não encontrado (status ${response.status})`);
@@ -848,89 +847,58 @@ async function loadArticlesFromMD() {
                 let html = await response.text();
                 console.log(`✅ HTML carregado para ${articleInfo.file}, tamanho: ${html.length} caracteres`);
                 
-                // Criar um parser DOM para extrair o conteúdo corretamente
+                // Criar um parser DOM para extrair o conteúdo
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 
-                // EXTRAIR TÍTULO - do h1
+                // Extrair título
                 let title = `Artigo ${articleInfo.id}`;
                 const h1Element = doc.querySelector('h1');
                 if (h1Element) {
                     title = h1Element.textContent.trim();
                 }
-                console.log(`Título extraído: "${title}"`);
                 
-                // EXTRAIR DATA - procurar por elementos com classe date
-                let date = new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
-                const dateElement = doc.querySelector('.date, [class*="date"], .post-date, .article-date');
-                if (dateElement) {
-                    date = dateElement.textContent.trim();
-                }
-                
-                // EXTRAIR AUTOR
-                let author = 'Gilton Vasconcelos';
-                const authorElement = doc.querySelector('.author, [class*="author"], .post-author, .article-author');
-                if (authorElement) {
-                    author = authorElement.textContent.trim();
-                }
-                
-                // EXTRAIR CONTEÚDO PRINCIPAL - MÚLTIPLAS ESTRATÉGIAS
+                // Extrair conteúdo
                 let contentHtml = '';
-                
-                // Estratégia 1: Pegar todo o conteúdo dentro de .content
                 const contentDiv = doc.querySelector('.content');
                 if (contentDiv) {
                     contentHtml = contentDiv.innerHTML;
-                    console.log('✅ Conteúdo encontrado em .content');
-                } 
-                // Estratégia 2: Pegar todo o conteúdo dentro de main
-                else {
-                    const mainElement = doc.querySelector('main');
-                    if (mainElement) {
-                        contentHtml = mainElement.innerHTML;
-                        console.log('✅ Conteúdo encontrado em main');
-                    }
-                    // Estratégia 3: Pegar todo o body e remover header/footer
-                    else {
-                        const bodyElement = doc.body;
-                        if (bodyElement) {
-                            // Clonar para não modificar o original
-                            const bodyClone = bodyElement.cloneNode(true);
-                            
-                            // Remover elementos indesejados
-                            const elementosRemover = bodyClone.querySelectorAll('header, footer, nav, script, style, .header, .footer, .menu, .sidebar');
-                            elementosRemover.forEach(el => el.remove());
-                            
-                            contentHtml = bodyClone.innerHTML;
-                            console.log('✅ Conteúdo extraído do body (com remoções)');
-                        }
-                    }
+                } else {
+                    // Se não achar .content, pega o body e remove header/footer
+                    const bodyClone = doc.body.cloneNode(true);
+                    const elementosRemover = bodyClone.querySelectorAll('header, footer, nav, script, style, .header, .footer, .menu, .sidebar');
+                    elementosRemover.forEach(el => el.remove());
+                    contentHtml = bodyClone.innerHTML;
                 }
                 
-                // Se ainda não conseguiu, último recurso
-                if (!contentHtml || contentHtml.trim() === '') {
-                    console.warn('⚠️ Nenhum conteúdo encontrado, usando HTML bruto');
-                    contentHtml = '<p>Conteúdo do artigo não disponível</p>';
-                }
-                
-                // Adicionar o artigo ao array
                 articles.push({
                     id: articleInfo.id,
                     title: title,
-                    date: date,
-                    author: author,
+                    date: new Date().toLocaleDateString('pt-BR'),
+                    author: 'Gilton Vasconcelos',
                     theme: articleInfo.theme,
                     file: articleInfo.file,
-                    content: contentHtml,
+                    content: contentHtml || '<p>Conteúdo não disponível</p>',
                     tags: articleInfo.tags
                 });
                 
-                console.log(`✅ Artigo carregado com sucesso: ${title}`);
+                console.log(`✅ Artigo carregado: ${title}`);
                 
             } catch (error) {
-                console.error(`❌ Erro ao processar ${articleInfo.file}:`, error);
+                console.error(`❌ Erro ao carregar ${articleInfo.file}:`, error);
             }
         }
+        
+        articles.sort((a, b) => b.id - a.id);
+        
+        if (currentPage === 'blog') {
+            renderBlog();
+        }
+        
+    } catch (error) {
+        console.error('Erro fatal:', error);
+    }
+}
         
         // Ordenar artigos por ID (do mais novo para o mais antigo)
         articles.sort((a, b) => b.id - a.id);
