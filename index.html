@@ -1403,6 +1403,19 @@ async function loadArticlesFromMD() {
             showHome();
             loadArticlesFromMD(); // Carrega os artigos em background
         });
+
+        // Função de depuração - aperte F12 e digite debugArticles() no console
+function debugArticles() {
+    console.log('Artigos carregados:', articles);
+    articles.forEach((a, i) => {
+        console.log(`Artigo ${i+1}:`, {
+            id: a.id,
+            title: a.title,
+            contentLength: a.content ? a.content.length : 0,
+            contentPreview: a.content ? a.content.substring(0, 100) + '...' : 'SEM CONTEÚDO'
+        });
+    });
+}
     </script>
 
 </body>
