@@ -828,9 +828,9 @@ async function loadArticlesFromMD() {
         
         // Lista de artigos que você tem na pasta /artigos/
         const articleFiles = [
-            { id: 3, file: '/amorepsicanalise/artigos/inconsciente-amor/', theme: 'amor', tags: ['amor', 'inconsciente'] },
-            { id: 2, file: '/amorepsicanalise/artigos/interpretacao-sonhos/', theme: 'sonhos', tags: ['sonhos', 'freud'] },
-            { id: 1, file: '/amorepsicanalise/artigos/clinica-psicanalitica/', theme: 'clinica', tags: ['clínica', 'contemporâneo'] }
+            { id: 3, file: '/amorepsicanalise/artigos/artigo03/', theme: 'Relacionamento', tags: ['cura', 'cuidado'] },
+            { id: 2, file: '/amorepsicanalise/artigos/artigo02/', theme: 'Relacionamento', tags: ['amizade', 'freud'] },
+            { id: 1, file: '/amorepsicanalise/artigos/artigo01/', theme: 'Relacionamento', tags: ['amor', 'contemporâneo'] }
         ];
         
         for (const articleInfo of articleFiles) {
@@ -1178,17 +1178,17 @@ async function loadArticlesFromMD() {
 
                         <h3>Temas</h3>
                         <ul class="article-list">
-                            <li onclick="filterByTag('(cura) cuidado')">
-                                <span class="article-number">❤️</span> Amor
-                                <span class="article-tag">(${articles.filter(a => a.theme === '(cura) cuidado').length})</span>
+                            <li onclick="filterByTag('cura (cuidado)')">
+                                <span class="article-number">❤️</span> Cura (Cuidado)
+                                <span class="article-tag">(${articles.filter(a => a.theme === 'Relacionamento').length})</span>
                             </li>
                             <li onclick="filterByTag('amizade')">
-                                <span class="article-number">🌙</span> Sonhos
-                                <span class="article-tag">(${articles.filter(a => a.theme === 'amizade').length})</span>
+                                <span class="article-number">🌙</span> Amizade
+                                <span class="article-tag">(${articles.filter(a => a.theme === 'Relacionamento').length})</span>
                             </li>
-                            <li onclick="filterByTag('amor')">
-                                <span class="article-number">💭</span> Clínica
-                                <span class="article-tag">(${articles.filter(a => a.theme === 'amor').length})</span>
+                            <li onclick="filterByTag('Amor')">
+                                <span class="article-number">💭</span> Amor
+                                <span class="article-tag">(${articles.filter(a => a.theme === 'cura', 'Relacionamento').length})</span>
                             </li>
                         </ul>
                     </aside>
