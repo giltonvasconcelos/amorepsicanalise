@@ -820,89 +820,122 @@
         let articles = [];
 
         // Função para carregar artigos dos MDs
-        // Função para carregar artigos dos MDs - VERSÃO CORRIGIDA
+// Função para carregar artigos dos MDs - VERSÃO SIMPLIFICADA E ROBUSTA
 async function loadArticlesFromMD() {
     try {
+        // Limpar artigos existentes
+        articles = [];
+        
         // Lista de artigos que você tem na pasta /artigos/
         const articleFiles = [
-            { id: 3, file: '/amorepsicanalise/artigos/artigo03/', theme: 'Relacionamento', tags: ['(cura) cuidado', 'inconsciente'] },
-            { id: 2, file: '/amorepsicanalise/artigos/artigo02/', theme: 'Relacionamento', tags: ['amizade', 'freud'] },
-            { id: 1, file: '/amorepsicanalise/artigos/artigo01/', theme: 'Relacionamento', tags: ['clínica', 'contemporâneo'] }
+            { id: 3, file: '/amorepsicanalise/artigos/inconsciente-amor/', theme: 'amor', tags: ['amor', 'inconsciente'] },
+            { id: 2, file: '/amorepsicanalise/artigos/interpretacao-sonhos/', theme: 'sonhos', tags: ['sonhos', 'freud'] },
+            { id: 1, file: '/amorepsicanalise/artigos/clinica-psicanalitica/', theme: 'clinica', tags: ['clínica', 'contemporâneo'] }
         ];
         
         for (const articleInfo of articleFiles) {
             try {
-                // Carregar o arquivo MD convertido (HTML)
+                console.log(`Tentando carregar: ${articleInfo.file}index.html`);
+                
+                // Carregar o arquivo HTML
                 const response = await fetch(articleInfo.file + 'index.html');
                 
                 if (!response.ok) {
-                    console.warn(`Artigo ${articleInfo.file} não encontrado`);
+                    console.warn(`❌ Artigo ${articleInfo.file} não encontrado (status ${response.status})`);
                     continue;
                 }
                 
                 let html = await response.text();
+                console.log(`✅ HTML carregado para ${articleInfo.file}, tamanho: ${html.length} caracteres`);
                 
-                // EXTRAIR TÍTULO - Procura pelo h1
-                const titleMatch = html.match(/<h1[^>]*>([^<]+)<\/h1>/);
+                // Criar um parser DOM para extrair o conteúdo corretamente
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
                 
-                // EXTRAIR DATA - Procura pelo div de data (se existir no template)
-                const dateMatch = html.match(/<div[^>]*class="[^"]*date[^"]*"[^>]*>([^<]+)<\/div>/);
+                // EXTRAIR TÍTULO - do h1
+                let title = `Artigo ${articleInfo.id}`;
+                const h1Element = doc.querySelector('h1');
+                if (h1Element) {
+                    title = h1Element.textContent.trim();
+                }
+                console.log(`Título extraído: "${title}"`);
                 
-                // EXTRAIR AUTOR - Procura pelo div de autor (se existir no template)
-                const authorMatch = html.match(/<div[^>]*class="[^"]*author[^"]*"[^>]*>([^<]+)<\/div>/);
+                // EXTRAIR DATA - procurar por elementos com classe date
+                let date = new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
+                const dateElement = doc.querySelector('.date, [class*="date"], .post-date, .article-date');
+                if (dateElement) {
+                    date = dateElement.textContent.trim();
+                }
                 
-                // ✅ EXTRAIR CONTEÚDO PRINCIPAL - VERSÃO CORRIGIDA
-                // Primeiro tenta pegar o conteúdo dentro da div .content
+                // EXTRAIR AUTOR
+                let author = 'Gilton Vasconcelos';
+                const authorElement = doc.querySelector('.author, [class*="author"], .post-author, .article-author');
+                if (authorElement) {
+                    author = authorElement.textContent.trim();
+                }
+                
+                // EXTRAIR CONTEÚDO PRINCIPAL - MÚLTIPLAS ESTRATÉGIAS
                 let contentHtml = '';
                 
-                // Tenta encontrar a div com classe "content"
-                const contentDivMatch = html.match(/<div class="content">([\s\S]*?)<\/div>\s*<div class="footer/);
-                
-                if (contentDivMatch) {
-                    contentHtml = contentDivMatch[1];
-                } else {
-                    // Se não encontrar, tenta pegar o conteúdo entre <div class="content"> e o fim
-                    const contentMatch = html.match(/<div class="content">([\s\S]*?)<\/div>/);
-                    if (contentMatch) {
-                        contentHtml = contentMatch[1];
-                    } else {
-                        // Último recurso: pegar tudo dentro do body, removendo header e footer
-                        const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/);
-                        if (bodyMatch) {
-                            let bodyContent = bodyMatch[1];
-                            // Remove header, footer, scripts
-                            bodyContent = bodyContent.replace(/<header[\s\S]*?<\/header>/, '');
-                            bodyContent = bodyContent.replace(/<footer[\s\S]*?<\/footer>/, '');
-                            bodyContent = bodyContent.replace(/<script[\s\S]*?<\/script>/g, '');
-                            contentHtml = bodyContent;
+                // Estratégia 1: Pegar todo o conteúdo dentro de .content
+                const contentDiv = doc.querySelector('.content');
+                if (contentDiv) {
+                    contentHtml = contentDiv.innerHTML;
+                    console.log('✅ Conteúdo encontrado em .content');
+                } 
+                // Estratégia 2: Pegar todo o conteúdo dentro de main
+                else {
+                    const mainElement = doc.querySelector('main');
+                    if (mainElement) {
+                        contentHtml = mainElement.innerHTML;
+                        console.log('✅ Conteúdo encontrado em main');
+                    }
+                    // Estratégia 3: Pegar todo o body e remover header/footer
+                    else {
+                        const bodyElement = doc.body;
+                        if (bodyElement) {
+                            // Clonar para não modificar o original
+                            const bodyClone = bodyElement.cloneNode(true);
+                            
+                            // Remover elementos indesejados
+                            const elementosRemover = bodyClone.querySelectorAll('header, footer, nav, script, style, .header, .footer, .menu, .sidebar');
+                            elementosRemover.forEach(el => el.remove());
+                            
+                            contentHtml = bodyClone.innerHTML;
+                            console.log('✅ Conteúdo extraído do body (com remoções)');
                         }
                     }
                 }
                 
-                // Limpa o conteúdo HTML (remove scripts e estilos que possam ter sobrado)
-                contentHtml = contentHtml.replace(/<script[\s\S]*?<\/script>/g, '');
-                contentHtml = contentHtml.replace(/<style[\s\S]*?<\/style>/g, '');
+                // Se ainda não conseguiu, último recurso
+                if (!contentHtml || contentHtml.trim() === '') {
+                    console.warn('⚠️ Nenhum conteúdo encontrado, usando HTML bruto');
+                    contentHtml = '<p>Conteúdo do artigo não disponível</p>';
+                }
                 
+                // Adicionar o artigo ao array
                 articles.push({
                     id: articleInfo.id,
-                    title: titleMatch ? titleMatch[1].trim() : `Artigo ${articleInfo.id}`,
-                    date: dateMatch ? dateMatch[1].trim() : new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }),
-                    author: authorMatch ? authorMatch[1].trim() : 'Gilton Vasconcelos',
+                    title: title,
+                    date: date,
+                    author: author,
                     theme: articleInfo.theme,
                     file: articleInfo.file,
-                    content: contentHtml || '<p>Conteúdo não disponível</p>',
+                    content: contentHtml,
                     tags: articleInfo.tags
                 });
                 
-                console.log(`✅ Artigo carregado: ${articleInfo.file} - Título: ${titleMatch ? titleMatch[1].trim() : 'Sem título'}`);
+                console.log(`✅ Artigo carregado com sucesso: ${title}`);
                 
             } catch (error) {
-                console.error(`❌ Erro ao carregar ${articleInfo.file}:`, error);
+                console.error(`❌ Erro ao processar ${articleInfo.file}:`, error);
             }
         }
         
         // Ordenar artigos por ID (do mais novo para o mais antigo)
         articles.sort((a, b) => b.id - a.id);
+        
+        console.log('📊 Total de artigos carregados:', articles.length);
         
         // Atualizar o blog se ele estiver aberto
         if (currentPage === 'blog') {
@@ -910,9 +943,10 @@ async function loadArticlesFromMD() {
         }
         
     } catch (error) {
-        console.error('Erro ao carregar artigos:', error);
+        console.error('Erro fatal ao carregar artigos:', error);
     }
 }
+        
         // Funções do Menu
         function openMenu() {
             document.getElementById("sideMenu").style.width = "280px";
@@ -1166,7 +1200,8 @@ async function loadArticlesFromMD() {
         }
 
         // Funções auxiliares para renderização
-     function renderArticle(article) {
+     // Função para renderizar um artigo - VERSÃO SIMPLIFICADA
+function renderArticle(article) {
     return `
         <div class="article-meta">
             <span>📅 ${article.date}</span>
@@ -1175,11 +1210,10 @@ async function loadArticlesFromMD() {
         </div>
         <h1 class="article-title">${article.title}</h1>
         <div class="article-content">
-            ${article.content}  <!-- ISSO DEVE MOSTRAR O CONTEÚDO -->
+            ${article.content}
         </div>
     `;
 }
-
         function renderArticleList() {
             return articles.sort((a, b) => b.id - a.id).map(article => `
                 <li onclick="loadArticle(${article.id})">
@@ -1416,6 +1450,35 @@ function debugArticles() {
         });
     });
 }
+
+        // FUNÇÃO DE DIAGNÓSTICO - aperte F12 e execute no console
+window.diagnosticarArtigos = function() {
+    console.log('========== DIAGNÓSTICO DOS ARTIGOS ==========');
+    console.log('Total de artigos:', articles.length);
+    
+    articles.forEach((artigo, index) => {
+        console.log(`\n--- Artigo ${index + 1} (ID: ${artigo.id}) ---`);
+        console.log('Título:', artigo.title);
+        console.log('Arquivo:', artigo.file);
+        console.log('Tamanho do conteúdo:', artigo.content ? artigo.content.length : 0);
+        console.log('Primeiros 200 caracteres do conteúdo:', 
+            artigo.content ? artigo.content.substring(0, 200) + '...' : 'SEM CONTEÚDO');
+    });
+    
+    // Verificar se os arquivos existem
+    console.log('\n🔍 Testando acesso aos arquivos:');
+    const files = [
+        '/amorepsicanalise/artigos/inconsciente-amor/index.html',
+        '/amorepsicanalise/artigos/interpretacao-sonhos/index.html',
+        '/amorepsicanalise/artigos/clinica-psicanalitica/index.html'
+    ];
+    
+    files.forEach(async (file) => {
+        fetch(file)
+            .then(r => console.log(`${file}: ${r.status} ${r.statusText}`))
+            .catch(e => console.log(`${file}: ERRO - ${e.message}`));
+    });
+};
     </script>
 
 </body>
