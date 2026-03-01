@@ -108,27 +108,32 @@
         }
         
         .faq-question .icone {
-            font-size: 1.5em;
+            font-size: 1.8em;
             color: var(--cor-primaria);
             transition: transform 0.3s;
             margin-left: 15px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
+        /* Ícone muda de + para × quando ativo */
         .faq-item.active .faq-question .icone {
-            transform: rotate(45deg);
+            transform: rotate(0deg); /* Remove a rotação */
+            color: var(--cor-secundaria);
         }
         
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease;
+            transition: max-height 0.4s ease-in-out;
             background-color: var(--cor-fundo);
-            border-top: 0px solid var(--cor-borda);
         }
         
         .faq-item.active .faq-answer {
-            max-height: 500px;
-            border-top-width: 1px;
+            max-height: 500px; /* Ajuste conforme necessário */
         }
         
         .faq-answer p {
@@ -137,6 +142,7 @@
             color: var(--cor-texto-principal);
             font-size: 1.05em;
             line-height: 1.7;
+            border-top: 1px solid var(--cor-borda);
         }
         
         /* ===== DESTAQUE ===== */
@@ -445,25 +451,41 @@
     </div>
     
     <script>
-        // Função para abrir/fechar as perguntas
+        // Função para abrir/fechar as perguntas - VERSÃO CORRIGIDA
         function toggleFaq(element) {
             const faqItem = element.parentElement;
+            
+            // Fecha todos os outros itens (opcional - se quiser apenas um aberto por vez)
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(item => {
+                if (item !== faqItem && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    const otherIcon = item.querySelector('.icone');
+                    if (otherIcon) otherIcon.textContent = '+';
+                }
+            });
+            
+            // Alterna o item clicado
             faqItem.classList.toggle('active');
             
-            // Muda o ícone de + para x
+            // Muda o ícone de + para ×
             const icone = element.querySelector('.icone');
             if (faqItem.classList.contains('active')) {
                 icone.textContent = '×';
+                icone.style.transform = 'scale(1.2)';
             } else {
                 icone.textContent = '+';
+                icone.style.transform = 'scale(1)';
             }
         }
         
-        // Abre a primeira pergunta por padrão (opcional)
-        window.onload = function() {
-            // Descomente a linha abaixo se quiser que a primeira pergunta já venha aberta
-            // document.querySelector('.faq-item').classList.add('active');
-        }
+        // Garantir que todos os ícones comecem como +
+        document.addEventListener('DOMContentLoaded', function() {
+            const icons = document.querySelectorAll('.icone');
+            icons.forEach(icon => {
+                icon.textContent = '+';
+            });
+        });
     </script>
 </body>
 </html>
