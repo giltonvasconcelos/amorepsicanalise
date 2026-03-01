@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor e Psicanálise | Saúde Mental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
+            min-height: 100vh;
+            color: #2d3e4f;
+            line-height: 1.6;
+        }
+
+        /* Cores para saúde mental - tons suaves e acolhedores */
+        :root {
+            --primary: #6b8c9f;    /* Azul suave - calma */
+            --primary-dark: #4f6f82;
+            --secondary: #9fb7c9;   /* Azul mais claro - serenidade */
+            --accent: #a8c6b0;      /* Verde suave - equilíbrio */
+            --text: #2d3e4f;        /* Azul escuro - profundidade */
+            --text-light: #5f7d95;
+            --background: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border: #d9e2e9;
+            --hover: #e6f0f5;
+        }
+
+        /* Menu Lateral */
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
+            overflow-x: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 70px;
+            box-shadow: 2px 0 20px rgba(107, 140, 159, 0.15);
+            z-index: 1000;
+            border-right: 1px solid var(--border);
+        }
+
+        .side-menu a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: var(--text);
+            display: block;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .side-menu a:hover {
+            background-color: var(--hover);
+            border-left: 4px solid var(--primary);
+            color: var(--primary-dark);
+            padding-left: 35px;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 32px;
+            padding: 0;
+            color: var(--text-light);
+        }
+
+        .side-menu .close-btn:hover {
+            background: none;
+            border-left: none;
+            color: var(--primary);
+        }
+
+        /* Botão do Menu */
+        .menu-btn {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            font-size: 24px;
+            cursor: pointer;
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.1);
+            z-index: 999;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            line-height: 1;
+        }
+
+        .menu-btn:hover {
+            background: white;
+            box-shadow: 0 6px 20px rgba(107, 140, 159, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header com Imagem */
+        .header {
+            position: relative;
+            height: 300px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) saturate(1.1);
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(107, 140, 159, 0.3) 0%, rgba(168, 198, 176, 0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .header-overlay h1 {
+            font-size: 3.2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .header-overlay p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cards do Menu Principal - VERSÃO MAIS COMPACTA */
+        .menu-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px auto;
+            max-width: 1000px;
+            padding: 0 10px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.06);
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            border-bottom-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(107, 140, 159, 0.1);
+        }
+
+        .menu-card .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .menu-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+
+        .menu-card p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Container de Conteúdo */
+        .content-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 35px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
+            min-height: 500px;
+        }
+
+        /* Loader */
+        .loader {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-light);
+        }
+
+        .loader::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Páginas de Conteúdo */
+        .page-content {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-content h1 {
+            color: var(--text);
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 12px;
+        }
+
+        .page-content h2 {
+            color: var(--text);
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 25px 0 12px;
+        }
+
+        .page-content p {
+            color: var(--text-light);
+            margin-bottom: 18px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .page-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding: 15px 25px;
+            margin: 25px 0;
+            background: #f8fbfd;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .faq-item h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-item h3:hover {
+            color: var(--primary);
+        }
+
+        .faq-item .faq-answer {
+            color: var(--text-light);
+            line-height: 1.6;
+            padding-right: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Botões de Ação (para páginas não-blog) */
+        .page-actions {
+            display: flex;
+            gap: 12px;
+            margin: 30px 0 15px;
+            padding: 15px 0;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: var(--hover);
+            border-color: var(--primary);
+        }
+
+        .action-btn.liked {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Blog Styles */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .main-article {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            line-height: 1.3;
+            font-weight: 400;
+        }
+
+        .article-content {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .article-content h2 {
+            color: var(--text);
+            margin: 25px 0 12px;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding: 15px 25px;
+            margin: 25px 0;
+            background: #f8fbfd;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h3 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-left: 3px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .article-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .article-list li {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8fbfd;
+            border-radius: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .article-list li:hover {
+            border-color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .article-list .article-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+            margin-bottom: 4px;
+        }
+
+        .article-list h4 {
+            color: var(--text);
+            margin: 4px 0;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .article-list p {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #f0f7fa, #e1eef5);
+            padding: 20px;
+            border-radius: 14px;
+            margin: 25px 0;
+        }
+
+        .newsletter h4 {
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .newsletter p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 180px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 140, 159, 0.1);
+        }
+
+        .newsletter-form button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Comentários */
+        .comments-section {
+            margin: 30px 0;
+        }
+
+        .comment-form {
+            background: #f8fbfd;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 140, 159, 0.1);
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .comment {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .comment-date {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .comment-text {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0 8px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Mensagens */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 1024px) {
+            .menu-cards {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+            
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-btn {
+                top: 15px;
+                left: 15px;
+                padding: 10px 15px;
+                font-size: 20px;
+            }
+
+            .header {
+                height: 200px;
+            }
+
+            .header-overlay h1 {
+                font-size: 1.8rem;
+            }
+
+            .header-overlay p {
+                font-size: 0.9rem;
+            }
+
+            .menu-cards {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .content-container {
+                padding: 20px;
+            }
+
+            .page-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .footer-links {
+                gap: 12px;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="#" onclick="showHome(); closeMenu()">🏠 Página Inicial</a>
+        <a href="#" onclick="loadExternalPage('/amorepsicanalise/pages/psicanalise/', 'Objetivo da Psicanálise'); closeMenu()">🎯 Objetivo da Psicanálise</a>
+        <a href="#" onclick="loadBlog(); closeMenu()">📝 Artigos & Reflexões</a>
+        <a href="#" onclick="loadExternalPage('/amorepsicanalise/pages/sobre/', 'Sobre esse Projeto'); closeMenu()">📖 Sobre esse Projeto</a>
+        <a href="#" onclick="loadExternalPage('/amorepsicanalise/pages/faq.html', 'Perguntas Frequentes'); closeMenu()">❓ Perguntas Frequentes</a>
+        <a href="#" onclick="showHome(); closeMenu()">🔙 Voltar ao Menu</a>
+    </div>
+
+    <!-- Botão do Menu -->
+    <button class="menu-btn" onclick="openMenu()">☰</button>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content" id="mainContent">
+        
+        <!-- Header com Imagem -->
+        <div class="header">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400' viewBox='0 0 1200 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236b8c9f'/%3E%3Cstop offset='100%25' stop-color='%23a8c6b0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g)'/%3E%3Ctext x='600' y='220' font-family='Arial' font-size='24' fill='white' text-anchor='middle' opacity='0.1'%3E❤️%3C/text%3E%3C/svg%3E" 
+                 alt="Header Background" class="header-image">
+            <div class="header-overlay">
+                <h1>Amor e Psicanálise</h1>
+                <p>Um espaço para o encontro entre o sentir e o pensar</p>
+            </div>
+        </div>
+
+        <!-- Menu Cards (Home) - VERSÃO MAIS COMPACTA -->
+        <div id="homeCards" class="menu-cards">
+            <div class="menu-card" onclick="loadExternalPage('/amorepsicanalise/pages/psicanalise/', 'Objetivo da Psicanálise')">
+                <span class="emoji">🎯</span>
+                <h3>Objetivo da Psicanálise</h3>
+                <p>Fundamentos e propósitos da prática psicanalítica</p>
+            </div>
+            <div class="menu-card" onclick="loadBlog()">
+                <span class="emoji">📝</span>
+                <h3>Artigos & Reflexões</h3>
+                <p>Textos sobre psicanálise, amor e autoconhecimento</p>
+            </div>
+            <div class="menu-card" onclick="loadExternalPage('/amorepsicanalise/pages/sobre/', 'Sobre esse Projeto')">
+                <span class="emoji">📖</span>
+                <h3>Sobre esse Projeto</h3>
+                <p>História e inspiração por trás deste espaço</p>
+            </div>
+            <div class="menu-card" onclick="loadExternalPage('/amorepsicanalise/pages/faq/', 'Perguntas Frequentes')">
+                <span class="emoji">❓</span>
+                <h3>Perguntas Frequentes</h3>
+                <p>Respostas para as principais dúvidas</p>
+            </div>
+        </div>
+
+        <!-- Container de Conteúdo (Onde as páginas serão carregadas) -->
+        <div id="contentContainer" class="content-container" style="display: none;">
+            <div id="pageContent" class="page-content">
+                <!-- Conteúdo será injetado via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="#" onclick="loadExternalPage('/amorepsicanalise/pages/termos/', 'Termos de Uso')">Termos de Uso</a>
+                <a href="#" onclick="loadExternalPage('/amorepsicanalise/pages/privacidade/', 'Política de Privacidade')">Política de Privacidade</a>
+            </div>
+            <div class="copyright">
+                © 2026 Gilton Vasconcelos. Todos os direitos reservados.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Estado da aplicação
+        let currentPage = null;
+        let currentArticleId = null;
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+        let reactions = JSON.parse(localStorage.getItem('reactions')) || { like: 0, love: 0, insight: 0 };
+
+        // Artigos para o blog
+        let articles = [];
+
+        // Função para carregar artigos dos MDs
+        async function loadArticlesFromMD() {
+            try {
+                // Lista de artigos que você tem na pasta /artigos/
+                const articleFiles = [
+                    { id: 1, file: '/amorepsicanalise/artigos/artigo01/', theme: 'amor', tags: ['amor', 'inconsciente'] },
+                    { id: 2, file: '/amorepsicanalise/artigos/artigo02/', theme: 'sonhos', tags: ['amizade', 'freud'] },
+                ];
+                
+                for (const articleInfo of articleFiles) {
+                    try {
+                        // Carregar o arquivo MD convertido (HTML)
+                        const response = await fetch(articleInfo.file + 'index.html');
+                        
+                        if (!response.ok) {
+                            console.warn(`Artigo ${articleInfo.file} não encontrado`);
+                            continue;
+                        }
+                        
+                        let html = await response.text();
+                        
+                        // Extrair título do HTML (procura pelo h1)
+                        const titleMatch = html.match(/<h1[^>]*>([^<]+)<\/h1>/);
+                        
+                        // Extrair data (se existir no frontmatter renderizado)
+                        const dateMatch = html.match(/<div[^>]*class="[^"]*date[^"]*"[^>]*>([^<]+)<\/div>/);
+                        
+                        // Extrair autor
+                        const authorMatch = html.match(/<div[^>]*class="[^"]*author[^"]*"[^>]*>([^<]+)<\/div>/);
+                        
+                        // Extrair apenas o conteúdo principal (entre <div class="content"> e o footer)
+                        const contentMatch = html.match(/<div class="content">([\s\S]*?)<\/div>\s*<div class="footer-note">/);
+                        
+                        articles.push({
+                            id: articleInfo.id,
+                            title: titleMatch ? titleMatch[1].trim() : `Artigo ${articleInfo.id}`,
+                            date: dateMatch ? dateMatch[1].trim() : new Date().toLocaleDateString('pt-BR'),
+                            author: authorMatch ? authorMatch[1].trim() : 'Gilton Vasconcelos',
+                            theme: articleInfo.theme,
+                            file: articleInfo.file,
+                            content: contentMatch ? contentMatch[1] : '<p>Conteúdo não disponível</p>',
+                            tags: articleInfo.tags
+                        });
+                        
+                        console.log(`✅ Artigo carregado: ${articleInfo.file}`);
+                        
+                    } catch (error) {
+                        console.error(`❌ Erro ao carregar ${articleInfo.file}:`, error);
+                    }
+                }
+                
+                // Atualizar o blog se ele estiver aberto
+                if (currentPage === 'blog') {
+                    renderBlog();
+                }
+                
+            } catch (error) {
+                console.error('Erro ao carregar artigos:', error);
+            }
+        }
+
+        // Funções do Menu
+        function openMenu() {
+            document.getElementById("sideMenu").style.width = "280px";
+            document.getElementById("mainContent").style.marginLeft = "280px";
+            if (window.innerWidth <= 768) {
+                document.getElementById("mainContent").style.marginLeft = "0";
+            }
+        }
+
+        function closeMenu() {
+            document.getElementById("sideMenu").style.width = "0";
+            document.getElementById("mainContent").style.marginLeft = "0";
+        }
+
+        // Funções de Navegação
+        function showHome() {
+            document.getElementById('homeCards').style.display = 'grid';
+            document.getElementById('contentContainer').style.display = 'none';
+            currentPage = null;
+        }
+
+        // Carregar página externa - VERSÃO COM SUPORTE A HTML E MD
+        async function loadExternalPage(pagePath, pageTitle) {
+            document.getElementById('homeCards').style.display = 'none';
+            document.getElementById('contentContainer').style.display = 'block';
+            
+            // Mostrar loader
+            document.getElementById('pageContent').innerHTML = '<div class="loader">Carregando conteúdo...</div>';
+            
+            try {
+                let url;
+                let isHtmlFile = false;
+                
+                // Verificar se é um arquivo HTML pronto (termina com .html)
+                if (pagePath.endsWith('.html')) {
+                    // É um arquivo HTML direto
+                    url = pagePath;
+                    isHtmlFile = true;
+                    console.log('Carregando arquivo HTML:', url);
+                } else {
+                    // É uma pasta do Jekyll (MD convertido)
+                    // Garantir que o caminho termine com / e adicionar index.html
+                    url = pagePath;
+                    if (!url.endsWith('/')) {
+                        url += '/';
+                    }
+                    url += 'index.html';
+                    console.log('Carregando página Jekyll:', url);
+                }
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`Erro ${response.status} ao carregar ${url}`);
+                }
+                
+                let html = await response.text();
+                
+                // Processamento diferente para HTML pronto vs MD convertido
+                if (isHtmlFile) {
+                    // Para arquivos HTML prontos, extrair apenas o conteúdo principal
+                    html = extractMainContent(html);
+                }
+                
+                // Adicionar título e botões de ação
+                html = `
+                    <h1>${pageTitle}</h1>
+                    ${html}
+                    
+                    <div class="page-actions">
+                        <button class="action-btn" onclick="handleReaction('like', '${pagePath.replace(/[^a-zA-Z]/g, '')}')">
+                            <span>❤️</span>
+                            <span id="likeCount_${pagePath.replace(/[^a-zA-Z]/g, '')}">${reactions.like || 0}</span>
+                            <span>Curtir</span>
+                        </button>
+                        <button class="action-btn" onclick="handleReaction('love', '${pagePath.replace(/[^a-zA-Z]/g, '')}')">
+                            <span>💖</span>
+                            <span id="loveCount_${pagePath.replace(/[^a-zA-Z]/g, '')}">${reactions.love || 0}</span>
+                            <span>Amar</span>
+                        </button>
+                        <button class="action-btn" onclick="shareToWhatsApp()">
+                            <span>📱</span> WhatsApp
+                        </button>
+                        <button class="action-btn" onclick="shareToTwitter()">
+                            <span>🐦</span> Twitter
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('pageContent').innerHTML = html;
+                currentPage = pagePath;
+                
+            } catch (error) {
+                console.error('Erro detalhado:', error);
+                document.getElementById('pageContent').innerHTML = `
+                    <div class="error-message">
+                        <h2>Erro ao carregar página</h2>
+                        <p>Não foi possível carregar ${pagePath}. Verifique se o arquivo existe.</p>
+                        <p>Erro: ${error.message}</p>
+                        <button class="action-btn" onclick="showHome()">Voltar ao Início</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Função para extrair apenas o conteúdo principal de um HTML pronto
+        function extractMainContent(html) {
+            // Criar um parser DOM
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Tentar encontrar o conteúdo principal
+            let mainContent = doc.querySelector('main') || 
+                              doc.querySelector('article') || 
+                              doc.querySelector('.content') || 
+                              doc.querySelector('.page-content') ||
+                              doc.body;
+            
+            if (mainContent) {
+                // Remover scripts, estilos, header, footer se estiverem dentro
+                const scripts = mainContent.querySelectorAll('script, style, header, footer, nav');
+                scripts.forEach(el => el.remove());
+                
+                return mainContent.innerHTML;
+            }
+            
+            // Se não encontrar nada, retorna o HTML original
+            return html;
+        }
+        
+        // Carregar blog
+        function loadBlog() {
+            document.getElementById('homeCards').style.display = 'none';
+            document.getElementById('contentContainer').style.display = 'block';
+            
+            if (articles.length === 0) {
+                document.getElementById('pageContent').innerHTML = '<div class="loader">Carregando artigos...</div>';
+                // Tentar carregar os artigos
+                loadArticlesFromMD().then(() => {
+                    if (articles.length > 0) {
+                        renderBlog();
+                    } else {
+                        document.getElementById('pageContent').innerHTML = `
+                            <div class="error-message">
+                                <h2>Nenhum artigo encontrado</h2>
+                                <p>Verifique se a pasta /artigos/ contém os arquivos MD.</p>
+                                <button class="action-btn" onclick="showHome()">Voltar ao Início</button>
+                            </div>
+                        `;
+                    }
+                });
+            } else {
+                renderBlog();
+            }
+        }
+
+        function renderBlog() {
+            const latestArticle = articles.sort((a, b) => b.id - a.id)[0];
+            currentArticleId = latestArticle.id;
+            
+            let html = `
+                <div class="blog-container">
+                    <main class="main-article">
+                        <div id="articleContent">
+                            ${renderArticle(latestArticle)}
+                        </div>
+
+                        <!-- Botões de Reação -->
+                        <div class="reaction-buttons" style="display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap;">
+                            <button class="action-btn" onclick="handleBlogReaction('like')">
+                                <span>❤️</span>
+                                <span id="blogLikeCount">${reactions.like || 0}</span>
+                                <span>Curtir</span>
+                            </button>
+                            <button class="action-btn" onclick="handleBlogReaction('love')">
+                                <span>💖</span>
+                                <span id="blogLoveCount">${reactions.love || 0}</span>
+                                <span>Amar</span>
+                            </button>
+                            <button class="action-btn" onclick="handleBlogReaction('insight')">
+                                <span>💡</span>
+                                <span id="blogInsightCount">${reactions.insight || 0}</span>
+                                <span>Insight</span>
+                            </button>
+                        </div>
+
+                        <!-- Botões de Compartilhamento -->
+                        <div class="share-buttons" style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                            <button class="action-btn" onclick="shareToWhatsApp()">📱 WhatsApp</button>
+                            <button class="action-btn" onclick="shareToTwitter()">🐦 Twitter</button>
+                            <button class="action-btn" onclick="shareToFacebook()">📘 Facebook</button>
+                            <button class="action-btn" onclick="shareToInstagram()">📷 Instagram</button>
+                        </div>
+
+                        <!-- Comentários -->
+                        <div class="comments-section">
+                            <h3>Comentários</h3>
+                            <div class="comment-form">
+                                <div class="form-group">
+                                    <input type="text" id="commentName" placeholder="Seu nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="commentText" placeholder="Deixe seu comentário..." required></textarea>
+                                </div>
+                                <button class="submit-btn" onclick="addComment()">Enviar Comentário</button>
+                            </div>
+                            <div class="comments-list" id="commentsList">
+                                ${renderComments()}
+                            </div>
+                        </div>
+                    </main>
+
+                    <aside class="sidebar">
+                        <h3>Artigos Anteriores</h3>
+                        <ul class="article-list">
+                            ${renderArticleList()}
+                        </ul>
+
+                        <!-- Newsletter -->
+                        <div class="newsletter">
+                            <h4>Receba Novos Artigos</h4>
+                            <p>Inscreva-se para ser notificado</p>
+                            <div class="newsletter-form">
+                                <input type="email" id="newsletterEmail" placeholder="Seu email">
+                                <button onclick="subscribeNewsletter()">Inscrever</button>
+                            </div>
+                            <div id="newsletterMessage"></div>
+                        </div>
+
+                        <h3>Temas</h3>
+                        <ul class="article-list">
+                            <li onclick="filterByTag('amor')">
+                                <span class="article-number">❤️</span> Amor
+                                <span class="article-tag">(${articles.filter(a => a.theme === 'amor').length})</span>
+                            </li>
+                            <li onclick="filterByTag('sonhos')">
+                                <span class="article-number">🌙</span> Sonhos
+                                <span class="article-tag">(${articles.filter(a => a.theme === 'sonhos').length})</span>
+                            </li>
+                            <li onclick="filterByTag('clinica')">
+                                <span class="article-number">💭</span> Clínica
+                                <span class="article-tag">(${articles.filter(a => a.theme === 'clinica').length})</span>
+                            </li>
+                        </ul>
+                    </aside>
+                </div>
+            `;
+
+            document.getElementById('pageContent').innerHTML = html;
+            currentPage = 'blog';
+        }
+
+        // Funções auxiliares para renderização
+        function renderArticle(article) {
+            return `
+                <div class="article-meta">
+                    <span>📅 ${article.date}</span>
+                    <span>✍️ ${article.author}</span>
+                    <span>🏷️ ${article.tags.join(', ')}</span>
+                </div>
+                <h1 class="article-title">${article.title}</h1>
+                <div class="article-content">
+                    ${article.content}
+                </div>
+            `;
+        }
+
+        function renderArticleList() {
+            return articles.sort((a, b) => b.id - a.id).map(article => `
+                <li onclick="loadArticle(${article.id})">
+                    <span class="article-number">#${article.id}</span>
+                    <h4>${article.title}</h4>
+                    <p>${article.date}</p>
+                </li>
+            `).join('');
+        }
+
+        function renderComments() {
+            const articleComments = comments.filter(c => c.articleId === currentArticleId);
+            if (articleComments.length === 0) {
+                return '<p style="color: var(--text-light); text-align: center;">Seja o primeiro a comentar!</p>';
+            }
+            return articleComments.sort((a, b) => b.id - a.id).map(comment => `
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-date">${comment.date} às ${comment.time}</span>
+                    </div>
+                    <div class="comment-text">${comment.text}</div>
+                </div>
+            `).join('');
+        }
+
+        // Funções do Blog
+        function loadArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (article) {
+                currentArticleId = articleId;
+                document.getElementById('articleContent').innerHTML = renderArticle(article);
+                document.getElementById('commentsList').innerHTML = renderComments();
+                updateBlogReactionCounts();
+            }
+        }
+
+        function filterByTag(tag) {
+            const filteredArticles = articles.filter(a => a.theme === tag);
+            const listElement = document.querySelector('.article-list');
+            if (listElement) {
+                listElement.innerHTML = filteredArticles.map(article => `
+                    <li onclick="loadArticle(${article.id})">
+                        <span class="article-number">#${article.id}</span>
+                        <h4>${article.title}</h4>
+                        <p>${article.date}</p>
+                    </li>
+                `).join('');
+            }
+        }
+
+        // Reações
+        function handleReaction(type, pageId) {
+            const storageKey = `reaction_${pageId}_${type}`;
+            const userReaction = localStorage.getItem(storageKey);
+            
+            if (userReaction) {
+                reactions[type] = Math.max(0, (reactions[type] || 0) - 1);
+                localStorage.removeItem(storageKey);
+            } else {
+                reactions[type] = (reactions[type] || 0) + 1;
+                localStorage.setItem(storageKey, 'true');
+            }
+            
+            localStorage.setItem('reactions', JSON.stringify(reactions));
+            
+            const countElement = document.getElementById(`${type}Count_${pageId}`);
+            if (countElement) {
+                countElement.textContent = reactions[type] || 0;
+            }
+        }
+
+        function handleBlogReaction(type) {
+            const storageKey = `reaction_article_${currentArticleId}_${type}`;
+            const userReaction = localStorage.getItem(storageKey);
+            
+            if (userReaction) {
+                reactions[type] = Math.max(0, (reactions[type] || 0) - 1);
+                localStorage.removeItem(storageKey);
+            } else {
+                reactions[type] = (reactions[type] || 0) + 1;
+                localStorage.setItem(storageKey, 'true');
+            }
+            
+            localStorage.setItem('reactions', JSON.stringify(reactions));
+            updateBlogReactionCounts();
+        }
+
+        function updateBlogReactionCounts() {
+            const likeEl = document.getElementById('blogLikeCount');
+            const loveEl = document.getElementById('blogLoveCount');
+            const insightEl = document.getElementById('blogInsightCount');
+            
+            if (likeEl) likeEl.textContent = reactions.like || 0;
+            if (loveEl) loveEl.textContent = reactions.love || 0;
+            if (insightEl) insightEl.textContent = reactions.insight || 0;
+        }
+
+        // Compartilhamento
+        function shareToWhatsApp() {
+            const text = encodeURIComponent('Confira este conteúdo do Amor e Psicanálise');
+            window.open(`https://wa.me/?text=${text}%20${window.location.href}`, '_blank');
+        }
+
+        function shareToTwitter() {
+            const text = encodeURIComponent('Amor e Psicanálise');
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${window.location.href}`, '_blank');
+        }
+
+        function shareToFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank');
+        }
+
+        function shareToInstagram() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copiado! Agora você pode colar no Instagram.');
+        }
+
+        // Comentários
+        function addComment() {
+            const name = document.getElementById('commentName').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+            
+            if (!name || !text) {
+                alert('Por favor, preencha seu nome e comentário.');
+                return;
+            }
+            
+            const comment = {
+                id: Date.now(),
+                articleId: currentArticleId,
+                author: name,
+                text: text,
+                date: new Date().toLocaleDateString('pt-BR'),
+                time: new Date().toLocaleTimeString('pt-BR')
+            };
+            
+            comments.push(comment);
+            localStorage.setItem('comments', JSON.stringify(comments));
+            
+            document.getElementById('commentName').value = '';
+            document.getElementById('commentText').value = '';
+            document.getElementById('commentsList').innerHTML = renderComments();
+            
+            showMessage('Comentário enviado com sucesso!', 'success');
+        }
+
+        // Newsletter
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value.trim();
+            const messageDiv = document.getElementById('newsletterMessage');
+            
+            if (!email || !email.includes('@')) {
+                messageDiv.innerHTML = '<div class="error-message">Email inválido</div>';
+                return;
+            }
+            
+            let subscribers = JSON.parse(localStorage.getItem('subscribers')) || [];
+            if (!subscribers.includes(email)) {
+                subscribers.push(email);
+                localStorage.setItem('subscribers', JSON.stringify(subscribers));
+                messageDiv.innerHTML = '<div class="success-message">Inscrição realizada!</div>';
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                messageDiv.innerHTML = '<div class="error-message">Email já inscrito</div>';
+            }
+            
+            setTimeout(() => messageDiv.innerHTML = '', 3000);
+        }
+
+        // FAQ (se precisar dentro do blog)
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('span');
+            
+            if (answer.style.display === 'none' || !answer.style.display) {
+                answer.style.display = 'block';
+                arrow.textContent = '▲';
+            } else {
+                answer.style.display = 'none';
+                arrow.textContent = '▼';
+            }
+        }
+
+        // Utilitários
+        function showMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = type === 'success' ? 'success-message' : 'error-message';
+            msg.textContent = text;
+            document.querySelector('.comment-form').appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+        }
+
+        // Ajuste de menu para telas pequenas
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                if (document.getElementById("sideMenu").style.width === "280px") {
+                    document.getElementById("mainContent").style.marginLeft = "0";
+                }
+            } else {
+                if (document.getElementById("sideMenu").style.width === "280px") {
+                    document.getElementById("mainContent").style.marginLeft = "280px";
+                }
+            }
+        });
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('sideMenu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (menu.style.width === '280px' && 
+                !menu.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                closeMenu();
+            }
+        });
+
+        // Inicializar carregando os artigos
+        document.addEventListener('DOMContentLoaded', function() {
+            showHome();
+            loadArticlesFromMD(); // Carrega os artigos em background
+        });
+    </script>
+
+</body>
+</html>
