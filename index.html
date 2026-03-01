@@ -1166,19 +1166,19 @@ async function loadArticlesFromMD() {
         }
 
         // Funções auxiliares para renderização
-        function renderArticle(article) {
-            return `
-                <div class="article-meta">
-                    <span>📅 ${article.date}</span>
-                    <span>✍️ ${article.author}</span>
-                    <span>🏷️ ${article.tags.join(', ')}</span>
-                </div>
-                <h1 class="article-title">${article.title}</h1>
-                <div class="article-content">
-                    ${article.content}
-                </div>
-            `;
-        }
+     function renderArticle(article) {
+    return `
+        <div class="article-meta">
+            <span>📅 ${article.date}</span>
+            <span>✍️ ${article.author}</span>
+            <span>🏷️ ${article.tags.join(', ')}</span>
+        </div>
+        <h1 class="article-title">${article.title}</h1>
+        <div class="article-content">
+            ${article.content}  <!-- ISSO DEVE MOSTRAR O CONTEÚDO -->
+        </div>
+    `;
+}
 
         function renderArticleList() {
             return articles.sort((a, b) => b.id - a.id).map(article => `
