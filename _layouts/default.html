@@ -5,16 +5,359 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | Amor e Psicanálise</title>
     <style>
-        /* COPIE TODO O CSS DO SEU INDEX.HTML ANTIGO AQUI */
-        * { ... }
-        :root { ... }
-        .side-menu { ... }
-        .menu-btn { ... }
-        /* TODO O RESTO DO CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
+            min-height: 100vh;
+            color: #2d3e4f;
+            line-height: 1.6;
+        }
+
+        /* Cores para saúde mental - tons suaves e acolhedores */
+        :root {
+            --primary: #6b8c9f;    /* Azul suave - calma */
+            --primary-dark: #4f6f82;
+            --secondary: #9fb7c9;   /* Azul mais claro - serenidade */
+            --accent: #a8c6b0;      /* Verde suave - equilíbrio */
+            --text: #2d3e4f;        /* Azul escuro - profundidade */
+            --text-light: #5f7d95;
+            --background: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border: #d9e2e9;
+            --hover: #e6f0f5;
+        }
+
+        /* Menu Lateral */
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
+            overflow-x: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 70px;
+            box-shadow: 2px 0 20px rgba(107, 140, 159, 0.15);
+            z-index: 1000;
+            border-right: 1px solid var(--border);
+        }
+
+        .side-menu a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: var(--text);
+            display: block;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .side-menu a:hover {
+            background-color: var(--hover);
+            border-left: 4px solid var(--primary);
+            color: var(--primary-dark);
+            padding-left: 35px;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 32px;
+            padding: 0;
+            color: var(--text-light);
+        }
+
+        .side-menu .close-btn:hover {
+            background: none;
+            border-left: none;
+            color: var(--primary);
+        }
+
+        /* Botão do Menu */
+        .menu-btn {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            font-size: 24px;
+            cursor: pointer;
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.1);
+            z-index: 999;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            line-height: 1;
+        }
+
+        .menu-btn:hover {
+            background: white;
+            box-shadow: 0 6px 20px rgba(107, 140, 159, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header com Imagem (para página inicial) */
+        .header {
+            position: relative;
+            height: 300px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) saturate(1.1);
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(107, 140, 159, 0.3) 0%, rgba(168, 198, 176, 0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .header-overlay h1 {
+            font-size: 3.2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .header-overlay p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cards do Menu Principal */
+        .menu-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px auto;
+            max-width: 1000px;
+            padding: 0 10px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.06);
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            border-bottom-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(107, 140, 159, 0.1);
+        }
+
+        .menu-card .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .menu-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+
+        .menu-card p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Container de Conteúdo para páginas */
+        .content-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 35px;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
+            min-height: 500px;
+        }
+
+        /* Páginas de Conteúdo */
+        .page-content {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-content h1 {
+            color: var(--text);
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 12px;
+        }
+
+        .page-content h2 {
+            color: var(--text);
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 25px 0 12px;
+        }
+
+        .page-content p {
+            color: var(--text-light);
+            margin-bottom: 18px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .page-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding: 15px 25px;
+            margin: 25px 0;
+            background: #f8fbfd;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0 8px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Responsividade */
+        @media screen and (max-width: 1024px) {
+            .menu-cards {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-btn {
+                top: 15px;
+                left: 15px;
+                padding: 10px 15px;
+                font-size: 20px;
+            }
+
+            .header {
+                height: 200px;
+            }
+
+            .header-overlay h1 {
+                font-size: 1.8rem;
+            }
+
+            .header-overlay p {
+                font-size: 0.9rem;
+            }
+
+            .menu-cards {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .content-container {
+                padding: 20px;
+            }
+
+            .page-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .footer-links {
+                gap: 12px;
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- MENU LATERAL -->
+    <!-- Menu Lateral -->
     <div id="sideMenu" class="side-menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
         <a href="/" onclick="closeMenu()">🏠 Página Inicial</a>
@@ -22,13 +365,12 @@
         <a href="/artigos/" onclick="closeMenu()">📝 Artigos & Reflexões</a>
         <a href="/pages/sobre/" onclick="closeMenu()">📖 Sobre esse Projeto</a>
         <a href="/pages/faq/" onclick="closeMenu()">❓ Perguntas Frequentes</a>
-        <a href="/pages/termos/" onclick="closeMenu()">📄 Termos de Uso</a>
-        <a href="/pages/privacidade/" onclick="closeMenu()">🔒 Política de Privacidade</a>
     </div>
 
+    <!-- Botão do Menu -->
     <button class="menu-btn" onclick="openMenu()">☰</button>
 
-    <!-- CONTEÚDO PRINCIPAL (vem do arquivo que usa este layout) -->
+    <!-- Conteúdo Principal (vem do arquivo que usa este layout) -->
     <div class="main-content" id="mainContent">
         {{ content }}
     </div>
@@ -47,6 +389,19 @@
             document.getElementById("mainContent").style.marginLeft = "0";
         }
 
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('sideMenu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (menu.style.width === '280px' && 
+                !menu.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                closeMenu();
+            }
+        });
+
+        // Ajuste para telas pequenas
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 768) {
                 if (document.getElementById("sideMenu").style.width === "280px") {
