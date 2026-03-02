@@ -19,13 +19,12 @@
             line-height: 1.6;
         }
 
-        /* Cores para saúde mental - tons suaves e acolhedores */
         :root {
-            --primary: #6b8c9f;    /* Azul suave - calma */
+            --primary: #6b8c9f;
             --primary-dark: #4f6f82;
-            --secondary: #9fb7c9;   /* Azul mais claro - serenidade */
-            --accent: #a8c6b0;      /* Verde suave - equilíbrio */
-            --text: #2d3e4f;        /* Azul escuro - profundidade */
+            --secondary: #9fb7c9;
+            --accent: #a8c6b0;
+            --text: #2d3e4f;
             --text-light: #5f7d95;
             --background: #ffffff;
             --card-bg: rgba(255, 255, 255, 0.9);
@@ -33,39 +32,121 @@
             --hover: #e6f0f5;
         }
 
-        /* Menu Lateral */
-        .side-menu {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
-            overflow-x: hidden;
-            overflow-y: auto;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding-top: 60px;
-            box-shadow: 2px 0 20px rgba(107, 140, 159, 0.15);
-            z-index: 1000;
-            border-right: 1px solid var(--border);
+        /* LAYOUT PRINCIPAL - 3 COLUNAS */
+        .main-container {
+            display: flex;
+            max-width: 1600px;
+            margin: 20px auto;
+            padding: 0 20px;
+            gap: 20px;
+            min-height: calc(100vh - 40px);
         }
 
-        /* Perfil do Autor na Sidebar */
+        /* COLUNA ESQUERDA - MENU DE NAVEGAÇÃO */
+        .left-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px 15px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .left-sidebar h3 {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .left-sidebar h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 8px;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-menu a:hover {
+            background: var(--hover);
+            transform: translateX(5px);
+            color: var(--primary-dark);
+        }
+
+        .nav-menu .emoji {
+            font-size: 1.3rem;
+            min-width: 30px;
+        }
+
+        /* COLUNA CENTRAL - CONTEÚDO PRINCIPAL */
+        .content-center {
+            flex: 3;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
+            min-height: 500px;
+        }
+
+        /* COLUNA DIREITA - PERFIL E INFORMAÇÕES */
+        .right-sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        /* Perfil do Autor */
         .author-profile {
-            padding: 20px;
             text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 15px;
         }
 
         .author-avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             margin: 0 auto 15px;
             overflow: hidden;
             border: 3px solid var(--primary);
-            box-shadow: 0 4px 10px rgba(107, 140, 159, 0.2);
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.2);
         }
 
         .author-avatar img {
@@ -75,7 +156,7 @@
         }
 
         .author-name {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text);
             margin-bottom: 8px;
@@ -84,38 +165,47 @@
         .author-bio {
             font-size: 0.9rem;
             color: var(--text-light);
-            line-height: 1.5;
+            line-height: 1.6;
             padding: 0 10px;
+            font-style: italic;
         }
 
-        /* Seções da Sidebar */
-        .sidebar-section {
-            padding: 20px;
+        /* Seções da Direita */
+        .right-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border);
         }
 
-        .sidebar-section h3 {
+        .right-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .right-section h4 {
             color: var(--text);
             font-size: 1rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .blog-description {
-            font-size: 0.9rem;
+            background: rgba(168, 198, 176, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.95rem;
             color: var(--text-light);
             line-height: 1.6;
-            font-style: italic;
-            background: rgba(168, 198, 176, 0.1);
-            padding: 12px;
-            border-radius: 8px;
+            border-left: 3px solid var(--accent);
         }
 
-        /* Últimos Posts na Sidebar */
+        /* Últimos Posts */
         .recent-posts-list {
             list-style: none;
         }
@@ -154,17 +244,16 @@
         }
 
         /* Links Sociais */
-        .social-links {
+        .social-grid {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
+            gap: 10px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: var(--hover);
             display: flex;
@@ -173,7 +262,7 @@
             color: var(--text);
             text-decoration: none;
             transition: all 0.3s;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         .social-link:hover {
@@ -182,79 +271,13 @@
             transform: translateY(-3px);
         }
 
-        .side-menu a:not(.social-link) {
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 1rem;
-            color: var(--text);
-            display: block;
-            transition: 0.3s;
-            border-left: 4px solid transparent;
-            font-weight: 400;
-        }
-
-        .side-menu a:not(.social-link):hover {
-            background-color: var(--hover);
-            border-left: 4px solid var(--primary);
-            color: var(--primary-dark);
-            padding-left: 35px;
-        }
-
-        .side-menu .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 32px;
-            padding: 0;
-            color: var(--text-light);
-        }
-
-        .side-menu .close-btn:hover {
-            background: none;
-            border-left: none;
-            color: var(--primary);
-        }
-
-        /* Botão do Menu */
-        .menu-btn {
-            position: fixed;
-            top: 25px;
-            left: 25px;
-            font-size: 24px;
-            cursor: pointer;
-            background: var(--card-bg);
-            color: var(--text);
-            padding: 12px 18px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.1);
-            z-index: 999;
-            transition: 0.3s;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(8px);
-            line-height: 1;
-        }
-
-        .menu-btn:hover {
-            background: white;
-            box-shadow: 0 6px 20px rgba(107, 140, 159, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* Conteúdo Principal */
-        .main-content {
-            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 20px;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
         /* Header com Imagem */
         .header {
             position: relative;
-            height: 300px;
-            border-radius: 24px;
+            height: 250px;
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
@@ -271,7 +294,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(107, 140, 159, 0.3) 0%, rgba(168, 198, 176, 0.3) 100%);
+            background: linear-gradient(135deg, rgba(107, 140, 159, 0.4) 0%, rgba(168, 198, 176, 0.4) 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -282,39 +305,33 @@
         }
 
         .header-overlay h1 {
-            font-size: 3.2rem;
+            font-size: 2.5rem;
             font-weight: 300;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            letter-spacing: 1px;
         }
 
         .header-overlay p {
-            font-size: 1.2rem;
-            max-width: 600px;
+            font-size: 1.1rem;
+            max-width: 500px;
             opacity: 0.95;
             font-weight: 300;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         /* Cards do Menu Principal */
         .menu-cards {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin: 30px auto;
-            max-width: 1000px;
-            padding: 0 10px;
+            margin: 30px 0;
         }
 
         .menu-card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
             padding: 20px 15px;
             border-radius: 16px;
             box-shadow: 0 4px 15px rgba(107, 140, 159, 0.06);
             transition: 0.3s;
-            cursor: pointer;
             border: 1px solid var(--border);
             text-align: center;
             border-bottom: 3px solid transparent;
@@ -340,7 +357,6 @@
             font-size: 1.1rem;
             font-weight: 500;
             margin-bottom: 6px;
-            letter-spacing: 0.2px;
         }
 
         .menu-card p {
@@ -350,62 +366,6 @@
             margin: 0;
         }
 
-        /* Container de Conteúdo */
-        .content-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 35px;
-            margin: 30px 0;
-            border: 1px solid var(--border);
-            box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
-            min-height: 500px;
-        }
-
-        /* Páginas de Conteúdo */
-        .page-content {
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .page-content h1 {
-            color: var(--text);
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 12px;
-        }
-
-        .page-content h2 {
-            color: var(--text);
-            font-size: 1.4rem;
-            font-weight: 400;
-            margin: 25px 0 12px;
-        }
-
-        .page-content p {
-            color: var(--text-light);
-            margin-bottom: 18px;
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .page-content blockquote {
-            border-left: 4px solid var(--accent);
-            padding: 15px 25px;
-            margin: 25px 0;
-            background: #f8fbfd;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-            color: var(--text);
-            font-size: 1rem;
-        }
-
         /* Footer */
         .footer {
             text-align: center;
@@ -413,6 +373,7 @@
             margin-top: 50px;
             border-top: 1px solid var(--border);
             color: var(--text-light);
+            grid-column: 1 / -1;
         }
 
         .footer-links {
@@ -427,7 +388,6 @@
             color: var(--text);
             text-decoration: none;
             transition: 0.3s;
-            cursor: pointer;
             font-size: 0.95rem;
         }
 
@@ -441,164 +401,146 @@
         }
 
         /* Responsividade */
-        @media screen and (max-width: 1024px) {
-            .menu-cards {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 600px;
+        @media screen and (max-width: 1200px) {
+            .main-container {
+                flex-wrap: wrap;
+            }
+            
+            .left-sidebar, .right-sidebar {
+                flex: 1 1 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+            
+            .left-sidebar {
+                order: 1;
+            }
+            
+            .content-center {
+                order: 2;
+                flex: 1 1 100%;
+            }
+            
+            .right-sidebar {
+                order: 3;
             }
         }
 
         @media screen and (max-width: 768px) {
-            .menu-btn {
-                top: 15px;
-                left: 15px;
-                padding: 10px 15px;
-                font-size: 20px;
+            .main-container {
+                padding: 10px;
             }
-
+            
             .header {
-                height: 200px;
+                height: 180px;
             }
-
+            
             .header-overlay h1 {
                 font-size: 1.8rem;
             }
-
+            
             .header-overlay p {
                 font-size: 0.9rem;
             }
-
+            
             .menu-cards {
                 grid-template-columns: 1fr;
-                max-width: 400px;
             }
-
-            .content-container {
+            
+            .content-center {
                 padding: 20px;
-            }
-
-            .page-content h1 {
-                font-size: 1.6rem;
-            }
-
-            .footer-links {
-                gap: 12px;
-                flex-direction: column;
-            }
-
-            .author-avatar {
-                width: 80px;
-                height: 80px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
-        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
-        
-        <!-- Perfil do Autor -->
-        <div class="author-profile">
-            <div class="author-avatar">
-                <img src="/amor-psicanalise/assets/images/avatar.jpg" alt="Gilton Vasconcelos" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%236b8c9f\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EGV%3C/text%3E%3C/svg%3E'">
-            </div>
-            <div class="author-name">Gilton Vasconcelos</div>
-            <div class="author-bio">
-                "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. Podemos transformar essas marcas em lições, e não em correntes."
-            </div>
-        </div>
-
-        <!-- Descrição do Blog -->
-        <div class="sidebar-section">
-            <h3>📖 Sobre o Blog</h3>
-            <div class="blog-description">
-                Um espaço para o encontro entre o sentir e o pensar. Reflexões sobre psicanálise, amor e os caminhos da subjetividade.
-            </div>
-        </div>
-
-        <!-- Últimos Posts -->
-        <div class="sidebar-section">
-            <h3>📝 Últimos Artigos</h3>
-            <ul class="recent-posts-list">
-                {% for post in site.posts limit:4 %}
-                <li class="recent-post-item">
-                    <div class="recent-post-title">
-                        <a href="{{ post.url }}">{{ post.title }}</a>
-                    </div>
-                    <div class="recent-post-date">{{ post.date | date: "%d/%m/%Y" }}</div>
-                </li>
-                {% endfor %}
+    <div class="main-container">
+        <!-- COLUNA ESQUERDA - MENU DE NAVEGAÇÃO -->
+        <aside class="left-sidebar">
+            <h3>📌 Menu Principal</h3>
+            <ul class="nav-menu">
+                <li><a href="/amor-psicanalise/"><span class="emoji">🏠</span> Página Inicial</a></li>
+                <li><a href="/amor-psicanalise/a-psicanalise/"><span class="emoji">🎯</span> A Psicanálise</a></li>
+                <li><a href="/amor-psicanalise/artigos/"><span class="emoji">📝</span> Artigos & Reflexões</a></li>
+                <li><a href="/amor-psicanalise/sobre/"><span class="emoji">📖</span> Sobre esse Projeto</a></li>
+                <li><a href="/amor-psicanalise/faq/"><span class="emoji">❓</span> Perguntas Frequentes</a></li>
+                <li><a href="/amor-psicanalise/contato/"><span class="emoji">📧</span> Contato</a></li>
             </ul>
-        </div>
 
-        <!-- Links de Navegação -->
-        <div class="sidebar-section">
-            <h3>🔗 Navegação</h3>
-            <a href="/amor-psicanalise/">🏠 Página Inicial</a>
-            <a href="/amor-psicanalise/a-psicanalise/">🎯 A Psicanálise</a>
-            <a href="/amor-psicanalise/artigos/">📝 Artigos & Reflexões</a>
-            <a href="/amor-psicanalise/sobre/">📖 Sobre esse Projeto</a>
-            <a href="/amor-psicanalise/faq/">❓ Perguntas Frequentes</a>
-            <a href="/amor-psicanalise/contato/">📧 Contato</a>
-        </div>
+            <h3>📚 Categorias</h3>
+            <ul class="nav-menu">
+                <li><a href="/amor-psicanalise/categorias/psicanalise/"><span class="emoji">🧠</span> Psicanálise</a></li>
+                <li><a href="/amor-psicanalise/categorias/amor/"><span class="emoji">❤️</span> Amor</a></li>
+                <li><a href="/amor-psicanalise/categorias/clinica/"><span class="emoji">🔍</span> Clínica</a></li>
+                <li><a href="/amor-psicanalise/categorias/teoria/"><span class="emoji">📖</span> Teoria</a></li>
+            </ul>
+        </aside>
 
-        <!-- Links Sociais -->
-        <div class="social-links">
-            <a href="https://www.instagram.com/gilton__vasconcelos/" target="_blank" class="social-link" title="Instagram">📷</a>
-            <a href="https://wa.me/message/TMFLTRW6SXGFI1" target="_blank" class="social-link" title="WhatsApp">💬</a>
-            <a href="https://github.com/giltonvasconcelos" target="_blank" class="social-link" title="GitHub">🐙</a>
-            <a href="#" class="social-link" title="Twitter">🐦</a>
-            <a href="#" class="social-link" title="LinkedIn">💼</a>
-        </div>
+        <!-- COLUNA CENTRAL - CONTEÚDO PRINCIPAL -->
+        <main class="content-center">
+            {{ content }}
+        </main>
+
+        <!-- COLUNA DIREITA - PERFIL E INFORMAÇÕES -->
+        <aside class="right-sidebar">
+            <!-- Perfil do Autor -->
+            <div class="author-profile">
+                <div class="author-avatar">
+                    <img src="/amor-psicanalise/assets/images/avatar.jpg" alt="Gilton Vasconcelos" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%236b8c9f\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EGV%3C/text%3E%3C/svg%3E'">
+                </div>
+                <div class="author-name">Gilton Vasconcelos</div>
+                <div class="author-bio">
+                    "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. Podemos transformar essas marcas em lições, e não em correntes."
+                </div>
+            </div>
+
+            <!-- Sobre o Blog -->
+            <div class="right-section">
+                <h4>📖 Sobre o Blog</h4>
+                <div class="blog-description">
+                    Um espaço para o encontro entre o sentir e o pensar. Reflexões sobre psicanálise, amor e os caminhos da subjetividade. Aqui, a teoria psicanalítica encontra a experiência cotidiana.
+                </div>
+            </div>
+
+            <!-- Últimos Posts -->
+            <div class="right-section">
+                <h4>📝 Últimos Artigos</h4>
+                <ul class="recent-posts-list">
+                    {% for post in site.posts limit:4 %}
+                    <li class="recent-post-item">
+                        <div class="recent-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                        <div class="recent-post-date">{{ post.date | date: "%d/%m/%Y" }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Redes Sociais -->
+            <div class="right-section">
+                <h4>🔗 Redes Sociais</h4>
+                <div class="social-grid">
+                    <a href="https://www.instagram.com/gilton__vasconcelos/" target="_blank" class="social-link" title="Instagram">📷</a>
+                    <a href="https://wa.me/message/TMFLTRW6SXGFI1" target="_blank" class="social-link" title="WhatsApp">💬</a>
+                    <a href="https://github.com/giltonvasconcelos" target="_blank" class="social-link" title="GitHub">🐙</a>
+                    <a href="#" target="_blank" class="social-link" title="Twitter">🐦</a>
+                    <a href="#" target="_blank" class="social-link" title="LinkedIn">💼</a>
+                    <a href="#" target="_blank" class="social-link" title="Facebook">📘</a>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <!-- Botão do Menu -->
-    <button class="menu-btn" onclick="openMenu()">☰</button>
-
-    <!-- Conteúdo Principal -->
-    <div class="main-content" id="mainContent">
-        {{ content }}
-    </div>
-
-    <script>
-        function openMenu() {
-            document.getElementById("sideMenu").style.width = "300px";
-            document.getElementById("mainContent").style.marginLeft = "300px";
-            if (window.innerWidth <= 768) {
-                document.getElementById("mainContent").style.marginLeft = "0";
-            }
-        }
-
-        function closeMenu() {
-            document.getElementById("sideMenu").style.width = "0";
-            document.getElementById("mainContent").style.marginLeft = "0";
-        }
-
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('sideMenu');
-            const menuBtn = document.querySelector('.menu-btn');
-            
-            if (menu.style.width === '300px' && 
-                !menu.contains(event.target) && 
-                !menuBtn.contains(event.target)) {
-                closeMenu();
-            }
-        });
-
-        // Ajuste para telas pequenas
-        window.addEventListener('resize', function() {
-            if (window.innerWidth <= 768) {
-                if (document.getElementById("sideMenu").style.width === "300px") {
-                    document.getElementById("mainContent").style.marginLeft = "0";
-                }
-            } else {
-                if (document.getElementById("sideMenu").style.width === "300px") {
-                    document.getElementById("mainContent").style.marginLeft = "300px";
-                }
-            }
-        });
-    </script>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/amor-psicanalise/termos-de-uso/">Termos de Uso</a>
+            <a href="/amor-psicanalise/politica-de-privacidade/">Política de Privacidade</a>
+        </div>
+        <div class="copyright">
+            © 2026 Gilton Vasconcelos. Todos os direitos reservados.
+        </div>
+    </footer>
 </body>
 </html>
