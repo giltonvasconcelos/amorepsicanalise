@@ -1,8 +1,9 @@
 ---
+layout: post
 title: "Amor: Entre a Obrigação de Amar e a Liberdade de Escolher"
-date: 2026-02-28
-author: "Gilton Vasconcelos"
-layout: default
+date: 2026-03-10
+author: Gilton Vasconcelos
+categories: [psicanálise, clínica]
 ---
 
 # Amor: Entre a Obrigação de Amar e a Liberdade de Escolher
