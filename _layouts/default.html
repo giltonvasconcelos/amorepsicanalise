@@ -11,78 +11,6 @@
             box-sizing: border-box;
         }
 
-<script>
-    // Funções para controlar o menu lateral
-    function openMenu() {
-        document.getElementById("sideMenu").style.width = "280px";
-        document.getElementById("mainContent").style.marginLeft = "280px";
-        
-        // Salva estado do menu
-        localStorage.setItem('menuState', 'open');
-    }
-
-    function closeMenu() {
-        document.getElementById("sideMenu").style.width = "0";
-        document.getElementById("mainContent").style.marginLeft = "0";
-        
-        // Salva estado do menu
-        localStorage.setItem('menuState', 'closed');
-    }
-
-    // Fechar menu ao clicar fora
-    document.addEventListener('click', function(event) {
-        const menu = document.getElementById('sideMenu');
-        const menuBtn = document.querySelector('.menu-btn');
-        
-        if (menu.style.width === '280px' && 
-            !menu.contains(event.target) && 
-            !menuBtn.contains(event.target)) {
-            closeMenu();
-        }
-    });
-
-    // Restaurar estado do menu ao carregar a página
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuState = localStorage.getItem('menuState');
-        
-        // Verifica se é mobile
-        const isMobile = window.innerWidth <= 768;
-        
-        if (menuState === 'open' && !isMobile) {
-            document.getElementById("sideMenu").style.width = "280px";
-            document.getElementById("mainContent").style.marginLeft = "280px";
-        } else {
-            document.getElementById("sideMenu").style.width = "0";
-            document.getElementById("mainContent").style.marginLeft = "0";
-        }
-    });
-
-    // Ajuste para redimensionamento da tela
-    window.addEventListener('resize', function() {
-        const isMobile = window.innerWidth <= 768;
-        const menu = document.getElementById('sideMenu');
-        
-        if (isMobile) {
-            menu.style.width = "0";
-            document.getElementById("mainContent").style.marginLeft = "0";
-        } else {
-            const menuState = localStorage.getItem('menuState');
-            if (menuState === 'open') {
-                menu.style.width = "280px";
-                document.getElementById("mainContent").style.marginLeft = "280px";
-            }
-        }
-    });
-
-    // Garantir que o botão de menu existe e tem a função openMenu
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuBtn = document.querySelector('.menu-btn');
-        if (menuBtn) {
-            menuBtn.setAttribute('onclick', 'openMenu()');
-        }
-    });
-</script>
-        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #f0f4f8 0%, #e1e8f0 100%);
@@ -104,17 +32,95 @@
             --hover: #e6f0f5;
         }
 
-        /* LAYOUT PRINCIPAL - 3 COLUNAS */
+        /* ===== MENU LATERAL RETRÁTIL ===== */
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 60px;
+            box-shadow: 2px 0 20px rgba(107, 140, 159, 0.15);
+            z-index: 1000;
+            border-right: 1px solid var(--border);
+        }
+
+        .side-menu a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1rem;
+            color: var(--text);
+            display: block;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .side-menu a:hover {
+            background: var(--hover);
+            border-left: 4px solid var(--primary);
+            color: var(--primary-dark);
+            padding-left: 35px;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 32px;
+            padding: 0;
+        }
+
+        .side-menu .close-btn:hover {
+            background: none;
+            border-left: none;
+            color: var(--primary);
+        }
+
+        /* ===== BOTÃO DO MENU ===== */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.1);
+            z-index: 999;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            line-height: 1;
+        }
+
+        .menu-btn:hover {
+            background: white;
+            box-shadow: 0 6px 20px rgba(107, 140, 159, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .main-content {
+            transition: margin-left 0.4s;
+            padding: 20px;
+        }
+
+        /* LAYOUT DE 3 COLUNAS DENTRO DO MAIN-CONTENT */
         .main-container {
             display: flex;
             max-width: 1600px;
-            margin: 20px auto;
-            padding: 0 20px;
+            margin: 0 auto;
             gap: 20px;
             min-height: calc(100vh - 40px);
         }
 
-        /* COLUNA ESQUERDA - APENAS MENU PRINCIPAL */
+        /* COLUNA ESQUERDA - FIXA (já que o menu retrátil é outro) */
         .left-sidebar {
             flex: 1;
             min-width: 250px;
@@ -126,7 +132,7 @@
             box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
             height: fit-content;
             position: sticky;
-            top: 20px;
+            top: 80px;
         }
 
         .left-sidebar h3 {
@@ -172,7 +178,7 @@
             min-width: 30px;
         }
 
-        /* COLUNA CENTRAL - CONTEÚDO PRINCIPAL */
+        /* COLUNA CENTRAL */
         .content-center {
             flex: 3;
             background: var(--card-bg);
@@ -184,7 +190,7 @@
             min-height: 500px;
         }
 
-        /* COLUNA DIREITA - PERFIL E INFORMAÇÕES */
+        /* COLUNA DIREITA */
         .right-sidebar {
             flex: 1;
             min-width: 280px;
@@ -196,7 +202,7 @@
             box-shadow: 0 8px 25px rgba(107, 140, 159, 0.05);
             height: fit-content;
             position: sticky;
-            top: 20px;
+            top: 80px;
         }
 
         /* Perfil do Autor */
@@ -247,8 +253,6 @@
 
         .right-section:last-child {
             border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
         }
 
         .right-section h4 {
@@ -258,9 +262,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .blog-description {
@@ -286,8 +287,6 @@
 
         .recent-post-item:last-child {
             border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
         }
 
         .recent-post-title {
@@ -299,7 +298,6 @@
         .recent-post-title a {
             color: var(--text);
             text-decoration: none;
-            transition: color 0.3s;
         }
 
         .recent-post-title a:hover {
@@ -339,101 +337,6 @@
             transform: translateY(-3px);
         }
 
-        /* Header com Imagem */
-        .header {
-            position: relative;
-            height: 250px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        .header-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.85) saturate(1.1);
-        }
-
-        .header-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(107, 140, 159, 0.4) 0%, rgba(168, 198, 176, 0.4) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 20px;
-        }
-
-        .header-overlay h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .header-overlay p {
-            font-size: 1.1rem;
-            max-width: 500px;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-
-        /* Cards do Menu Principal */
-        .menu-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .menu-card {
-            background: var(--card-bg);
-            padding: 20px 15px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(107, 140, 159, 0.06);
-            transition: 0.3s;
-            border: 1px solid var(--border);
-            text-align: center;
-            border-bottom: 3px solid transparent;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-3px);
-            border-bottom-color: var(--primary);
-            box-shadow: 0 8px 20px rgba(107, 140, 159, 0.1);
-        }
-
-        .menu-card .emoji {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .menu-card h3 {
-            color: var(--text);
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .menu-card p {
-            color: var(--text-light);
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin: 0;
-        }
-
         /* Footer */
         .footer {
             text-align: center;
@@ -441,7 +344,6 @@
             margin-top: 50px;
             border-top: 1px solid var(--border);
             color: var(--text-light);
-            grid-column: 1 / -1;
         }
 
         .footer-links {
@@ -455,8 +357,6 @@
         .footer-links a {
             color: var(--text);
             text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.95rem;
         }
 
         .footer-links a:hover {
@@ -480,39 +380,20 @@
                 margin-bottom: 20px;
             }
             
-            .left-sidebar {
-                order: 1;
-            }
-            
             .content-center {
-                order: 2;
                 flex: 1 1 100%;
-            }
-            
-            .right-sidebar {
-                order: 3;
             }
         }
 
         @media screen and (max-width: 768px) {
-            .main-container {
+            .menu-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+            }
+            
+            .main-content {
                 padding: 10px;
-            }
-            
-            .header {
-                height: 180px;
-            }
-            
-            .header-overlay h1 {
-                font-size: 1.8rem;
-            }
-            
-            .header-overlay p {
-                font-size: 0.9rem;
-            }
-            
-            .menu-cards {
-                grid-template-columns: 1fr;
             }
             
             .content-center {
@@ -522,85 +403,131 @@
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- COLUNA ESQUERDA - APENAS MENU PRINCIPAL -->
-        <aside class="left-sidebar">
-            <h3>📌 Menu Principal</h3>
-            <ul class="nav-menu">
-                <li><a href="/amorepsicanalise/"><span class="emoji">🏠</span> Início</a></li>
-                <li><a href="/amorepsicanalise/pages/psicanalise/"><span class="emoji">🎯</span> A Psicanálise</a></li>
-                <li><a href="/amorepsicanalise/pages/artigos/"><span class="emoji">📝</span> Artigos</a></li>
-                <li><a href="/amorepsicanalise/pages/sobre/"><span class="emoji">📖</span> Sobre</a></li>
-                <li><a href="/amorepsicanalise/pages/faq.html"><span class="emoji">❓</span> FAQ</a></li>
-                <li><a href="/amorepsicanalise/pages/contato/"><span class="emoji">📧</span> Contato</a></li>
-            </ul>
-        </aside>
-
-        <!-- COLUNA CENTRAL - CONTEÚDO PRINCIPAL -->
-        <main class="content-center">
-            {{ content }}
-        </main>
-
-        <!-- COLUNA DIREITA - PERFIL E INFORMAÇÕES -->
-        <aside class="right-sidebar">
-            <!-- Perfil do Autor -->
-            <div class="author-profile">
-                <div class="author-avatar">
-                    <img src="/amorepsicanalise/assets/images/avatar.jpg" alt="Gilton Vasconcelos" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%236b8c9f\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EGV%3C/text%3E%3C/svg%3E'">
-                </div>
-                <div class="author-name">Gilton Vasconcelos</div>
-                <div class="author-bio">
-                    "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. Podemos transformar essas marcas em lições, e não em correntes."
-                </div>
-            </div>
-
-            <!-- Sobre o Blog -->
-            <div class="right-section">
-                <h4>📖 Sobre o Blog</h4>
-                <div class="blog-description">
-                    Um espaço para o encontro entre o sentir e o pensar. Reflexões sobre psicanálise, amor e os caminhos da subjetividade. Aqui, a teoria psicanalítica encontra a experiência cotidiana.
-                </div>
-            </div>
-
-            <!-- Últimos Posts -->
-            <div class="right-section">
-                <h4>📝 Últimos Artigos</h4>
-                <ul class="recent-posts-list">
-                    {% for post in site.posts limit:4 %}
-                    <li class="recent-post-item">
-                        <div class="recent-post-title">
-                            <a href="{{ post.url }}">{{ post.title }}</a>
-                        </div>
-                        <div class="recent-post-date">{{ post.date | date: "%d/%m/%Y" }}</div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <!-- Redes Sociais -->
-            <div class="right-section">
-                <h4>🔗 Redes Sociais</h4>
-                <div class="social-grid">
-                    <a href="https://www.instagram.com/gilton__vasconcelos/" target="_blank" class="social-link" title="Instagram">📷</a>
-                    <a href="https://wa.me/message/TMFLTRW6SXGFI1" target="_blank" class="social-link" title="WhatsApp">💬</a>
-                    <a href="https://github.com/giltonvasconcelos" target="_blank" class="social-link" title="GitHub">🐙</a>
-                    <a href="#" target="_blank" class="social-link" title="Twitter">🐦</a>
-                    <a href="#" target="_blank" class="social-link" title="LinkedIn">💼</a>
-                    <a href="#" target="_blank" class="social-link" title="Facebook">📘</a>
-                </div>
-            </div>
-        </aside>
+    <!-- MENU LATERAL RETRÁTIL -->
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="/amorepsicanalise/">🏠 Início</a>
+        <a href="/amorepsicanalise/pages/psicanalise/">🎯 A Psicanálise</a>
+        <a href="/amorepsicanalise/pages/artigos/">📝 Artigos</a>
+        <a href="/amorepsicanalise/pages/sobre/">📖 Sobre</a>
+        <a href="/amorepsicanalise/pages/faq.html">❓ FAQ</a>
+        <a href="/amorepsicanalise/pages/contato/">📧 Contato</a>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="/amorepsicanalise/pages/termos/">Termos de Uso</a>
-            <a href="/amorepsicanalise/pages/privacy/">Política de Privacidade</a>
+    <!-- BOTÃO DO MENU -->
+    <button class="menu-btn" onclick="openMenu()">☰</button>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="main-content" id="mainContent">
+        <div class="main-container">
+            <!-- COLUNA ESQUERDA - MENU FIXO (OPCIONAL) -->
+            <aside class="left-sidebar">
+                <h3>📌 Menu Principal</h3>
+                <ul class="nav-menu">
+                    <li><a href="/amorepsicanalise/"><span class="emoji">🏠</span> Início</a></li>
+                    <li><a href="/amorepsicanalise/pages/psicanalise/"><span class="emoji">🎯</span> A Psicanálise</a></li>
+                    <li><a href="/amorepsicanalise/pages/artigos/"><span class="emoji">📝</span> Artigos</a></li>
+                    <li><a href="/amorepsicanalise/pages/sobre/"><span class="emoji">📖</span> Sobre</a></li>
+                    <li><a href="/amorepsicanalise/pages/faq.html"><span class="emoji">❓</span> FAQ</a></li>
+                    <li><a href="/amorepsicanalise/pages/contato/"><span class="emoji">📧</span> Contato</a></li>
+                </ul>
+            </aside>
+
+            <!-- COLUNA CENTRAL -->
+            <main class="content-center">
+                {{ content }}
+            </main>
+
+            <!-- COLUNA DIREITA -->
+            <aside class="right-sidebar">
+                <!-- Perfil do Autor -->
+                <div class="author-profile">
+                    <div class="author-avatar">
+                        <img src="/amorepsicanalise/assets/images/avatar.jpg" alt="Gilton Vasconcelos" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%236b8c9f\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EGV%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="author-name">Gilton Vasconcelos</div>
+                    <div class="author-bio">
+                        "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente."
+                    </div>
+                </div>
+
+                <!-- Sobre o Blog -->
+                <div class="right-section">
+                    <h4>📖 Sobre o Blog</h4>
+                    <div class="blog-description">
+                        Um espaço para o encontro entre o sentir e o pensar. Reflexões sobre psicanálise, amor e os caminhos da subjetividade.
+                    </div>
+                </div>
+
+                <!-- Últimos Posts -->
+                <div class="right-section">
+                    <h4>📝 Últimos Artigos</h4>
+                    <ul class="recent-posts-list">
+                        {% for post in site.posts limit:4 %}
+                        <li class="recent-post-item">
+                            <div class="recent-post-title">
+                                <a href="{{ post.url }}">{{ post.title }}</a>
+                            </div>
+                            <div class="recent-post-date">{{ post.date | date: "%d/%m/%Y" }}</div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Redes Sociais -->
+                <div class="right-section">
+                    <h4>🔗 Redes Sociais</h4>
+                    <div class="social-grid">
+                        <a href="https://www.instagram.com/gilton__vasconcelos/" target="_blank" class="social-link" title="Instagram">📷</a>
+                        <a href="https://wa.me/message/TMFLTRW6SXGFI1" target="_blank" class="social-link" title="WhatsApp">💬</a>
+                        <a href="https://github.com/giltonvasconcelos" target="_blank" class="social-link" title="GitHub">🐙</a>
+                    </div>
+                </div>
+            </aside>
         </div>
-        <div class="copyright">
-            © 2026 Gilton Vasconcelos. Todos os direitos reservados.
-        </div>
-    </footer>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/amorepsicanalise/pages/termos/">Termos de Uso</a>
+                <a href="/amorepsicanalise/pages/privacy/">Política de Privacidade</a>
+            </div>
+            <div class="copyright">
+                © 2026 Gilton Vasconcelos. Todos os direitos reservados.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById("sideMenu").style.width = "280px";
+            document.getElementById("mainContent").style.marginLeft = "280px";
+        }
+
+        function closeMenu() {
+            document.getElementById("sideMenu").style.width = "0";
+            document.getElementById("mainContent").style.marginLeft = "0";
+        }
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('sideMenu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (menu.style.width === '280px' && 
+                !menu.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                closeMenu();
+            }
+        });
+
+        // Ajuste para mobile
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                document.getElementById("sideMenu").style.width = "0";
+                document.getElementById("mainContent").style.marginLeft = "0";
+            }
+        });
+    </script>
 </body>
 </html>
