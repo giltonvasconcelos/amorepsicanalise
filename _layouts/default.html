@@ -42,26 +42,158 @@
             left: 0;
             background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
             overflow-x: hidden;
+            overflow-y: auto;
             transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding-top: 70px;
+            padding-top: 60px;
             box-shadow: 2px 0 20px rgba(107, 140, 159, 0.15);
             z-index: 1000;
             border-right: 1px solid var(--border);
         }
 
-        .side-menu a {
+        /* Perfil do Autor na Sidebar */
+        .author-profile {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 15px;
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            box-shadow: 0 4px 10px rgba(107, 140, 159, 0.2);
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .author-bio {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+
+        /* Seções da Sidebar */
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-section h3 {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .blog-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            font-style: italic;
+            background: rgba(168, 198, 176, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        /* Últimos Posts na Sidebar */
+        .recent-posts-list {
+            list-style: none;
+        }
+
+        .recent-post-item {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .recent-post-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .recent-post-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .recent-post-title a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .recent-post-title a:hover {
+            color: var(--primary);
+        }
+
+        .recent-post-date {
+            font-size: 0.75rem;
+            color: #94a9b9;
+        }
+
+        /* Links Sociais */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .side-menu a:not(.social-link) {
             padding: 15px 30px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text);
             display: block;
             transition: 0.3s;
             border-left: 4px solid transparent;
             font-weight: 400;
-            letter-spacing: 0.3px;
         }
 
-        .side-menu a:hover {
+        .side-menu a:not(.social-link):hover {
             background-color: var(--hover);
             border-left: 4px solid var(--primary);
             color: var(--primary-dark);
@@ -116,7 +248,7 @@
             margin: 0 auto;
         }
 
-        /* Header com Imagem (para página inicial) */
+        /* Header com Imagem */
         .header {
             position: relative;
             height: 300px;
@@ -218,7 +350,7 @@
             margin: 0;
         }
 
-        /* Container de Conteúdo para páginas */
+        /* Container de Conteúdo */
         .content-container {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -353,6 +485,11 @@
                 gap: 12px;
                 flex-direction: column;
             }
+
+            .author-avatar {
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
@@ -360,25 +497,74 @@
     <!-- Menu Lateral -->
     <div id="sideMenu" class="side-menu">
         <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
-        <a href="/" onclick="closeMenu()">🏠 Página Inicial</a>
-        <a href="/pages/psicanalise/" onclick="closeMenu()">🎯 Objetivo da Psicanálise</a>
-        <a href="/artigos/" onclick="closeMenu()">📝 Artigos & Reflexões</a>
-        <a href="/pages/sobre/" onclick="closeMenu()">📖 Sobre esse Projeto</a>
-        <a href="/pages/faq/" onclick="closeMenu()">❓ Perguntas Frequentes</a>
+        
+        <!-- Perfil do Autor -->
+        <div class="author-profile">
+            <div class="author-avatar">
+                <img src="/amor-psicanalise/assets/images/avatar.jpg" alt="Gilton Vasconcelos" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%236b8c9f\'/%3E%3Ctext x=\'50\' y=\'65\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EGV%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="author-name">Gilton Vasconcelos</div>
+            <div class="author-bio">
+                "O amor marca nossas vidas — quando existe, quando falta ou quando é insuficiente. Podemos transformar essas marcas em lições, e não em correntes."
+            </div>
+        </div>
+
+        <!-- Descrição do Blog -->
+        <div class="sidebar-section">
+            <h3>📖 Sobre o Blog</h3>
+            <div class="blog-description">
+                Um espaço para o encontro entre o sentir e o pensar. Reflexões sobre psicanálise, amor e os caminhos da subjetividade.
+            </div>
+        </div>
+
+        <!-- Últimos Posts -->
+        <div class="sidebar-section">
+            <h3>📝 Últimos Artigos</h3>
+            <ul class="recent-posts-list">
+                {% for post in site.posts limit:4 %}
+                <li class="recent-post-item">
+                    <div class="recent-post-title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </div>
+                    <div class="recent-post-date">{{ post.date | date: "%d/%m/%Y" }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Links de Navegação -->
+        <div class="sidebar-section">
+            <h3>🔗 Navegação</h3>
+            <a href="/amor-psicanalise/">🏠 Página Inicial</a>
+            <a href="/amor-psicanalise/a-psicanalise/">🎯 A Psicanálise</a>
+            <a href="/amor-psicanalise/artigos/">📝 Artigos & Reflexões</a>
+            <a href="/amor-psicanalise/sobre/">📖 Sobre esse Projeto</a>
+            <a href="/amor-psicanalise/faq/">❓ Perguntas Frequentes</a>
+            <a href="/amor-psicanalise/contato/">📧 Contato</a>
+        </div>
+
+        <!-- Links Sociais -->
+        <div class="social-links">
+            <a href="https://www.instagram.com/gilton__vasconcelos/" target="_blank" class="social-link" title="Instagram">📷</a>
+            <a href="https://wa.me/message/TMFLTRW6SXGFI1" target="_blank" class="social-link" title="WhatsApp">💬</a>
+            <a href="https://github.com/giltonvasconcelos" target="_blank" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Twitter">🐦</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+        </div>
     </div>
 
     <!-- Botão do Menu -->
     <button class="menu-btn" onclick="openMenu()">☰</button>
 
-    <!-- Conteúdo Principal (vem do arquivo que usa este layout) -->
+    <!-- Conteúdo Principal -->
     <div class="main-content" id="mainContent">
         {{ content }}
     </div>
 
     <script>
         function openMenu() {
-            document.getElementById("sideMenu").style.width = "280px";
-            document.getElementById("mainContent").style.marginLeft = "280px";
+            document.getElementById("sideMenu").style.width = "300px";
+            document.getElementById("mainContent").style.marginLeft = "300px";
             if (window.innerWidth <= 768) {
                 document.getElementById("mainContent").style.marginLeft = "0";
             }
@@ -394,7 +580,7 @@
             const menu = document.getElementById('sideMenu');
             const menuBtn = document.querySelector('.menu-btn');
             
-            if (menu.style.width === '280px' && 
+            if (menu.style.width === '300px' && 
                 !menu.contains(event.target) && 
                 !menuBtn.contains(event.target)) {
                 closeMenu();
@@ -404,12 +590,12 @@
         // Ajuste para telas pequenas
         window.addEventListener('resize', function() {
             if (window.innerWidth <= 768) {
-                if (document.getElementById("sideMenu").style.width === "280px") {
+                if (document.getElementById("sideMenu").style.width === "300px") {
                     document.getElementById("mainContent").style.marginLeft = "0";
                 }
             } else {
-                if (document.getElementById("sideMenu").style.width === "280px") {
-                    document.getElementById("mainContent").style.marginLeft = "280px";
+                if (document.getElementById("sideMenu").style.width === "300px") {
+                    document.getElementById("mainContent").style.marginLeft = "300px";
                 }
             }
         });
